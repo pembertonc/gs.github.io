@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+Copyright 2021 CodeCamp4.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <wicket:extend>
+            <div style="margin: 0" >
+                <div class="w3-center"><b>Cylinder Check In page</b></div>
+                <form id="checkInCylinderForm" wicket:id="checkInCylinderForm">
+                    <div class="w3-row-padding w3-mobile w3-content">
+                        <div class="w3-quarter">
+                            <label> Serial No</label><br/>
+                            <input id="serialNo" wicket:id="serialNo" class="w3-input" />
+                        </div>
+                        <div class="w3-quarter">
+                            Date<br/>
+                            <input id="dateReturned" wicket:id="dateReturned" class="w3-input" />
+                        </div>
+                        <div class="w3-quarter">
+                            Owner<br/>
+                            <input id="owner" wicket:id="owner" class="w3-input"/>
+                        </div>
+                        <div class="w3-quarter">
+                            Gas Type<br/>
+                            <input id="gasType" wicket:id="gasType" class="w3-input"/>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding w3-mobile w3-content">
+                        <div class="w3-quarter">
+                            Size<br/>
+                            <input id="cylinderCapcity" wicket:id="cylinderCapacity" class="w3-input"/>
+                        </div>
+                        <div class="w3-quarter">
+                            Signed In Date  / Signature.<br/>
+                            <input id="verificationPin" wicket:id="verificationPin" class="w3-input"/>
+                        </div>
+                        <div class="w3-quarter">
+                            Telephone No<br/>
+                            <input id="telephoneNo" wicket:id="telephoneNo" class="w3-input"/>
+                        </div>
+                    </div>
+                    <div calss="w3-center" style="text-align: center">
+                        <button id="submit" wicket:id="submit" class="w3-button w3-center" style="text-align: center">Submit</button>
+                        <button id="doSomethingElse" class="w3-button w3-center" style="text-align: center">Else</button>
+                    </div>
+                </form>
+            </div>
+        </wicket:extend>
+    </body>
+</html>
