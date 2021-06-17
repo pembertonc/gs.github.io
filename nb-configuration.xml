@@ -6,6 +6,7 @@ The configuration is intended to be shared among all the users of project and
 therefore it is assumed to be part of version control checkout.
 Without this configuration present, some functionality in the IDE may be limited or fail altogether.
 -->
+    <libraries xmlns="http://www.netbeans.org/ns/cdnjs-libraries/1"/>
     <properties xmlns="http://www.netbeans.org/ns/maven-properties-data/1">
         <!--
 Properties that influence various parts of the IDE, especially code formatting and the like. 
@@ -24,6 +25,8 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
         <netbeans.hint.jdkPlatform>JDK_11</netbeans.hint.jdkPlatform>
         <org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>pfv5ee8</org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>
+        <io-github-jeddict-jakarta-ee.repository-data>{"cdi":true,"isNamed":false,"package":"repository","prefixName":"","servicePackage":"service","servicePrefixName":"","serviceSuffixName":"Service","suffixName":"Repository"}</io-github-jeddict-jakarta-ee.repository-data>
+        <io-github-jeddict-cloud-provider.cloud-config-data>{"kubernetesConfigData":{"enabled":false},"openshiftConfigData":{"enabled":false}}</io-github-jeddict-cloud-provider.cloud-config-data>
+        <io-github-jeddict-infra.docker-config-data>{"dataSource":"SampleDS","databaseType":"H2","databaseVersion":"--","dbPassword":"secret","dbUserName":"myuser","dockerActivated":false,"dockerEnable":false,"runtimeProviderClassName":"io.github.jeddict.runtime.PayaraServer"}</io-github-jeddict-infra.docker-config-data>
     </properties>
-    <libraries xmlns="http://www.netbeans.org/ns/cdnjs-libraries/1"/>
 </project-shared-configuration>

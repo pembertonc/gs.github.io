@@ -15,6 +15,7 @@
  */
 package com.techmineinc.pages;
 
+import com.techmineinc.dto.CheckInCylinderDTO;
 import java.util.Optional;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -22,6 +23,9 @@ import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.PropertyModel;
 
 /**
  *
@@ -30,13 +34,15 @@ import org.apache.wicket.markup.html.form.TextField;
 public class CylinderCheckInPage extends BasePage {
 
     private Form<?> form;
+    private CheckInCylinderDTO checkInDTO;
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        setDefaultModel(CompoundPropertyModel.of(new CheckInCylinderDTO()));
+
         form = initializeCylinderCheckInForm();
         add(form);
-
         form.add(initializeSerialNo());
         form.add(initializeBroughtInBy());
         form.add(initializeCheckedInBy());
@@ -46,11 +52,11 @@ public class CylinderCheckInPage extends BasePage {
     }
 
     private Form<?> initializeCylinderCheckInForm() {
-        return new Form<>("cylinderCheckInForm");
+        return new Form<>("cylinderCheckInForm", getDefaultModel());
     }
 
     private TextField initializeSerialNo() {
-        return new TextField("serialNo");
+        return new TextField("serialNo", PropertyModel.of(getDefaultModel(), "serialNo"));
     }
 
     private Button initializeCheckIn() {
@@ -58,35 +64,41 @@ public class CylinderCheckInPage extends BasePage {
             @Override
             protected void onSubmit(Optional<AjaxRequestTarget> target) {
                 super.onSubmit(target);
-                setResponsePage(CylinderDescriptor.class);
+                processCheckIn();
+                //  setResponsePage(CheckinSuccessPage.class);
             }
 
             @Override
             protected void onError(Optional<AjaxRequestTarget> target) {
                 super.onError(target); //To change body of generated methods, choose Tools | Templates.
             }
-
         };
     }
 
     private TextField initializeBroughtInBy() {
-        return new TextField("broughtInBy");
+        return new TextField("broughtInBy", PropertyModel.of(getDefaultModel(), "customerRepName"));
     }
 
     private TextField initializeCheckedInBy() {
-        return new TextField("checkedInBy");
+        CheckInCylinderDTO iSignInDTO = (CheckInCylinderDTO) getDefaultModelObject();
+        return new TextField("checkedInBy", LambdaModel.of(iSignInDTO.getEmployee()::getFirstName, iSignInDTO.getEmployee()::setFirstName));
     }
 
     private DateTextField initializeTurnedInDate() {
-       return new DateTextField("turnedInDate");
+        return new DateTextField("turnedInDate", PropertyModel.of(getDefaultModel(), "dateReturned"));
     }
-    private Button initializeCancel(){
-        return new AjaxFallbackButton("cancel", form){
+
+    private Button initializeCancel() {
+        return new AjaxFallbackButton("cancel", form) {
             @Override
             protected void onSubmit(Optional<AjaxRequestTarget> target) {
                 super.onSubmit(target); //To change body of generated methods, choose Tools | Templates.
             }
-        
+
         };
+    }
+
+    private void processCheckIn() {
+        getDefaultModelObject();
     }
 }

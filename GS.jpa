@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity-mappings ptype="MONOLITH" ppkg="com.techmineinc" epkg="domain" v="5.4.4" rws="_16238885089942" cws="_16238885089942" persistenceUnitName="GS_PU" pp="E" sm="false" xs="false" id="_16238885089941" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <entity compositePrimaryKeyClass="AddressPK" abs="false" class="Address" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_16238885459983">
+        <ath>CodeCamp4</ath>
+        <attributes>
+            <basic optional="false" attribute-type="String" v="true" xvt="" name="street1" ft="false" id="_16238885564096">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <nb/>
+                </bv>
+                <column unique="false" nullable="false" insertable="true" updatable="true"/>
+            </basic>
+            <basic attribute-type="String" v="true" xvt="" name="street2" id="_16238885568807">
+                <xwm/>
+                <xm/>
+            </basic>
+            <basic attribute-type="String" v="true" xvt="" name="city" id="_16238885573208">
+                <xwm/>
+                <xm/>
+            </basic>
+            <basic attribute-type="String" v="true" xvt="" name="country" id="_16238885577239">
+                <xwm/>
+                <xm/>
+            </basic>
+            <id attribute-type="Long" v="true" xvt="" name="id" id="_16238885460254">
+                <xwm/>
+                <xm/>
+                <generated-value strategy="DEFAULT"/>
+            </id>
+        </attributes>
+        <nq e="false" name="Address.findAll">
+            <query>Select e from Address e</query>
+        </nq>
+        <nq e="false" name="Address.findByStreet1">
+            <query>Select a from Address a where a.street1=:street1</query>
+        </nq>
+        <nq e="false" name="Address.findByStreet2">
+            <query>Select a from Address a where a.street2=:street2</query>
+        </nq>
+        <nq e="false" name="Address.findByCity">
+            <query>Select a from Address a where a.city=:city</query>
+        </nq>
+        <nq e="false" name="Address.findByCountry">
+            <query>Select a from Address a where a.country=:country</query>
+        </nq>
+    </entity>
+    <wsl>
+        <ws n="Main" id="_16238885089942">
+            <i ref="_16238885459983" x="563" y="111"/>
+        </ws>
+    </wsl>
+</entity-mappings>

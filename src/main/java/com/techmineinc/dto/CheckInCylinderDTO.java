@@ -15,7 +15,11 @@
  */
 package com.techmineinc.dto;
 
+import com.techmineinc.domain.Location;
+import com.techmineinc.domain.Person;
 import java.io.Serializable;
+import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
 
 /**
  *
@@ -24,8 +28,57 @@ import java.io.Serializable;
 public class CheckInCylinderDTO implements Serializable{
     
    private String SerialNo;
-   private String checkIn;
-   private Address location;
-   private String CheckedInBy;
+   private LocalDate dateReturned;
+   @NotBlank
+   private String customerRepName;
+   private Person employee;
+   private Location receivedAt;
+
+    public CheckInCylinderDTO() {
+        employee = new Person();
+        receivedAt = new Location();
+        
+    }
+
+    public String getSerialNo() {
+        return SerialNo;
+    }
+
+    public void setSerialNo(String SerialNo) {
+        this.SerialNo = SerialNo;
+    }
+
+    public LocalDate getDateReturned() {
+        return dateReturned;
+    }
+
+    public void setDateReturned(LocalDate dateReturned) {
+        this.dateReturned = dateReturned;
+    }
+
+    public String getCustomerRepName() {
+        return customerRepName;
+    }
+
+    public void setCustomerRepName(String customerRepName) {
+        this.customerRepName = customerRepName;
+    }
+
+    public Person getEmployee() {
+        return employee;
+    }
+
+    public void setEmploye(Person employee) {
+        this.employee = employee;
+    }
+
+    public Location getReceivedAt() {
+        return receivedAt;
+    }
+
+    public void setReceivedAt(Location receivedAt) {
+        this.receivedAt = receivedAt;
+    }
+   
     
 }
