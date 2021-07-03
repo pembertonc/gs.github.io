@@ -1,9 +1,9 @@
 package com.techmineinc;
 
-import com.techmineinc.pages.BasePage;
-import com.techmineinc.pages.HomePage;
-import com.techmineinc.pages.LandingPage;
-import com.techmineinc.pages.MainPage;
+import com.techmineinc.ui.pages.BasePage;
+import com.techmineinc.ui.pages.HomePage;
+import com.techmineinc.ui.pages.LandingPage;
+import com.techmineinc.ui.pages.MainPage;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
 import org.apache.wicket.csp.CSPDirective;
 import org.apache.wicket.csp.CSPDirectiveSrcValue;

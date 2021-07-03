@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmineinc.pages;
+package com.techmineinc.ui.pages;
 
+import com.techmineinc.ui.pages.CylinderDescriptor;
 import com.techmineinc.WicketApplication;
 import org.apache.wicket.util.tester.TagTester;
 import org.apache.wicket.util.tester.WicketTester;

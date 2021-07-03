@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmineinc.pages;
+package com.techmineinc.ui.pages;
 
+import com.techmineinc.ui.pages.BasePage;
 import com.techmineinc.WicketApplication;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
