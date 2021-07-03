@@ -4,6 +4,7 @@ import com.techmineinc.pages.BasePage;
 import com.techmineinc.pages.HomePage;
 import com.techmineinc.pages.LandingPage;
 import com.techmineinc.pages.MainPage;
+import org.apache.wicket.bean.validation.BeanValidationConfiguration;
 import org.apache.wicket.csp.CSPDirective;
 import org.apache.wicket.csp.CSPDirectiveSrcValue;
 import org.apache.wicket.markup.html.WebPage;
@@ -48,5 +49,6 @@ public class WicketApplication extends WebApplication
                 getCspSettings().blocking()
                         .add(CSPDirective.STYLE_SRC, "https://www.w3schools.com/w3css/4/w3.css");
 		// add your configuration here
+                new BeanValidationConfiguration().configure(this);
 	}
 }

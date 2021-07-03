@@ -20,6 +20,7 @@ import java.util.Optional;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -56,7 +57,7 @@ public class CylinderCheckInPage extends BasePage {
     }
 
     private TextField initializeSerialNo() {
-        return new TextField("serialNo", PropertyModel.of(getDefaultModel(), "serialNo"));
+        return (TextField) new TextField("serialNo", PropertyModel.of(getDefaultModel(), "serialNo")).add(new PropertyValidator());
     }
 
     private Button initializeCheckIn() {
