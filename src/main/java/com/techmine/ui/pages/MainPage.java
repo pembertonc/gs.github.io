@@ -31,7 +31,10 @@ public class MainPage extends BasePage{
     protected void onInitialize() {
         super.onInitialize(); 
         add(initializeForm());
-        form.add(initializeCheckInCtrl());
+        form.add(initializeCheckInCylinderCtrl());
+        // to implement the rest do 
+        // eg. form.add(intializeCheckOutCylinderCtrl());
+        // implment the method initializeCheckinCylinderCtrl();
         
     }
 
@@ -48,7 +51,7 @@ public class MainPage extends BasePage{
     }
     
     
-    private Button initializeCheckInCtrl() {
+    private Button initializeCheckInCylinderCtrl() {
         AjaxFallbackButton button = new AjaxFallbackButton("checkInCylinder", form){
             @Override
             protected void onSubmit(Optional<AjaxRequestTarget> target) {

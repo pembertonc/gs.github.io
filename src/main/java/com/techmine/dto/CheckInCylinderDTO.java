@@ -32,11 +32,11 @@ public class CheckInCylinderDTO implements Serializable{
    @NotBlank
    private String customerRepName;
    private Person employee;
-   private Location receivedAt;
+   private String customer;
 
     public CheckInCylinderDTO() {
         employee = new Person();
-        receivedAt = new Location();
+       
         
     }
 
@@ -72,13 +72,6 @@ public class CheckInCylinderDTO implements Serializable{
         this.employee = employee;
     }
 
-    public Location getReceivedAt() {
-        return receivedAt;
-    }
-
-    public void setReceivedAt(Location receivedAt) {
-        this.receivedAt = receivedAt;
-    }
    
     
 }

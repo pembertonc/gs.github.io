@@ -15,7 +15,6 @@
  */
 package com.techmine.ui.pages;
 
-import com.techmine.ui.pages.CylinderCheckInPage;
 import com.techmine.WicketApplication;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
@@ -27,6 +26,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -83,9 +83,9 @@ public class CylinderCheckInPageTest {
     }
     
     @Test
-    public void testCylinderLocationDropDownChoiceRendered(){
+    public void testCustomerDropDownChoiceRendered(){
         tester.startPage(CylinderCheckInPage.class);
-        tester.assertComponent("cylinderCheckInForm:cylinderLocation", DropDownChoice.class);
+        tester.assertComponent("cylinderCheckInForm:customer", DropDownChoice.class);
     }
     
     @Test

@@ -59,24 +59,20 @@ public class MainPageTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of onInitialize method, of class MainPage.
-     */
     @Test
-    @DisplayName(value = "name name name")
-    public void testOnInitialize() {
-        System.out.println("onInitialize");
-        MainPage instance = new MainPage();
-        instance.onInitialize();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testPageRenders(){
+        tester.startPage(CylinderCheckInPage.class);
+        
+        tester.assertRenderedPage(CylinderCheckInPage.class);
     }
+
 
     @ParameterizedTest
     @ValueSource(strings = {"actionForm:checkInCylinder","actionForm:checkOutCylinder","actionForm:addCylinder","actionForm:addCustomer","actionForm:viewInventory","actionForm:signOut"})
     public void testContainsCheckinCylinderComponent(String path) {
     tester.startPage(MainPage.class);
     tester.assertComponent(path, AjaxFallbackButton.class);
+    tester.assertExists(path);
     tester.destroy();
     }
     

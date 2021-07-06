@@ -16,16 +16,20 @@
 package com.techmine.ui.pages;
 
 import com.techmine.dto.CheckInCylinderDTO;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 /**
@@ -47,6 +51,7 @@ public class CylinderCheckInPage extends BasePage {
         form.add(initializeSerialNo());
         form.add(initializeBroughtInBy());
         form.add(initializeCheckedInBy());
+        form.add(initializeSelectCustomer());
         form.add(initializeCheckIn());
         form.add(initializeTurnedInDate());
         form.add(initializeCancel());
@@ -80,6 +85,11 @@ public class CylinderCheckInPage extends BasePage {
         return new TextField("broughtInBy", PropertyModel.of(getDefaultModel(), "customerRepName"));
     }
 
+    private DropDownChoice initializeSelectCustomer(){
+        List<String> customerList = Arrays.asList("JB Plumbing", "PMH", "AJs Bodyworkd", "Marshals Body Shop");
+        return new DropDownChoice("selectCustomer", PropertyModel.of(getDefaultModel(), "customer"), customerList);
+        
+    }
     private TextField initializeCheckedInBy() {
         CheckInCylinderDTO iSignInDTO = (CheckInCylinderDTO) getDefaultModelObject();
         return new TextField("checkedInBy", LambdaModel.of(iSignInDTO.getEmployee()::getFirstName, iSignInDTO.getEmployee()::setFirstName));
