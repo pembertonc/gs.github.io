@@ -18,6 +18,7 @@ package com.techmine.ui.pages;
 import java.util.Optional;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 
@@ -32,6 +33,7 @@ public class MainPage extends BasePage{
         super.onInitialize(); 
         add(initializeForm());
         form.add(initializeCheckInCylinderCtrl());
+        form.add(initializeBrowseInventory());
         // to implement the rest do 
         // eg. form.add(intializeCheckOutCylinderCtrl());
         // implment the method initializeCheckinCylinderCtrl();
@@ -64,6 +66,13 @@ public class MainPage extends BasePage{
 
     private Form initializeForm() {
        return form = new Form<>("actionForm");
+    }
+
+    private Button initializeBrowseInventory() {
+        AjaxFallbackButton button = new AjaxFallbackButton("browseInventory", form) {
+        };
+       return button;
+
     }
     
     
