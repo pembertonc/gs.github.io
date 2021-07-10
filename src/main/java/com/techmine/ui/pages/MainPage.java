@@ -33,7 +33,7 @@ public class MainPage extends BasePage{
         super.onInitialize(); 
         add(initializeForm());
         form.add(initializeCheckInCylinderCtrl());
-        form.add(initializeBrowseInventory());
+        form.add(initializeBrowseInventoryCtrl());
         // to implement the rest do 
         // eg. form.add(intializeCheckOutCylinderCtrl());
         // implment the method initializeCheckinCylinderCtrl();
@@ -48,9 +48,7 @@ public class MainPage extends BasePage{
         return null;
     }
     
-    private Button initializeBrowseInventoryCtrl(){
-        return null;
-    }
+   
     
     
     private Button initializeCheckInCylinderCtrl() {
@@ -68,8 +66,15 @@ public class MainPage extends BasePage{
        return form = new Form<>("actionForm");
     }
 
-    private Button initializeBrowseInventory() {
+    private Button initializeBrowseInventoryCtrl(){
         AjaxFallbackButton button = new AjaxFallbackButton("browseInventory", form) {
+            @Override
+            protected void onSubmit(Optional<AjaxRequestTarget> target) {
+                super.onSubmit(target); 
+                setResponsePage(InventoryBrowser.class);
+            }
+            
+           
         };
        return button;
 
