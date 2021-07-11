@@ -52,6 +52,7 @@
         <wtp.version>none</wtp.version>
         <version.jakartaee>8.0.0</version.jakartaee>
         <environment>noenv</environment>
+        <version.payara>5.201</version.payara>
     </properties>
     <dependencies>
         <!--  WICKET DEPENDENCIES -->
@@ -279,6 +280,24 @@
                         </goals>
                     </execution>
                 </executions>                
+            </plugin>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <configuration>
+                    <payaraVersion>${version.payara}</payaraVersion>
+                    <deployWar>false</deployWar>
+                    <commandLineOptions>
+                        <option>
+                            <key>--autoBindHttp</key>
+                        </option>
+                        <option>
+                            <key>--deploy</key>
+                            <value>${project.build.directory}/${project.build.finalName}</value>
+                        </option>
+                    </commandLineOptions>
+                </configuration>
+                <version>1.3.0</version>
             </plugin>
         </plugins>
     </build>
