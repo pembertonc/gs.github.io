@@ -1,6 +1,6 @@
-package com.techmine;
+package com.techmine.gs;
 
-import com.techmine.ui.pages.LandingPage;
+import com.techmine.gs.ui.pages.LandingPage;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
 import org.apache.wicket.csp.CSPDirective;
 import org.apache.wicket.csp.CSPDirectiveSrcValue;

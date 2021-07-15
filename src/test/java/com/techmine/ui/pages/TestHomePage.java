@@ -1,7 +1,7 @@
 package com.techmine.ui.pages;
 
-import com.techmine.ui.pages.HomePage;
-import com.techmine.WicketApplication;
+import com.techmine.gs.ui.pages.HomePage;
+import com.techmine.gs.WicketApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

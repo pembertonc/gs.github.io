@@ -1,4 +1,4 @@
-package com.techmine.repository;
+package com.techmine.gs.repository;
 
 import java.util.Collections;
 import java.util.List;

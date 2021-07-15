@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.ui.pages;
+package com.techmine.gs.ui.pages;
 
-import com.techmine.dto.CheckInCylinderDTO;
+import com.techmine.gs.dto.CheckInCylinderDTO;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.techmine.domain;
+package com.techmine.gs.domain;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;

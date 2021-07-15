@@ -1,4 +1,4 @@
-package com.techmine.ui.pages;
+package com.techmine.gs.ui.pages;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;

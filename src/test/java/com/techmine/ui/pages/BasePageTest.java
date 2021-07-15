@@ -15,8 +15,8 @@
  */
 package com.techmine.ui.pages;
 
-import com.techmine.ui.pages.BasePage;
-import com.techmine.WicketApplication;
+import com.techmine.gs.ui.pages.BasePage;
+import com.techmine.gs.WicketApplication;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.util.tester.TagTester;

@@ -15,8 +15,8 @@
  */
 package com.techmine.ui.pages;
 
-import com.techmine.ui.pages.CylinderDescriptor;
-import com.techmine.WicketApplication;
+import com.techmine.gs.ui.pages.CylinderDescriptor;
+import com.techmine.gs.WicketApplication;
 import org.apache.wicket.util.tester.TagTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.AfterEach;

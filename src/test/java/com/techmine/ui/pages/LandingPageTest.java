@@ -15,8 +15,8 @@
  */
 package com.techmine.ui.pages;
 
-import com.techmine.ui.pages.LandingPage;
-import com.techmine.WicketApplication;
+import com.techmine.gs.ui.pages.LandingPage;
+import com.techmine.gs.WicketApplication;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;

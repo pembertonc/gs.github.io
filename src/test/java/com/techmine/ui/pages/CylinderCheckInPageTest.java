@@ -15,7 +15,8 @@
  */
 package com.techmine.ui.pages;
 
-import com.techmine.WicketApplication;
+import com.techmine.gs.ui.pages.CylinderCheckInPage;
+import com.techmine.gs.WicketApplication;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.form.DropDownChoice;

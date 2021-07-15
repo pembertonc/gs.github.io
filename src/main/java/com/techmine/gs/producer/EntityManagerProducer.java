@@ -1,4 +1,4 @@
-package com.techmine.producer;
+package com.techmine.gs.producer;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.context.RequestScoped;

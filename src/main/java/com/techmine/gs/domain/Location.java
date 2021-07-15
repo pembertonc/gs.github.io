@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.domain;
+package com.techmine.gs.domain;
 
 import java.io.Serializable;
 import java.util.logging.Logger;

@@ -15,9 +15,9 @@
  */
 package com.techmine.ui.pages;
 
-import com.techmine.ui.pages.CylinderCheckInPage;
-import com.techmine.ui.pages.MainPage;
-import com.techmine.WicketApplication;
+import com.techmine.gs.ui.pages.CylinderCheckInPage;
+import com.techmine.gs.ui.pages.MainPage;
+import com.techmine.gs.WicketApplication;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.AfterEach;
