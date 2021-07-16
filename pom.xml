@@ -184,6 +184,12 @@
             <version>3.11.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.6.0</version>
+            <classifier>debug</classifier>
+        </dependency>
     </dependencies>
     <build>
         <resources>
