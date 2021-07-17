@@ -2,15 +2,15 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-app_3_1.xsd">
     <display-name>gs</display-name>
     <!--
-		There are three means to configure Wickets configuration mode and they 
-		are tested in the order given.
-		
-		1) A system property: -Dwicket.configuration 
-		2) servlet specific <init-param> 
-		3) context specific <context-param>
+    There are three means to configure Wickets configuration mode and they 
+    are tested in the order given.
+    
+    1) A system property: -Dwicket.configuration 
+    2) servlet specific <init-param> 
+    3) context specific <context-param>
 
-		The value might be either "development" (reloading when templates change) or 
-		"deployment". If no configuration is found, "development" is the default. -->
+    The value might be either "development" (reloading when templates change) or 
+    "deployment". If no configuration is found, "development" is the default. -->
     <!--context-param>
         <param-name>context-root</param-name>
         <param-value>gs</param-value>
@@ -27,4 +27,27 @@
         <filter-name>wicket.gs</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping -->
+    <resource-ref>
+        <description>Datasource for embeded db</description>
+        <res-ref-name>jdbc/gsDataSource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Application</res-auth>
+        <res-sharing-scope>Unshareable</res-sharing-scope>
+    
+        <!--properties>
+            <property name="driverClassName" value="org.h2.Driver"/>
+            <property name="url" value="jdbc:h2:file:h2\db"/>
+            <property name="username" value="sa"/>
+            <property name="password" value=""/>
+        
+        </properties-->
+        
+    </resource-ref>
+    <data-source>
+        <name>jdbc/gsDataSource</name>
+        <class-name>org.h2.Driver</class-name>
+        <url>jdbc:h2:file:h2\db</url>
+        <user>sa</user>
+        <password>""</password>
+    </data-source>
 </web-app>

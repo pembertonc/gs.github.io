@@ -38,7 +38,11 @@
                 <goal>war:exploded</goal>
                 <goal>payara-micro:stop</goal>
                 <goal>payara-micro:start</goal>
+                <goal>package</goal>
             </goals>
+            <properties>
+                <netbeans.deploy>false</netbeans.deploy>
+            </properties>
             <activatedProfiles>
                 <activatedProfile>dev</activatedProfile>
             </activatedProfiles>
@@ -50,6 +54,7 @@
             </packagings>
             <goals>
                 <goal>package</goal>
+                <goal>payara-micro:start</goal>
             </goals>
             <properties>
                 <netbeans.deploy>true</netbeans.deploy>
@@ -68,6 +73,7 @@
             </packagings>
             <goals>
                 <goal>package</goal>
+                <goal>payara-micro:start</goal>
             </goals>
             <properties>
                 <netbeans.deploy.debugmode>true</netbeans.deploy.debugmode>
@@ -84,6 +90,7 @@
             </packagings>
             <goals>
                 <goal>package</goal>
+                <goal>payara-micro:start</goal>
             </goals>
             <properties>
                 <netbeans.deploy.clientUrlPart>${webpagePath}</netbeans.deploy.clientUrlPart>

@@ -15,7 +15,6 @@
  */
 package com.techmine.gs.dto;
 
-import com.techmine.gs.domain.Location;
 import com.techmine.gs.domain.Person;
 import java.io.Serializable;
 import java.time.LocalDate;
