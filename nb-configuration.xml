@@ -26,6 +26,5 @@ Any value defined here will override the pom.xml file value but is only applicab
         <io-github-jeddict-jakarta-ee.repository-data>{"cdi":true,"isNamed":false,"package":"repository","prefixName":"","servicePackage":"service","servicePrefixName":"","serviceSuffixName":"Service","suffixName":"Repository"}</io-github-jeddict-jakarta-ee.repository-data>
         <io-github-jeddict-cloud-provider.cloud-config-data>{"kubernetesConfigData":{"enabled":false},"openshiftConfigData":{"enabled":false}}</io-github-jeddict-cloud-provider.cloud-config-data>
         <io-github-jeddict-infra.docker-config-data>{"dataSource":"SampleDS","databaseType":"H2","databaseVersion":"--","dbPassword":"secret","dbUserName":"myuser","dockerActivated":false,"dockerEnable":false,"runtimeProviderClassName":"io.github.jeddict.runtime.PayaraMicro"}</io-github-jeddict-infra.docker-config-data>
-        <org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>pfv5ee8</org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>
     </properties>
 </project-shared-configuration>

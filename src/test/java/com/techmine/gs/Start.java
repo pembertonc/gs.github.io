@@ -1,4 +1,4 @@
-package com.techmine;
+package com.techmine.gs;
 
 import java.lang.management.ManagementFactory;
 

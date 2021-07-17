@@ -1,4 +1,4 @@
-package com.techmine.ui.pages;
+package com.techmine.gs.ui.pages;
 
 import com.techmine.gs.ui.pages.HomePage;
 import com.techmine.gs.WicketApplication;
