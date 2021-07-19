@@ -52,6 +52,8 @@
         <wtp.version>none</wtp.version>
         <version.jakartaee>8.0.0</version.jakartaee>
         <environment>noenv</environment>
+        <version.payara>5.201</version.payara>
+        <version.payara.micro>5.2020.7</version.payara.micro>
     </properties>
     <dependencies>
         <!--  WICKET DEPENDENCIES -->
@@ -183,6 +185,12 @@
             <version>3.11.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.6.0</version>
+            <classifier>debug</classifier>
+        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -280,6 +288,37 @@
                     </execution>
                 </executions>                
             </plugin>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>bundle</goal>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <payaraVersion>${version.payara.micro}</payaraVersion>
+                    <deployWar>true</deployWar>
+                    <commandLineOptions>
+                        <option>
+                            <key>--autoBindHttp</key>
+                        </option>
+                        <option>
+                            <key>--deploy</key>
+                            <value>${project.build.directory}/${project.build.finalName}</value>
+                        </option>
+                        <option>
+                            <key>--port</key>
+                            <value>${web.port}</value>
+                        </option>
+                    </commandLineOptions>
+                </configuration>
+                <version>1.2.0</version>
+                
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -290,12 +329,14 @@
             </activation>
             <properties>
                 <environment>dev</environment>
+                <web.port>8080</web.port>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <environment>prod</environment>
+                <web.port>8080</web.port>
             </properties>
         </profile>
     </profiles>

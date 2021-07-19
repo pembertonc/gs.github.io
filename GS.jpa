@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<entity-mappings ptype="MONOLITH" ppkg="com.techmineinc" epkg="domain" v="5.4.4" rws="_16238885089942" cws="_16238885089942" persistenceUnitName="GS_PU" pp="E" sm="false" xs="false" id="_16238885089941" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<entity-mappings ptype="MONOLITH" ppkg="com.techmine.gs" epkg="domain" v="5.4.4" rws="_16238885089942" Pws="_16238885089942" cws="_16238885089942" persistenceUnitName="GS_PU" pp="E" sm="false" xs="false" id="_16238885089941" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <entity compositePrimaryKeyClass="AddressPK" abs="false" class="Address" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_16238885459983">
         <ath>CodeCamp4</ath>
         <attributes>
@@ -45,9 +45,30 @@
             <query>Select a from Address a where a.country=:country</query>
         </nq>
     </entity>
+    <beanClass abs="false" class="Employee" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_16263864537273">
+        <attributes/>
+    </beanClass>
+    <beanClass abs="false" class="Person" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_162638646313121">
+        <attributes>
+            <basic attribute-type="java.lang.String" v="true" xvt="" am="PRIVATE" name="firstName" jbt="false" id="_162638646321322">
+                <xwm/>
+                <xm/>
+            </basic>
+            <basic attribute-type="java.lang.String" v="true" xvt="" am="PRIVATE" name="familyName" jbt="false" id="_162638646329823">
+                <xwm/>
+                <xm/>
+            </basic>
+            <basic attribute-type="java.lang.String" v="true" xvt="" am="PRIVATE" name="otherName" jbt="false" id="_162638646338224">
+                <xwm/>
+                <xm/>
+            </basic>
+        </attributes>
+    </beanClass>
     <wsl>
         <ws n="Main" id="_16238885089942">
-            <i ref="_16238885459983" x="563" y="111"/>
+            <i ref="_162638646313121" x="561" y="32"/>
+            <i ref="_16263864537273" x="32" y="32"/>
+            <i ref="_16238885459983" x="297" y="32"/>
         </ws>
     </wsl>
 </entity-mappings>
