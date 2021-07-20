@@ -105,6 +105,19 @@ public class BasePageTest {
         
         assertEquals("w3-container w3-light-green w3-center", tagTester.getAttribute("class"));
     }
-    
+
+    @Test
+    public void testwww_w3schools_com_w3css_4_w3Loaded() {
+        tester.startPage(BasePage.class);
+        tester.assertContains("www.w3schools.com_w3css_4_w3");
+
+    }
+    @Test
+    public void testStyleLoaded() {
+        tester.startPage(BasePage.class);
+        tester.assertContains("style");
+
+    }
+
     
 }

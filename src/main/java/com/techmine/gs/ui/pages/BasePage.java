@@ -15,10 +15,13 @@
  */
 package com.techmine.gs.ui.pages;
 
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.resource.ContextRelativeResourceReference;
 
 /**
  *
@@ -33,6 +36,16 @@ public class BasePage extends WebPage {
         pageHeader.add(new Label("headerText").setDefaultModel(Model.of("Gas Supplies")));
         add(pageHeader);
 
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        ContextRelativeResourceReference cssFile = new ContextRelativeResourceReference("/www.w3schools.com_w3css_4_w3", false);
+        CssHeaderItem cssItem = CssHeaderItem.forReference(cssFile);
+        response.render(cssItem);
+        cssFile = new ContextRelativeResourceReference("/style", false);
+        cssItem = CssHeaderItem.forReference(cssFile);
+        response.render(cssItem);
     }
     
   
