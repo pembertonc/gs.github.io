@@ -44,9 +44,10 @@
         
     </resource-ref>
     <data-source>
+
         <name>jdbc/gsDataSource</name>
-        <class-name>org.h2.Driver</class-name>
-        <url>jdbc:h2:file:h2\db</url>
+        <!--class-name>org.hsqldb.jdbcDriver</class-name-->
+        <!--url>jdbc:hsqldb:file:./gsdb</url-->
         <user>sa</user>
         <password>""</password>
     </data-source>

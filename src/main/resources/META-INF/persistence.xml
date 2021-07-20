@@ -2,14 +2,13 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="GS_PU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>jdbc/gsDataSource</jta-data-source>
+    <!--jta-data-source>jdbc/gsDataSource</jta-data-source-->
     <class>com.techminein.domain.Address</class>
     <class>com.techmine.gs.domain.Address</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-        
         <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>
-        <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:gsdb"/>
+        <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:./gsdb"/>
         <!-- property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/ -->
         <!--property name="javax.persistence.jdbc.url" value="jdbc:h2:file:gsdb"/-->
         <property name="javax.persistence.jdbc.user" value="sa"/>

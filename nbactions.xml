@@ -41,7 +41,7 @@
                 <goal>package</goal>
             </goals>
             <properties>
-                <netbeans.deploy>false</netbeans.deploy>
+                <netbeans.deploy>true</netbeans.deploy>
             </properties>
             <activatedProfiles>
                 <activatedProfile>dev</activatedProfile>
