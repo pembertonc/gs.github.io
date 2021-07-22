@@ -53,7 +53,7 @@
         <version.jakartaee>8.0.0</version.jakartaee>
         <environment>noenv</environment>
         <version.payara>5.201</version.payara>
-        <version.payara.micro>5.2020.7</version.payara.micro>
+        <version.payara.micro>5.2021.4</version.payara.micro>
     </properties>
     <dependencies>
         <!--  WICKET DEPENDENCIES -->

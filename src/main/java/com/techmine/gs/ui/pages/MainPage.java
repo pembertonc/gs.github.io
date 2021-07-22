@@ -26,33 +26,33 @@ import org.apache.wicket.markup.html.form.Form;
  *
  * @author CodeCamp4
  */
-public class MainPage extends BasePage{
-   private Form<?> form;
+public class MainPage extends BasePage {
+
+    private Form<?> form;
+
     @Override
     protected void onInitialize() {
-        super.onInitialize(); 
+        super.onInitialize();
         add(initializeForm());
         form.add(initializeCheckInCylinderCtrl());
         form.add(initializeBrowseInventoryCtrl());
+        form.add(initializeCheckOutCylinderCtrl());
         // to implement the rest do 
         // eg. form.add(intializeCheckOutCylinderCtrl());
         // implment the method initializeCheckinCylinderCtrl();
-        
+
     }
 
-    private Button initializeAddCustomerCtrl(){
+    private Button initializeAddCustomerCtrl() {
         return null;
     }
-    
-    private Button initlaizeAddCustomerCtrl(){
+
+    private Button initlaizeAddCustomerCtrl() {
         return null;
     }
-    
-   
-    
-    
+
     private Button initializeCheckInCylinderCtrl() {
-        AjaxFallbackButton button = new AjaxFallbackButton("checkInCylinder", form){
+        AjaxFallbackButton button = new AjaxFallbackButton("checkInCylinder", form) {
             @Override
             protected void onSubmit(Optional<AjaxRequestTarget> target) {
                 super.onSubmit(target); //To change body of generated methods, choose Tools | Templates.
@@ -63,23 +63,31 @@ public class MainPage extends BasePage{
     }
 
     private Form initializeForm() {
-       return form = new Form<>("actionForm");
+        return form = new Form<>("actionForm");
     }
 
-    private Button initializeBrowseInventoryCtrl(){
+    private Button initializeBrowseInventoryCtrl() {
         AjaxFallbackButton button = new AjaxFallbackButton("browseInventory", form) {
             @Override
             protected void onSubmit(Optional<AjaxRequestTarget> target) {
-                super.onSubmit(target); 
+                super.onSubmit(target);
                 setResponsePage(InventoryBrowser.class);
             }
-            
-           
+
         };
-       return button;
+        return button;
 
     }
-    
-    
-    
+
+    private Button initializeCheckOutCylinderCtrl() {
+        AjaxFallbackButton button = new AjaxFallbackButton("checkOutCylinder", form) {
+            @Override
+            protected void onSubmit(Optional<AjaxRequestTarget> target) {
+                super.onSubmit(target); //To change body of generated methods, choose Tools | Templates.
+                setResponsePage(CylinderCheckInPage.class);
+            }
+        };
+        return button;
+    }
+
 }

@@ -40,9 +40,6 @@
                 <goal>payara-micro:start</goal>
                 <goal>package</goal>
             </goals>
-            <properties>
-                <netbeans.deploy>true</netbeans.deploy>
-            </properties>
             <activatedProfiles>
                 <activatedProfile>dev</activatedProfile>
             </activatedProfiles>
