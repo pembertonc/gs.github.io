@@ -1,5 +1,15 @@
 ## Gas Supplies  
 ### About  
+### Getting Started ###
+**Remember that requirements gathering is among the most important component of the software develoment process.**
+To familiarize your self with the gas supplies project, you should start by reviewing the following pages on the wiki.  :  
+1.  Client Supplied Documents.  
+2.  Problem Statement.  
+3.  Requirements.  
+4.  Glossary of Terms.  
+
+Additionally you should visit the Discussion tab, to review the discussions, this will give you and understnding of what has been discused and the reasons for the discussions, along with the resulting artifacts of the project. Of specific interest shoud be :
+1. Top Level Requirements Review.
 ### How to run Gas Supplies  
 ### Frameworks  
   1 Apache Wicket 9  
