@@ -1,3 +1,3 @@
 /target/
-**/*.jpg
-**/*.jpeg
+**/wiki-images/*.jpg
+**/wiki-images/*.jpeg
