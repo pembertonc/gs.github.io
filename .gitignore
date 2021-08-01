@@ -1,2 +1,4 @@
 /target/
 **/wiki-images
+*.jpeg
+*.jpg
