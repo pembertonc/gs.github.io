@@ -1,4 +1,5 @@
 /target/
-**/wiki-images/
+**/wiki-images/*
 *.jpeg
 *.jpg
+*.md
