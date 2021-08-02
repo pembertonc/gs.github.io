@@ -14,6 +14,11 @@ To familiarize your self with the gas supplies project, you should start by revi
 Additionally you should visit the Discussion tab, to review the discussions, this will give you and understnding of what has been discused and the reasons for the discussions, along with the resulting artifacts of the project. Of specific interest shoud be :
 1. Top Level Requirements Review.
 
+#### Notes of Cloning ####
+1. The application expects to have available a Server Registered with the IDE Called **Payara Server** version 5 or later.  
+2. There is no need to configure a database as the database is embedded in the application.
+
+
 ### Standard Procedures..  
 
 1. Before unloading images to the wiki they should be discussed in a disscussion to gain concensious from the group.
