@@ -4,7 +4,7 @@
 
 ### About  
 ### Getting Started ###
-**Remember that requirements gathering is among the most important component of the software develoment process.**
+_**Remember that requirements gathering is among the most important component of the software develoment process.**_
 To familiarize your self with the gas supplies project, you should start by reviewing the following pages on the wiki.  :  
 1.  Client Supplied Documents.  
 2.  Problem Statement.  
