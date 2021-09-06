@@ -1,6 +1,10 @@
 {
-    "elements": {},
+    "elements": {
+        "title": {}
+    },
     "attributes": {
-        "wicket:id": {}
+        "charset": {},
+        "wicket:id": {},
+        "name": {}
     }
 }
