@@ -1,0 +1,10 @@
+{
+    "elements": {
+        "title": {}
+    },
+    "attributes": {
+        "charset": {},
+        "wicket:id": {},
+        "name": {}
+    }
+}
