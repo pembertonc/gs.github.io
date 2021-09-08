@@ -15,10 +15,24 @@
  */
 package com.techmine.gs.ui.pages;
 
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+
 /**
  *
  * @author elesh
  */
 public class AddCylinder extends BasePage {
+
+    public AddCylinder() {
+    }
+
+    public AddCylinder(IModel<?> model) {
+        super(model);
+    }
+
+    public AddCylinder(PageParameters parameters) {
+        super(parameters);
+    }
 
 }
