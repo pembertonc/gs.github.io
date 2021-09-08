@@ -20,7 +20,9 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ContextRelativeResourceReference;
 
 /**
@@ -28,6 +30,17 @@ import org.apache.wicket.request.resource.ContextRelativeResourceReference;
  * @author CodeCamp4
  */
 public class BasePage extends WebPage {
+
+    public BasePage() {
+    }
+
+    public BasePage(IModel<?> model) {
+        super(model);
+    }
+
+    public BasePage(PageParameters parameters) {
+        super(parameters);
+    }
 
     @Override
     protected void onInitialize() {
