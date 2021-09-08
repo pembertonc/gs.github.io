@@ -24,55 +24,57 @@ limitations under the License.
     </head>
     <body>
         <wicket:extend>
-            <div class="w3-panel">
-                <div class="w3-card-2 w3-amber" >
-                    <header class="w3-container w3-blue">
-                        <label class ="w3-text-blue"> Add Cylinder</label>
-                    </header>
-                    <div class="w3-container">
-                        <div class="">
-                            <label class="txtLabel"> Serial#:</label>
-                            <input id="serialNum" class="inputField" type="text" placeholder="Enter Serial Number"/>
+            <form id="form">
+                <div class="w3-panel">
+                    <div class="w3-card-2 w3-amber">
+                        <header class="w3-container w3-blue">
+                            <label class ="w3-text-blue"> Add Cylinder</label>
+                        </header>
+                        <div class="w3-container">
+                            <div class="">
+                                <label class="txtLabel"> Serial#:</label>
+                                <input id="serialNum" class="inputField" type="text" placeholder="Enter Serial Number"/>
+                            </div>
+                            <div class="separator">
+                                <label class="txtLabel"> Type :</label>
+                                <select id = "Type" class="selectField" name="type">
+                                    <option selected="selected">Select a type </option>
+                                    <option value="1"> Propane</option>
+                                    <option value="2"> Carbon Dioxide</option>
+                                    <option value="3"> Propylene</option>
+                                    <option value="4"> Liquid Dewars</option>
+                                    <option value="5"> Acetylene</option>
+                                    <option value="6"> High Pressure</option>
+                                </select>
+                            </div>
+                            <div class="separator">
+                                <label class="txtLabel"> Capacity :</label>
+                                <select id =  "Capacity" class="selectField" name="capacity">
+                                    <option selected="selected">Select a capacity </option>
+                                    <option value="40"> 40CF</option>
+                                    <option value="60"> 60CF</option>
+                                    <option value="80"> 80CF</option>
+                                </select>
+                            </div>
+                            <div class="separator">
+                                <label class="txtLabel"> Owner :</label>
+                                <select id= "Owner" class="selectField" name="capacity">
+                                    <option selected="selected">Select an owner </option>
+                                    <option value="userid-40"> Elesha</option>
+                                    <option value="userid-60"> Bethany</option>
+                                    <option value="userid-80"> Wayne</option>
+                                    <option value="userid-80"> Clive</option>
+                                    <option value="userid-80"> Other </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="separator">
-                            <label class="txtLabel"> Type :</label>
-                            <select id = "Type" class="selectField" name="type">
-                                <option selected="selected">Select a type </option>
-                                <option value="1"> Propane</option>
-                                <option value="2"> Carbon Dioxide</option>
-                                <option value="3"> Propylene</option>
-                                <option value="4"> Liquid Dewars</option>
-                                <option value="5"> Acetylene</option>
-                                <option value="6"> High Pressure</option>
-                            </select>
-                        </div>
-                        <div class="separator">
-                            <label class="txtLabel"> Capacity :</label>
-                            <select id =  "Capacity" class="selectField" name="capacity">
-                                <option selected="selected">Select a capacity </option>
-                                <option value="40"> 40CF</option>
-                                <option value="60"> 60CF</option>
-                                <option value="80"> 80CF</option>
-                            </select>
-                        </div>
-                        <div class="separator">
-                            <label class="txtLabel"> Owner :</label>
-                            <select id= "Owner" class="selectField" name="capacity">
-                                <option selected="selected">Select an owner </option>
-                                <option value="userid-40"> Elesha</option>
-                                <option value="userid-60"> Bethany</option>
-                                <option value="userid-80"> Wayne</option>
-                                <option value="userid-80"> Clive</option>
-                                <option value="userid-80"> Other </option>
-                            </select>
-                        </div>
+                        <footer>
+                            <button id="Add" class="btn-submit add"> Add </button>
+                            <button id="cancel" class="btn-submit cancel"> Cancel</button>
+                        </footer>
                     </div>
-                    <footer>
-                        <button id="Add" class="btn-submit add"> Add </button>
-                        <button id="cancel" class="btn-submit cancel"> Cancel</button>
-                    </footer>
                 </div>
-            </div>
+            </form>
         </wicket:extend>
     </body>
 </html>

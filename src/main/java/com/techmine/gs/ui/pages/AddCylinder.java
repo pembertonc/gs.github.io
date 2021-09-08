@@ -15,6 +15,10 @@
  */
 package com.techmine.gs.ui.pages;
 
+import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
@@ -23,6 +27,15 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
  * @author elesh
  */
 public class AddCylinder extends BasePage {
+
+    private Form<Void> form;
+    private TextField serialNumber;
+    private DropDownChoice cylinderGasType;
+    private DropDownChoice cylinderCapacity;
+    private DropDownChoice cylinderOwner;
+
+    private AjaxFallbackButton add;
+    private AjaxFallbackButton cancel;
 
     public AddCylinder() {
     }
@@ -33,6 +46,53 @@ public class AddCylinder extends BasePage {
 
     public AddCylinder(PageParameters parameters) {
         super(parameters);
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize(); //To change body of generated methods, choose Tools | Templates.
+
+        //initializeForm();
+        //initializeCylinderGasType();
+        // initializeCylinderCapacity();
+        //initializeOwner();
+        // initializeSerialNo();
+        // initializeAdd();
+        //initializeCancel();
+    }
+
+    private void initializeForm() {
+        // create an instance of form and assign it to form.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void initializeCylinderGasType() {
+        // create an instance of DropDownChoice and assign it to cylinderGasType.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void initializeCylinderCapacity() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void initializeOwner() {
+        // create an instance of DropDownChoice and assign it to cylinderOwner.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void initializeSerialNo() {
+        // create an instance of TextField and assign it to serialNo.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void initializeAdd() {
+        // create an instance of AjaxFallBackButton and assign it to add.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void initializeCancel() {
+        // create an instance of AjaxFallBackButton and assign it to cancel.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
