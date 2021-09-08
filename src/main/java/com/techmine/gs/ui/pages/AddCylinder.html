@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--
 Copyright 2021 Elesha.
@@ -17,16 +16,17 @@ limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
     <head>
+        <title>Add Cylinder</title>
         <link href="../../../../../../webapp/resources/css/style.css" rel="stylesheet" type="text/css"/>
         <link href="../../../../../../webapp/resources/css/www.w3schools.com_w3css_4_w3.css" rel="stylesheet" type="text/css"/>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Add Cylinder</title>
+
     </head>
     <body>
         <wicket:extend>
             <form id="form">
-                <div class="w3-panel">
+                <div class="w3-container">
                     <div class="w3-card-2 w3-amber">
                         <header class="w3-container w3-blue">
                             <label class ="w3-text-blue"> Add Cylinder</label>
@@ -36,7 +36,7 @@ limitations under the License.
                                 <label class="txtLabel"> Serial#:</label>
                                 <input id="serialNum" class="inputField" type="text" placeholder="Enter Serial Number"/>
                             </div>
-                            <div class="separator">
+                            <div class="">
                                 <label class="txtLabel"> Type :</label>
                                 <select id = "Type" class="selectField" name="type">
                                     <option selected="selected">Select a type </option>
@@ -48,7 +48,7 @@ limitations under the License.
                                     <option value="6"> High Pressure</option>
                                 </select>
                             </div>
-                            <div class="separator">
+                            <div class="">
                                 <label class="txtLabel"> Capacity :</label>
                                 <select id =  "Capacity" class="selectField" name="capacity">
                                     <option selected="selected">Select a capacity </option>
@@ -57,7 +57,7 @@ limitations under the License.
                                     <option value="80"> 80CF</option>
                                 </select>
                             </div>
-                            <div class="separator">
+                            <div class="">
                                 <label class="txtLabel"> Owner :</label>
                                 <select id= "Owner" class="selectField" name="capacity">
                                     <option selected="selected">Select an owner </option>

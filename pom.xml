@@ -44,7 +44,7 @@
         <wicket.version>9.3.0</wicket.version>
         <jetty9.version>9.4.38.v20210224</jetty9.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <junit.version>5.7.1</junit.version>
+        <junit.version>5.7.2</junit.version>
         <cdi-unit.version>4.1.0</cdi-unit.version>
         <weld.version>3.1.7.Final</weld.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -197,6 +197,7 @@
             <version>2.6.0</version>
             <classifier>debug</classifier>
         </dependency>
+       
     </dependencies>
     <build>
         <resources>
@@ -268,6 +269,7 @@
                     <wtpversion>${wtp.version}</wtpversion>
                 </configuration>
             </plugin>
+          
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
