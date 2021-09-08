@@ -14,8 +14,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <head>
     <link rel="stylesheet" href="style.css" type="text/css"/>
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -26,46 +25,22 @@ limitations under the License.
     <link rel="stylesheet" href="../../../../../../webapp/style.css" type="text/css"/>
     <link rel="stylesheet" href="../../../../../../webapp/www.w3schools.com_w3css_4_w3.css" type="text/css">
     <link rel="stylesheet" href="../../../../../../webapp/www.w3schools.com_w3css_4_w3.css" type="text/css"/>
-
- 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Cylinder</title>
 </head>
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
+<body>
 <div class="title">
     <label class ="txtLabel"> Add Cylinder</label>
     <svg xmlns="http://www.w3.org/2000/svg" class="logo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
-
 </div>
-
 <div class="separator">
-
     <label class="txtLabel"> Serial#:</label>
     <input wicket:id="SerialNum" class="inputField" type="text" placeholder="Enter Serial Number">
-
 </div>
-
 <div class="separator">
     <label class="txtLabel"> Type :</label>
     <select wicket:id = "Type" class="selectField" name="type">
@@ -78,8 +53,6 @@ limitations under the License.
         <option value="6"> High Pressure</option>
     </select>
 </div>
-
-
 <div class="separator">
     <label class="txtLabel"> Capacity :</label>
     <select wicket:id =  "Capacity" class="selectField" name="capacity">
@@ -87,11 +60,8 @@ limitations under the License.
         <option value="40"> 40CF</option>
         <option value="60"> 60CF</option>
         <option value="80"> 80CF</option>
-
     </select>
 </div>
-
-
 <div class="separator">
     <label class="txtLabel"> Owner :</label>
     <select wicket:id= "Owner" class="selectField" name="capacity">
@@ -103,16 +73,7 @@ limitations under the License.
         <option value="userid-80"> Other </option>
     </select>
 </div>
-
-
-
-
-
-
 <button wicket:id="Add" class="btn-submit add "> Add </button>
 <button wicket:id="cancel" class="btn-submit cancel "> Cancel</button>
-
-
-
-
-
+</body>
+</html>
