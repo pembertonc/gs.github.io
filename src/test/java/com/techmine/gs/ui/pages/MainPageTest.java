@@ -35,74 +35,70 @@ import org.junit.jupiter.params.provider.ValueSource;
  * @author CodeCamp4
  */
 public class MainPageTest {
-    
-    
+
     private WicketTester tester;
-    
+
     public MainPageTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
-          tester = new WicketTester(new WicketApplication());
+        tester = new WicketTester(new WicketApplication());
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
 
     @Test
-    public void testPageRenders(){
+    public void testPageRenders() {
         tester.startPage(CylinderCheckInPage.class);
-        
+
         tester.assertRenderedPage(CylinderCheckInPage.class);
     }
 
-
     @ParameterizedTest
-    @ValueSource(strings = {"actionForm:checkInCylinder","actionForm:checkOutCylinder","actionForm:addCylinder","actionForm:addCustomer","actionForm:viewInventory","actionForm:signOut"})
+    @ValueSource(strings = {"actionForm:checkInCylinder", "actionForm:checkOutCylinder", "actionForm:addCylinder", "actionForm:addCustomer", "actionForm:viewInventory", "actionForm:signOut"})
     public void testContainsCheckinCylinderComponent(String path) {
-    tester.startPage(MainPage.class);
-    tester.assertComponent(path, AjaxFallbackButton.class);
-    tester.assertExists(path);
-    tester.destroy();
+        tester.startPage(MainPage.class);
+        tester.assertComponent(path, AjaxFallbackButton.class);
+        tester.assertExists(path);
+        tester.destroy();
     }
-    
+
     @Test
-    public void testNavigationToCheckInCylinderPage(){
-       tester.startPage(MainPage.class) ;
-       tester.executeAjaxEvent("actionForm:checkInCylinder", "click");
-       tester.assertRenderedPage(CylinderCheckInPage.class);
+    public void testNavigationToCheckInCylinderPage() {
+        tester.startPage(MainPage.class);
+        tester.executeAjaxEvent("actionForm:checkInCylinder", "click");
+        tester.assertRenderedPage(CylinderCheckInPage.class);
     }
- 
-    
-    /*
-    @Test
-    public void testClickCheckInCylinderButtonGoesToCylinderCheckinPage() {
-    tester.startPage(MainPage.class);
-    tester.executeAjaxEvent("actionForm:checkinCylinder", "click");
-    tester.assertRenderedPage(CylinderDescriptor.class);
-    }*/
 
     /**
-     * Test of onInitialize method, of class LandingPage.
+     * Test of onInitialize method, of class MainPage.
      */
-    /*  @Test
-    public void testOnInitialize() {
-    System.out.println("onInitialize");
-    LandingPage instance = new LandingPage();
-    instance.onInitialize();
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
-    }*/
+    @Test
+    public void testAddCylinderRenders() {
+        tester.startPage(MainPage.class);
 
-    
+        tester.assertExists("actionForm:addCylinder");
+    }
+
+    @Test
+    public void verifiedAddCylinderNavigation() {
+        tester.startPage(MainPage.class);
+
+        tester.executeAjaxEvent("actionForm:addCylinder", "click");
+
+        tester.assertRenderedPage(AddCylinder.class);
+
+    }
+
 }
