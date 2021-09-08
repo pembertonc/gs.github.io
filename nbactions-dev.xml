@@ -12,8 +12,5 @@
                 <goal>payara-micro:stop</goal>
                 <goal>payara-micro:start</goal>
             </goals>
-            <properties>
-                <netbeans.deploy>true</netbeans.deploy>
-            </properties>
         </action>
     </actions>

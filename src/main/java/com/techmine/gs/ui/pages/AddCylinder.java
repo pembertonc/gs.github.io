@@ -19,6 +19,6 @@ package com.techmine.gs.ui.pages;
  *
  * @author elesh
  */
-public class AddCylinder {
-    
+public class AddCylinder extends BasePage {
+
 }
