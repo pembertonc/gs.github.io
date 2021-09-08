@@ -51,4 +51,28 @@ public class AddCylinderTest {
         tester.assertRenderedPage(AddCylinder.class);
     }
 
+    @Test
+    public void serialNumberRenders() {
+        tester.assertExists("form:serialNumber");
+    }
+
+    @Test
+    public void formRenders() {
+        tester.assertExists("form:serialNumber");
+    }
+
+    @Test
+    public void cylinderGasTypeRenders() {
+        tester.assertExists("form:cylinderGasType");
+    }
+
+    @Test
+    public void cylinderCapacityRenders() {
+        tester.assertExists("form:cylinderGasType");
+    }
+
+    @Test
+    public void cylinderOwnerRenders() {
+        tester.assertExists("form:cylinderGasType");
+    }
 }
