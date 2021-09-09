@@ -58,7 +58,7 @@ public class AddCylinderTest {
 
     @Test
     public void formRenders() {
-        tester.assertExists("form:serialNumber");
+        tester.assertExists("form");
     }
 
     @Test

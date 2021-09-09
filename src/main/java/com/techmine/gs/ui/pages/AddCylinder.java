@@ -52,7 +52,9 @@ public class AddCylinder extends BasePage {
     protected void onInitialize() {
         super.onInitialize(); //To change body of generated methods, choose Tools | Templates.
 
-        //initializeForm();
+        initializeForm();
+        add(form);
+        
         //initializeCylinderGasType();
         // initializeCylinderCapacity();
         //initializeOwner();
@@ -63,7 +65,7 @@ public class AddCylinder extends BasePage {
 
     private void initializeForm() {
         // create an instance of form and assign it to form.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      form =  new Form<>("form");
     }
 
     private void initializeCylinderGasType() {
