@@ -56,7 +56,8 @@ public class AddCylinder extends BasePage {
         add(form);
         
         //initializeCylinderGasType();
-        // initializeCylinderCapacity();
+        initializeCylinderCapacity();
+        form.add(cylinderCapacity);
         //initializeOwner();
         // initializeSerialNo();
         // initializeAdd();
@@ -74,7 +75,7 @@ public class AddCylinder extends BasePage {
     }
 
     private void initializeCylinderCapacity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cylinderCapacity = new DropDownChoice("cylinderCapacity"){};
     }
 
     private void initializeOwner() {
