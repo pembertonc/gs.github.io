@@ -89,8 +89,7 @@ public class AddCylinder extends BasePage {
     }
 
     private void initializeAdd() {
-        add = new AjaxFallbackButton("add", form){
-        };
+        add = new AjaxFallbackButton("add", form){};
         // create an instance of AjaxFallBackButton and assign it to add.
     }
 
