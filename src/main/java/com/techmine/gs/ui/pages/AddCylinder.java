@@ -58,7 +58,8 @@ public class AddCylinder extends BasePage {
         //initializeCylinderGasType();
         // initializeCylinderCapacity();
         //initializeOwner();
-        // initializeSerialNo();
+         initializeSerialNo();
+         form.add(serialNumber);
         // initializeAdd();
         //initializeCancel();
     }
@@ -84,7 +85,8 @@ public class AddCylinder extends BasePage {
 
     private void initializeSerialNo() {
         // create an instance of TextField and assign it to serialNo.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        serialNumber = new TextField("serialNumber") {};
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeAdd() {
