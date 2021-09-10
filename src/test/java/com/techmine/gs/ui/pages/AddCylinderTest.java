@@ -35,7 +35,6 @@ public class AddCylinderTest {
     protected void setUp() throws Exception {
         tester = new WicketTester(new WicketApplication());
         instance = tester.startPage(AddCylinder.class);
-
     }
 
     @AfterEach
@@ -75,13 +74,13 @@ public class AddCylinderTest {
     public void cylinderOwnerRenders() {
         tester.assertExists("form:cylinderGasType");
     }
-    
+
     @Test
     public void addRenders() {
         tester.assertExists("form:add");
     }
-  
-  @Test
+
+    @Test
     public void cancelRenders() {
         tester.assertExists("form:cancel");
     }

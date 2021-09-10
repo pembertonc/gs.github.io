@@ -15,6 +15,7 @@
  */
 package com.techmine.gs.ui.pages;
 
+import com.techmine.gs.dto.CylinderDTO;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -37,6 +38,8 @@ public class AddCylinder extends BasePage {
     private AjaxFallbackButton add;
     private AjaxFallbackButton cancel;
 
+    private CylinderDTO cylinderDTO;
+
     public AddCylinder() {
     }
 
@@ -54,17 +57,16 @@ public class AddCylinder extends BasePage {
 
         initializeForm();
         add(form);
-        
+
         //initializeCylinderGasType();
         initializeCylinderCapacity();
         form.add(cylinderCapacity);
         //initializeOwner();
         initializeAdd();
         form.add(add);
-       
 
-         initializeSerialNo();
-         form.add(serialNumber);
+        initializeSerialNo();
+        form.add(serialNumber);
         initializeCancel();
         form.add(cancel);
 
@@ -72,7 +74,7 @@ public class AddCylinder extends BasePage {
 
     private void initializeForm() {
         // create an instance of form and assign it to form.
-      form =  new Form<>("form");
+        form = new Form<>("form");
     }
 
     private void initializeCylinderGasType() {
@@ -81,7 +83,8 @@ public class AddCylinder extends BasePage {
     }
 
     private void initializeCylinderCapacity() {
-        cylinderCapacity = new DropDownChoice("cylinderCapacity"){};
+        cylinderCapacity = new DropDownChoice("cylinderCapacity") {
+        };
     }
 
     private void initializeOwner() {
@@ -91,17 +94,20 @@ public class AddCylinder extends BasePage {
 
     private void initializeSerialNo() {
         // create an instance of TextField and assign it to serialNo.
-        serialNumber = new TextField("serialNumber") {};
+        serialNumber = new TextField("serialNumber") {
+        };
         //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeAdd() {
-        add = new AjaxFallbackButton("add", form){};
+        add = new AjaxFallbackButton("add", form) {
+        };
         // create an instance of AjaxFallBackButton and assign it to add.
     }
 
     private void initializeCancel() {
-       cancel = new AjaxFallbackButton("cancel",form){};
-    } 
+        cancel = new AjaxFallbackButton("cancel", form) {
+        };
+    }
 
 }
