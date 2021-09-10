@@ -34,7 +34,7 @@ limitations under the License.
                         <div class="w3-container">
                             <div class="">
                                 <label class="txtLabel"> Serial#:</label>
-                                <input id="serialNum" class="inputField" type="text" placeholder="Enter Serial Number"/>
+                                <input wicket:id="serialNumber" class="inputField" type="text" placeholder="Enter Serial Number"/>
                             </div>
                             <div class="">
                                 <label class="txtLabel"> Type :</label>
@@ -50,7 +50,7 @@ limitations under the License.
                             </div>
                             <div class="">
                                 <label class="txtLabel"> Capacity :</label>
-                                <select id =  "Capacity" class="selectField" name="capacity">
+                                <select wicket:id ="cylinderCapacity" class="selectField" name="capacity">
                                     <option selected="selected">Select a capacity </option>
                                     <option value="40"> 40CF</option>
                                     <option value="60"> 60CF</option>
@@ -70,8 +70,9 @@ limitations under the License.
                             </div>
                         </div>
                         <footer class="w3-panel w3-blue-gray w3-center">
-                            <button wicket:id="add" class="w3-button"> Add </button>
-                            <button id="cancel" class="w3-button"> Cancel</button>
+                          <button wicket:id="add" class="w3-button"> Add </button>                
+                            <button wicket:id="cancel" class="w3-button"> Cancel</button>
+
                         </footer>
                     </div>
                 </div>
