@@ -77,7 +77,7 @@ public class AddCylinder extends BasePage {
 
     private void initializeCylinderGasType() {
         // create an instance of DropDownChoice and assign it to cylinderGasType.
-        cylinderGasType = new DropDownChoice("cylinderGasType");
+        cylinderGasType = new DropDownChoice("cylinderGasType"){};
         
     }
 
