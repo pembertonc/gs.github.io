@@ -16,11 +16,14 @@
 package com.techmine.gs.ui.pages;
 
 import com.techmine.gs.dto.CylinderDTO;
+import java.util.Arrays;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /**
@@ -41,6 +44,7 @@ public class AddCylinder extends BasePage {
     private CylinderDTO cylinderDTO;
 
     public AddCylinder() {
+        cylinderDTO = new CylinderDTO();
     }
 
     public AddCylinder(IModel<?> model) {
@@ -74,7 +78,7 @@ public class AddCylinder extends BasePage {
 
     private void initializeForm() {
         // create an instance of form and assign it to form.
-        form = new Form<>("form");
+        form = new Form("form", Model.of(cylinderDTO));
     }
 
     private void initializeCylinderGasType() {
@@ -83,8 +87,8 @@ public class AddCylinder extends BasePage {
     }
 
     private void initializeCylinderCapacity() {
-        cylinderCapacity = new DropDownChoice("cylinderCapacity") {
-        };
+        cylinderCapacity = new DropDownChoice("cylinderCapacity", PropertyModel.of(cylinderDTO, "cylinderCapacity"),
+                Arrays.asList("40", "60", "80"));
     }
 
     private void initializeOwner() {
@@ -94,7 +98,7 @@ public class AddCylinder extends BasePage {
 
     private void initializeSerialNo() {
         // create an instance of TextField and assign it to serialNo.
-        serialNumber = new TextField("serialNumber") {
+        serialNumber = new TextField("serialNumber", PropertyModel.of(cylinderDTO, "serialNumber")) {
         };
         //To change body of generated methods, choose Tools | Templates.
     }

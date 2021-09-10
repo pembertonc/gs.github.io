@@ -15,11 +15,13 @@
  */
 package com.techmine.gs.dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Cedric Pemberton
  */
-public class CylinderDTO {
+public class CylinderDTO implements Serializable {
 
     public CylinderDTO() {
     }
