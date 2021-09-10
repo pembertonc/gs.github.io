@@ -68,7 +68,7 @@ public class AddCylinderTest {
 
     @Test
     public void cylinderCapacityRenders() {
-        tester.assertExists("form:cylinderGasType");
+        tester.assertExists("form:cylinderCapacity");
     }
 
     @Test
