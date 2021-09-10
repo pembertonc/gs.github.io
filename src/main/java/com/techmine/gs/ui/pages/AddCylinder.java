@@ -15,6 +15,8 @@
  */
 package com.techmine.gs.ui.pages;
 
+import java.util.Arrays;
+import java.util.List;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -31,6 +33,29 @@ public class AddCylinder extends BasePage {
     private Form<Void> form;
     private TextField serialNumber;
     private DropDownChoice cylinderGasType;
+
+    public AddCylinder(DropDownChoice cylinderGasType) {
+        this.cylinderGasType = cylinderGasType;
+    }
+    private String selectedGasType;
+    private List<String> gasTypes;
+
+    public List<String> getGasTypes() {
+        return gasTypes;
+    }
+
+    public void setGasTypes(List<String> gasTypes) {
+        this.gasTypes = gasTypes;
+    }
+    private String gasTypeValue;
+
+    public String getGasTypeValue() {
+        return gasTypeValue;
+    }
+
+    public void setGasTypeValue(String gasTypeValue) {
+        this.gasTypeValue = gasTypeValue;
+    }
     private DropDownChoice cylinderCapacity;
     private DropDownChoice cylinderOwner;
 
@@ -55,7 +80,8 @@ public class AddCylinder extends BasePage {
         initializeForm();
         add(form);
         
-        //initializeCylinderGasType();
+        initializeCylinderGasType();
+       
         // initializeCylinderCapacity();
         //initializeOwner();
         // initializeSerialNo();
@@ -70,6 +96,11 @@ public class AddCylinder extends BasePage {
 
     private void initializeCylinderGasType() {
         // create an instance of DropDownChoice and assign it to cylinderGasType.
+        
+        gasTypes = Arrays.asList("Oxygen", "Carbon Dioxide", "Argon","Dry Air", "Hellium", "Nitrous Oxide", "Nitrogen");
+      
+        form.add(cylinderGasType);
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
