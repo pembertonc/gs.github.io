@@ -52,18 +52,27 @@ public class AddCylinder extends BasePage {
     protected void onInitialize() {
         super.onInitialize(); //To change body of generated methods, choose Tools | Templates.
 
-        //initializeForm();
+        initializeForm();
+        add(form);
+        
         //initializeCylinderGasType();
-        // initializeCylinderCapacity();
+        initializeCylinderCapacity();
+        form.add(cylinderCapacity);
         //initializeOwner();
-        // initializeSerialNo();
-        // initializeAdd();
-        //initializeCancel();
+        initializeAdd();
+        form.add(add);
+       
+
+         initializeSerialNo();
+         form.add(serialNumber);
+        initializeCancel();
+        form.add(cancel);
+
     }
 
     private void initializeForm() {
         // create an instance of form and assign it to form.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      form =  new Form<>("form");
     }
 
     private void initializeCylinderGasType() {
@@ -72,7 +81,7 @@ public class AddCylinder extends BasePage {
     }
 
     private void initializeCylinderCapacity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cylinderCapacity = new DropDownChoice("cylinderCapacity"){};
     }
 
     private void initializeOwner() {
@@ -82,17 +91,17 @@ public class AddCylinder extends BasePage {
 
     private void initializeSerialNo() {
         // create an instance of TextField and assign it to serialNo.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        serialNumber = new TextField("serialNumber") {};
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeAdd() {
+        add = new AjaxFallbackButton("add", form){};
         // create an instance of AjaxFallBackButton and assign it to add.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeCancel() {
-        // create an instance of AjaxFallBackButton and assign it to cancel.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+       cancel = new AjaxFallbackButton("cancel",form){};
+    } 
 
 }
