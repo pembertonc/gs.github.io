@@ -77,7 +77,8 @@ public class AddCylinder extends BasePage {
 
     private void initializeCylinderGasType() {
         // create an instance of DropDownChoice and assign it to cylinderGasType.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cylinderGasType = new DropDownChoice("cylinderGasType");
+        
     }
 
     private void initializeCylinderCapacity() {
