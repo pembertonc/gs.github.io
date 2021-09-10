@@ -15,8 +15,6 @@
  */
 package com.techmine.gs.ui.pages;
 
-import java.util.Arrays;
-import java.util.List;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -33,29 +31,6 @@ public class AddCylinder extends BasePage {
     private Form<Void> form;
     private TextField serialNumber;
     private DropDownChoice cylinderGasType;
-
-    public AddCylinder(DropDownChoice cylinderGasType) {
-        this.cylinderGasType = cylinderGasType;
-    }
-    private String selectedGasType;
-    private List<String> gasTypes;
-
-    public List<String> getGasTypes() {
-        return gasTypes;
-    }
-
-    public void setGasTypes(List<String> gasTypes) {
-        this.gasTypes = gasTypes;
-    }
-    private String gasTypeValue;
-
-    public String getGasTypeValue() {
-        return gasTypeValue;
-    }
-
-    public void setGasTypeValue(String gasTypeValue) {
-        this.gasTypeValue = gasTypeValue;
-    }
     private DropDownChoice cylinderCapacity;
     private DropDownChoice cylinderOwner;
 
@@ -80,13 +55,19 @@ public class AddCylinder extends BasePage {
         initializeForm();
         add(form);
         
-        initializeCylinderGasType();
-       
-        // initializeCylinderCapacity();
+        //initializeCylinderGasType();
+        initializeCylinderCapacity();
+        form.add(cylinderCapacity);
         //initializeOwner();
-        // initializeSerialNo();
-        // initializeAdd();
-        //initializeCancel();
+        initializeAdd();
+        form.add(add);
+       
+
+         initializeSerialNo();
+         form.add(serialNumber);
+        initializeCancel();
+        form.add(cancel);
+
     }
 
     private void initializeForm() {
@@ -96,16 +77,11 @@ public class AddCylinder extends BasePage {
 
     private void initializeCylinderGasType() {
         // create an instance of DropDownChoice and assign it to cylinderGasType.
-        
-        gasTypes = Arrays.asList("Oxygen", "Carbon Dioxide", "Argon","Dry Air", "Hellium", "Nitrous Oxide", "Nitrogen");
-      
-        form.add(cylinderGasType);
-        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeCylinderCapacity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cylinderCapacity = new DropDownChoice("cylinderCapacity"){};
     }
 
     private void initializeOwner() {
@@ -115,17 +91,17 @@ public class AddCylinder extends BasePage {
 
     private void initializeSerialNo() {
         // create an instance of TextField and assign it to serialNo.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        serialNumber = new TextField("serialNumber") {};
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeAdd() {
+        add = new AjaxFallbackButton("add", form){};
         // create an instance of AjaxFallBackButton and assign it to add.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeCancel() {
-        // create an instance of AjaxFallBackButton and assign it to cancel.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+       cancel = new AjaxFallbackButton("cancel",form){};
+    } 
 
 }

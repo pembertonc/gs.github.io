@@ -77,8 +77,12 @@ public class AddCylinderTest {
     }
     
     @Test
+    public void addRenders() {
+        tester.assertExists("form:add");
+    }
+  
+  @Test
     public void cancelRenders() {
         tester.assertExists("form:cancel");
-        
     }
 }
