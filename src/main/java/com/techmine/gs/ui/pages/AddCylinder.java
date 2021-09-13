@@ -60,7 +60,8 @@ public class AddCylinder extends BasePage {
         form.add(cylinderCapacity);
         //initializeOwner();
         // initializeSerialNo();
-        // initializeAdd();
+        initializeAdd();
+        form.add(add);
         //initializeCancel();
     }
 
@@ -89,8 +90,8 @@ public class AddCylinder extends BasePage {
     }
 
     private void initializeAdd() {
+        add = new AjaxFallbackButton("add", form){};
         // create an instance of AjaxFallBackButton and assign it to add.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeCancel() {

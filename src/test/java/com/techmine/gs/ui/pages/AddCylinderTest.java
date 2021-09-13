@@ -75,4 +75,9 @@ public class AddCylinderTest {
     public void cylinderOwnerRenders() {
         tester.assertExists("form:cylinderGasType");
     }
+    
+    @Test
+    public void addRenders() {
+        tester.assertExists("form:add");
+    }
 }
