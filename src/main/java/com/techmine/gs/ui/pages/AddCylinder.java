@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 elesh.
+ * Copyright 2021 elesha.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,8 @@ public class AddCylinder extends BasePage {
         initializeForm();
         add(form);
 
-        //initializeCylinderGasType();
+        initializeCylinderGasType();
+        form.add(cylinderGasType);
         initializeCylinderCapacity();
         form.add(cylinderCapacity);
         //initializeOwner();
