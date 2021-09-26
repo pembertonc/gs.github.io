@@ -37,7 +37,7 @@ public class AddCylinder extends BasePage {
     private Form<Void> form;
     private TextField serialNumber;
     private DropDownChoice cylinderGasType;
-    private String selectedGasTypes;
+   
     private DropDownChoice cylinderCapacity;
     private DropDownChoice cylinderOwner;
 
@@ -97,7 +97,7 @@ public class AddCylinder extends BasePage {
     private void initializeCylinderGasType() {
         // create an instance of DropDownChoice and assign it to cylinderGasType.
         gasTypes = Arrays.asList("Carbon Dioxide","Oxygen","Argon","Dry Air","Helium","Nitrous Oxide","Nitrogen");
-        cylinderGasType = new DropDownChoice("cylinderGasType",LambdaModel.of(this::getGasTypes,this::setGasTypes),gasTypes);
+        cylinderGasType = new DropDownChoice("cylinderGasType",LambdaModel.of(cylinderDTO::getGasType, cylinderDTO::setGasType),gasTypes);
     }
 
     private void initializeCylinderCapacity() {
