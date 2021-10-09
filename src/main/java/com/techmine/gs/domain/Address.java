@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 /**
  * @author CodeCamp4
  */
-
 @Entity
 public class Address {
 

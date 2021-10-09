@@ -44,7 +44,7 @@
         <wicket.version>9.3.0</wicket.version>
         <jetty9.version>9.4.38.v20210224</jetty9.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <junit.version>5.7.1</junit.version>
+        <junit.version>5.7.2</junit.version>
         <cdi-unit.version>4.1.0</cdi-unit.version>
         <weld.version>3.1.7.Final</weld.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,7 +62,7 @@
             <artifactId>wicket-core</artifactId>
             <version>${wicket.version}</version>
         </dependency>
-       
+
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-extensions</artifactId>
@@ -88,7 +88,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-                
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
@@ -129,6 +129,12 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>2.22.2</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>jakarta.platform</groupId>
@@ -136,7 +142,7 @@
             <scope>provided</scope>
             <version>${version.jakartaee}</version>
         </dependency>
-       
+
         <!-- CDI UNIT TESTING DEPENDENCIES -->
         <dependency>
             <groupId>org.jglue.cdi-unit</groupId>
@@ -144,7 +150,7 @@
             <version>${cdi-unit.version}</version>
             <scope>test</scope>
         </dependency>
-       
+
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
             <!-- or weld-se -->
@@ -153,14 +159,14 @@
             <version>${weld.version}</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.jboss.weld.module</groupId>
             <artifactId>weld-web</artifactId>
             <version>${weld.version}</version>
             <scope>test</scope>
         </dependency>
-       
+
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -191,6 +197,7 @@
             <version>2.6.0</version>
             <classifier>debug</classifier>
         </dependency>
+
     </dependencies>
     <build>
         <resources>
@@ -232,8 +239,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <encoding>UTF-8</encoding>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
@@ -262,6 +269,7 @@
                     <wtpversion>${wtp.version}</wtpversion>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -286,7 +294,7 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-                </executions>                
+                </executions>
             </plugin>
             <plugin>
                 <groupId>fish.payara.maven.plugins</groupId>
@@ -317,7 +325,7 @@
                     </commandLineOptions>
                 </configuration>
                 <version>1.3.0</version>
-                
+
             </plugin>
         </plugins>
     </build>

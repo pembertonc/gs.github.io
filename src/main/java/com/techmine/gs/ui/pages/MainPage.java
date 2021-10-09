@@ -37,7 +37,7 @@ public class MainPage extends BasePage {
         form.add(initializeCheckInCylinderCtrl());
         form.add(initializeBrowseInventoryCtrl());
         form.add(initializeCheckOutCylinderCtrl());
-        // to implement the rest do 
+        // to implement the rest do
         // eg. form.add(intializeCheckOutCylinderCtrl());
         // implment the method initializeCheckinCylinderCtrl();
 
@@ -76,7 +76,6 @@ public class MainPage extends BasePage {
 
         };
         return button;
-
     }
 
     private Button initializeCheckOutCylinderCtrl() {

@@ -21,10 +21,10 @@ public class WicketApplication extends WebApplication {
      */
     @Override
     public Class<? extends WebPage> getHomePage() {
-        // return LandingPage.class;
+        return LandingPage.class;
         //return BasePage.class;
         //return HomePage.class;
-        return AddCylinder.class;
+        //return AddCylinder.class;
 
     }
 
