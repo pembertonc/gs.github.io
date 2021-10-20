@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 elesh.
+ * Copyright 2021 elesha.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,17 @@
  */
 package com.techmine.gs.ui.pages;
 
+import com.techmine.gs.dto.CylinderDTO;
+import java.util.Arrays;
+import java.util.List;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /**
@@ -31,13 +37,26 @@ public class AddCylinder extends BasePage {
     private Form<Void> form;
     private TextField serialNumber;
     private DropDownChoice cylinderGasType;
+   
     private DropDownChoice cylinderCapacity;
     private DropDownChoice cylinderOwner;
+
+    public List<String> getGasTypes() {
+        return gasTypes;
+    }
+
+    public void setGasTypes(List<String> gasTypes) {
+        this.gasTypes = gasTypes;
+    }
 
     private AjaxFallbackButton add;
     private AjaxFallbackButton cancel;
 
+    private CylinderDTO cylinderDTO;
+    private List<String> gasTypes;
+
     public AddCylinder() {
+        cylinderDTO = new CylinderDTO();
     }
 
     public AddCylinder(IModel<?> model) {
@@ -54,29 +73,39 @@ public class AddCylinder extends BasePage {
 
         initializeForm();
         add(form);
-        
-        //initializeCylinderGasType();
+
+        initializeCylinderGasType();
+        form.add(cylinderGasType);
         initializeCylinderCapacity();
         form.add(cylinderCapacity);
         //initializeOwner();
-        // initializeSerialNo();
+
+
         initializeAdd();
         form.add(add);
-        //initializeCancel();
+
+        initializeSerialNo();
+        form.add(serialNumber);
+        initializeCancel();
+        form.add(cancel);
+
+
     }
 
     private void initializeForm() {
         // create an instance of form and assign it to form.
-      form =  new Form<>("form");
+        form = new Form("form", Model.of(cylinderDTO));
     }
 
     private void initializeCylinderGasType() {
         // create an instance of DropDownChoice and assign it to cylinderGasType.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gasTypes = Arrays.asList("Carbon Dioxide","Oxygen","Argon","Dry Air","Helium","Nitrous Oxide","Nitrogen");
+        cylinderGasType = new DropDownChoice("cylinderGasType",LambdaModel.of(cylinderDTO::getGasType, cylinderDTO::setGasType),gasTypes);
     }
 
     private void initializeCylinderCapacity() {
-        cylinderCapacity = new DropDownChoice("cylinderCapacity"){};
+        cylinderCapacity = new DropDownChoice("cylinderCapacity", PropertyModel.of(cylinderDTO, "cylinderCapacity"),
+                Arrays.asList("40", "60", "80"));
     }
 
     private void initializeOwner() {
@@ -86,17 +115,23 @@ public class AddCylinder extends BasePage {
 
     private void initializeSerialNo() {
         // create an instance of TextField and assign it to serialNo.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        serialNumber = new TextField("serialNumber", PropertyModel.of(cylinderDTO, "serialNumber")) {
+        };
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeAdd() {
+ intializeCylinderCapacity
         add = new AjaxFallbackButton("add", form){};
+
+       
+
         // create an instance of AjaxFallBackButton and assign it to add.
     }
 
     private void initializeCancel() {
-        // create an instance of AjaxFallBackButton and assign it to cancel.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cancel = new AjaxFallbackButton("cancel", form) {
+        };
     }
 
 }

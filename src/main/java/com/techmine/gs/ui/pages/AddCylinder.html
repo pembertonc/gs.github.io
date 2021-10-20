@@ -27,26 +27,18 @@ limitations under the License.
         <wicket:extend>
             <form wicket:id="form" class="w3-display-topmiddle">
                 <div class="w3-container">
-                    <div class="w3-card-2 w3-amber">
+                    <div class="w3-card-2">
                         <header class="w3-panel w3-blue">
                             <label class ="w3-text-black w3-center"><h1>Add Cylinder</h1></label>
                         </header>
                         <div class="w3-container">
                             <div class="">
                                 <label class="txtLabel"> Serial#:</label>
-                                <input id="serialNum" class="inputField" type="text" placeholder="Enter Serial Number"/>
+                                <input wicket:id="serialNumber" class="inputField" type="text" placeholder="Enter Serial Number"/>
                             </div>
                             <div class="">
                                 <label class="txtLabel"> Type :</label>
-                                <select id = "Type" class="selectField" name="type">
-                                    <option selected="selected">Select a type </option>
-                                    <option value="1"> Propane</option>
-                                    <option value="2"> Carbon Dioxide</option>
-                                    <option value="3"> Propylene</option>
-                                    <option value="4"> Liquid Dewars</option>
-                                    <option value="5"> Acetylene</option>
-                                    <option value="6"> High Pressure</option>
-                                </select>
+                                <select wicket:id = "cylinderGasType" class="selectField" name="type"></select>
                             </div>
                             <div class="">
                                 <label class="txtLabel"> Capacity :</label>
@@ -70,8 +62,10 @@ limitations under the License.
                             </div>
                         </div>
                         <footer class="w3-panel w3-blue-gray w3-center">
+
                             <button wicket:id="add" class="w3-button"> Add </button>
                             <button id="cancel" class="w3-button"> Cancel</button>
+
                         </footer>
                     </div>
                 </div>
