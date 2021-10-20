@@ -16,9 +16,13 @@
 package com.techmine.gs.ui.pages;
 
 import com.techmine.gs.WicketApplication;
+import com.techmine.gs.dto.CylinderDTO;
+import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +39,6 @@ public class AddCylinderTest {
     protected void setUp() throws Exception {
         tester = new WicketTester(new WicketApplication());
         instance = tester.startPage(AddCylinder.class);
-
     }
 
     @AfterEach
@@ -75,14 +78,29 @@ public class AddCylinderTest {
     public void cylinderOwnerRenders() {
         tester.assertExists("form:cylinderGasType");
     }
-    
+
     @Test
     public void addRenders() {
         tester.assertExists("form:add");
     }
-  
-  @Test
+
+    @Test
     public void cancelRenders() {
         tester.assertExists("form:cancel");
+    }
+
+    @Test
+    public void modelPopulatedFromFormFields() {
+        FormTester formTester = tester.newFormTester("form");
+        formTester.setValue("cylinderCapacity", "40");
+
+        formTester.submit();
+
+        CylinderDTO object = (CylinderDTO) formTester.getForm().getDefaultModelObject();
+
+        assertNotNull(object, "Object Representing Model Object should not be null");
+
+        assertEquals(object.getCylinderCapacity(), "40");
+
     }
 }
