@@ -15,15 +15,11 @@
  */
 package com.techmine.gs.ui.pages;
 
-import com.techmine.gs.dto.CylinderDTO;
-import java.util.Arrays;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /**
@@ -41,10 +37,7 @@ public class AddCylinder extends BasePage {
     private AjaxFallbackButton add;
     private AjaxFallbackButton cancel;
 
-    private CylinderDTO cylinderDTO;
-
     public AddCylinder() {
-        cylinderDTO = new CylinderDTO();
     }
 
     public AddCylinder(IModel<?> model) {
@@ -61,16 +54,17 @@ public class AddCylinder extends BasePage {
 
         initializeForm();
         add(form);
-
+        
         //initializeCylinderGasType();
         initializeCylinderCapacity();
         form.add(cylinderCapacity);
         //initializeOwner();
         initializeAdd();
         form.add(add);
+       
 
-        initializeSerialNo();
-        form.add(serialNumber);
+         initializeSerialNo();
+         form.add(serialNumber);
         initializeCancel();
         form.add(cancel);
 
@@ -78,17 +72,17 @@ public class AddCylinder extends BasePage {
 
     private void initializeForm() {
         // create an instance of form and assign it to form.
-        form = new Form("form", Model.of(cylinderDTO));
+      form =  new Form<>("form");
     }
 
     private void initializeCylinderGasType() {
         // create an instance of DropDownChoice and assign it to cylinderGasType.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cylinderGasType = new DropDownChoice("cylinderGasType"){};
+        
     }
 
     private void initializeCylinderCapacity() {
-        cylinderCapacity = new DropDownChoice("cylinderCapacity", PropertyModel.of(cylinderDTO, "cylinderCapacity"),
-                Arrays.asList("40", "60", "80"));
+        cylinderCapacity = new DropDownChoice("cylinderCapacity"){};
     }
 
     private void initializeOwner() {
@@ -98,20 +92,17 @@ public class AddCylinder extends BasePage {
 
     private void initializeSerialNo() {
         // create an instance of TextField and assign it to serialNo.
-        serialNumber = new TextField("serialNumber", PropertyModel.of(cylinderDTO, "serialNumber")) {
-        };
+        serialNumber = new TextField("serialNumber") {};
         //To change body of generated methods, choose Tools | Templates.
     }
 
     private void initializeAdd() {
-        add = new AjaxFallbackButton("add", form) {
-        };
+        add = new AjaxFallbackButton("add", form){};
         // create an instance of AjaxFallBackButton and assign it to add.
     }
 
     private void initializeCancel() {
-        cancel = new AjaxFallbackButton("cancel", form) {
-        };
-    }
+       cancel = new AjaxFallbackButton("cancel",form){};
+    } 
 
 }
