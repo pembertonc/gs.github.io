@@ -79,6 +79,8 @@ public class AddCylinder extends BasePage {
         initializeCylinderCapacity();
         form.add(cylinderCapacity);
         //initializeOwner();
+
+
         initializeAdd();
         form.add(add);
 
@@ -86,6 +88,7 @@ public class AddCylinder extends BasePage {
         form.add(serialNumber);
         initializeCancel();
         form.add(cancel);
+
 
     }
 
@@ -118,8 +121,11 @@ public class AddCylinder extends BasePage {
     }
 
     private void initializeAdd() {
-        add = new AjaxFallbackButton("add", form) {
-        };
+ intializeCylinderCapacity
+        add = new AjaxFallbackButton("add", form){};
+
+       
+
         // create an instance of AjaxFallBackButton and assign it to add.
     }
 
