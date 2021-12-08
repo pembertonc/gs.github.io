@@ -24,22 +24,21 @@ body{
     background: url(https://www.wilhelmsen.com/globalassets/marine-products/gas--cylinder-solutions/images/cylinders.jpg?preset=oversize&s=106150093);
 }
 
+h1{ color: #ff6600;}
 
 form {
-    height: 75%;
-    border: 5px solid #0099ff;
+    height: 400px;
 }
 
 /*cnetering Login Contianer*/
 .w3-display-middle{
-    background-color: #0099ff;
+    background-color: #003399;
     color: white;
-    width: 75%;
-    height: 500;
+    width: 500px;
+    height: 550px;
     text-align: center;
-    margin: 24px 0 12px 0;  
-
 }
+
 
 /* Login Avatar alignment*/ 
 .imgcontainer{
@@ -47,12 +46,12 @@ form {
     margin: 48px 0 24px 0;
 }
 
-/*.imgAvatar{
-    width: 40%;
-    height: 10%;
+.Avatar{
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
 }
-*/
+
 
 /* UserCredential inputs Designs */
 input[type=text], input[type=password] {
@@ -67,7 +66,7 @@ input[type=text], input[type=password] {
 
 /* Login buttons Design */
 button {
-    background-color: #ff9900;
+    background-color: #ff6600;
     color: white;
     padding: 12px 20px;
     margin: 8px 0;
