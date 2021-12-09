@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -13,13 +14,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class Cylinder extends BaseEntity {
 
-    @Basic(optional = false)
-    @Column(updatable = false, length = 32)
-    @NotBlank
-    private String serialNumber;
-    @Embedded
-    private Measure capacitity;
-    @ManyToOne
+    @OneToOne
     private GasType gasType;
     @ManyToOne
     private Owner owner;
@@ -40,12 +35,25 @@ public class Cylinder extends BaseEntity {
         this.capacitity = capacitity;
     }
 
+    @Basic(optional = false)
+    @Column(updatable = false, length = 32)
+    @NotBlank
+    private String serialNumber;
+
+    @Embedded
+    private Measure capacitity;
+
     public GasType getGasType() {
         return gasType;
     }
 
     public void setGasType(GasType gasType) {
         this.gasType = gasType;
+    }
+
+    public Cylinder gasType(GasType gasType) {
+        this.gasType = gasType;
+        return this;
     }
 
     public Owner getOwner() {

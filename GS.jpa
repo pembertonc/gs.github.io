@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <entity-mappings ptype="MONOLITH" ppkg="com.techmine.gs" epkg="domain" v="5.4.4" rws="_16238885089942" Pws="_16238885089942" cws="_16238885089942" persistenceUnitName="GS_PU" pp="E" sm="false" xs="false" id="_16238885089941" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <entity compositePrimaryKeyClass="AddressPK" abs="false" class="Address" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_16238885459983">
+    <mapped-superclass compositePrimaryKeyClass="BaseEntityPK" abs="false" class="BaseEntity" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908616129139">
+        <inf e="true" n="java.io.Serializable"/>
+        <snp loc="IMPORT" e="true">java.util.UUID</snp>
+        <ath>Cedric Pemberton</ath>
+        <attributes>
+            <id attribute-type="String" v="true" xvt="" name="id" dv="UUID.randomUUID().toString()" id="_163908625849641">
+                <xwm/>
+                <xm/>
+                <generated-value/>
+            </id>
+        </attributes>
+    </mapped-superclass>
+    <entity compositePrimaryKeyClass="AddressPK" abs="false" class="Address" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_16238885459983">
         <ath>CodeCamp4</ath>
         <attributes>
             <basic optional="false" attribute-type="String" v="true" xvt="" name="street1" ft="false" id="_16238885564096">
@@ -23,11 +35,6 @@
                 <xwm/>
                 <xm/>
             </basic>
-            <id attribute-type="Long" v="true" xvt="" name="id" id="_16238885460254">
-                <xwm/>
-                <xm/>
-                <generated-value strategy="DEFAULT"/>
-            </id>
         </attributes>
         <nq e="false" name="Address.findAll">
             <query>Select e from Address e</query>
@@ -45,30 +52,209 @@
             <query>Select a from Address a where a.country=:country</query>
         </nq>
     </entity>
-    <beanClass abs="false" class="Employee" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_16263864537273">
-        <attributes/>
-    </beanClass>
-    <beanClass abs="false" class="Person" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_162638646313121">
+    <entity compositePrimaryKeyClass="ContactPK" abs="false" class="Contact" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596303719">
+        <ath>Cedric Pemberton</ath>
         <attributes>
-            <basic attribute-type="java.lang.String" v="true" xvt="" am="PRIVATE" name="firstName" jbt="false" id="_162638646321322">
+            <basic attribute-type="String" v="true" xvt="" name="email" id="_163908635323244">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <em m="Not a valid Email "/>
+                </bv>
+            </basic>
+            <basic attribute-type="String" v="true" xvt="" name="telephone1" ft="false" id="_163908635375145">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <nb m="Telehone 1 is required"/>
+                </bv>
+                <column unique="false" nullable="false" insertable="true" updatable="true" length="14"/>
+            </basic>
+            <basic attribute-type="String" v="true" xvt="" name="telephone2" id="_163908635539146">
+                <xwm/>
+                <xm/>
+                <column unique="false" nullable="true" insertable="true" updatable="true" length="14"/>
+            </basic>
+            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" id="_163908658853455">
+                <xwm/>
+                <xm/>
+            </one-to-one>
+        </attributes>
+        <nq e="false" name="Contact.findAll">
+            <query>Select e from Contact e</query>
+        </nq>
+        <nq e="false" name="Contact.findByEmail">
+            <query>Select c from Contact c where c.email=:email</query>
+        </nq>
+        <nq e="false" name="Contact.findByTelephone1">
+            <query>Select c from Contact c where c.telephone1=:telephone1</query>
+        </nq>
+        <nq e="false" name="Contact.findByTelephone2">
+            <query>Select c from Contact c where c.telephone2=:telephone2</query>
+        </nq>
+    </entity>
+    <entity compositePrimaryKeyClass="InstitutionPK" abs="false" class="Institution" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596520722">
+        <ath>Cedric Pemberton</ath>
+        <attributes>
+            <basic attribute-type="String" v="true" xvt="" name="name" id="_163908608217736">
                 <xwm/>
                 <xm/>
             </basic>
-            <basic attribute-type="java.lang.String" v="true" xvt="" am="PRIVATE" name="familyName" jbt="false" id="_162638646329823">
+            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_16238885459983" v="true" xvt="" name="address" id="_163908610434838">
                 <xwm/>
                 <xm/>
+            </one-to-one>
+            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908596303719" v="true" xvt="" name="contact" id="_163908650642249">
+                <xwm/>
+                <xm/>
+            </one-to-one>
+        </attributes>
+        <nq e="false" name="Institution.findAll">
+            <query>Select e from Institution e</query>
+        </nq>
+        <nq e="false" name="Institution.findByName">
+            <query>Select i from Institution i where i.name=:name</query>
+        </nq>
+    </entity>
+    <entity compositePrimaryKeyClass="GasTypePK" abs="false" class="GasType" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596733225">
+        <ath>Cedric Pemberton</ath>
+        <attributes>
+            <basic optional="false" attribute-type="String" v="true" xvt="" name="name" ft="false" id="_163908702015763">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <nb m="Name of gas is required"/>
+                    <si mi="1" ma="64" m="Gas Type name can not be longer than 64 characters"/>
+                </bv>
+                <column unique="true" nullable="false" insertable="true" updatable="true" length="32"/>
             </basic>
-            <basic attribute-type="java.lang.String" v="true" xvt="" am="PRIVATE" name="otherName" jbt="false" id="_162638646338224">
+            <basic optional="false" attribute-type="String" v="true" xvt="" name="symbol" ft="false" id="_163908702083664">
                 <xwm/>
                 <xm/>
+                <bv>
+                    <nb m="Gas Symbol is required"/>
+                    <si mi="1" ma="3" m="Gas Symbol can not be greater than 3 characters"/>
+                </bv>
+                <column unique="true" nullable="false" insertable="true" updatable="true" length="3"/>
             </basic>
         </attributes>
-    </beanClass>
+        <nq e="false" name="GasType.findAll">
+            <query>Select e from GasType e</query>
+        </nq>
+        <nq e="false" name="GasType.findByName">
+            <query>Select g from GasType g where g.name=:name</query>
+        </nq>
+        <nq e="false" name="GasType.findBySymbol">
+            <query>Select g from GasType g where g.symbol=:symbol</query>
+        </nq>
+    </entity>
+    <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
+        <ath>Cedric Pemberton</ath>
+        <attributes>
+            <basic optional="false" attribute-type="String" v="true" xvt="" name="firstName" ft="false" id="_163908674093457">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <ne m="FirstName is required"/>
+                    <si mi="1" ma="64" m="First Name must not be longer than  64 characters"/>
+                </bv>
+                <column unique="false" nullable="false" insertable="true" updatable="true" length="64"/>
+            </basic>
+            <basic attribute-type="String" v="true" xvt="" name="otherName" id="_163908674218158">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <si mi="0" ma="64" m="Other Name can not be longer than 64 characters."/>
+                </bv>
+            </basic>
+            <basic optional="false" attribute-type="String" v="true" xvt="" name="familyName" ft="false" id="_163908674281459">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <nb m="Family Name is required"/>
+                    <si mi="1" ma="64" m="First Name must not be longer than  64 characters"/>
+                </bv>
+                <column unique="false" nullable="false" insertable="true" updatable="true"/>
+            </basic>
+        </attributes>
+        <nq e="false" name="Person.findAll">
+            <query>Select e from Person e</query>
+        </nq>
+        <nq e="false" name="Person.findByFirstName">
+            <query>Select p from Person p where p.firstName=:firstName</query>
+        </nq>
+        <nq e="false" name="Person.findByOtherName">
+            <query>Select p from Person p where p.otherName=:otherName</query>
+        </nq>
+        <nq e="false" name="Person.findByFamilyName">
+            <query>Select p from Person p where p.familyName=:familyName</query>
+        </nq>
+    </entity>
+    <entity compositePrimaryKeyClass="AuthenticatedUserPK" abs="false" class="AuthenticatedUser" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
+        <ath>Cedric Pemberton</ath>
+        <attributes>
+            <basic optional="false" attribute-type="String" v="true" xvt="" name="userName" ft="false" id="_163908735716373">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <nb m="User Name is required"/>
+                </bv>
+                <column unique="true" nullable="false" insertable="true" updatable="true" length="64"/>
+            </basic>
+            <basic optional="false" attribute-type="String" v="true" xvt="" name="password" ft="false" id="_163908735774074">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <nb m="Password is required"/>
+                    <si mi="4" ma="12" m="Password must be from 4 to 12 characters long."/>
+                </bv>
+                <column unique="false" nullable="false" insertable="true" updatable="true" length="12"/>
+            </basic>
+            <basic attribute-type="String" v="true" xvt="" name="role" id="_163908735849175">
+                <xwm/>
+                <xm/>
+            </basic>
+            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" id="_163908734901372">
+                <xwm/>
+                <xm/>
+            </one-to-one>
+        </attributes>
+        <nq e="false" name="AuthenticatedUser.findAll">
+            <query>Select e from AuthenticatedUser e</query>
+        </nq>
+        <nq e="false" name="AuthenticatedUser.findByUserName">
+            <query>Select a from AuthenticatedUser a where a.userName=:userName</query>
+        </nq>
+        <nq e="false" name="AuthenticatedUser.findByPassword">
+            <query>Select a from AuthenticatedUser a where a.password=:password</query>
+        </nq>
+        <nq e="false" name="AuthenticatedUser.findByRole">
+            <query>Select a from AuthenticatedUser a where a.role=:role</query>
+        </nq>
+    </entity>
+    <entity compositePrimaryKeyClass="CylinderPK" abs="false" class="Cylinder" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908750512876">
+        <ath>Cedric Pemberton</ath>
+        <attributes>
+            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908596733225" v="true" xvt="" name="gasType" id="_163908755924481">
+                <xwm/>
+                <xm/>
+            </one-to-one>
+        </attributes>
+        <nq e="false" name="Cylinder.findAll">
+            <query>Select e from Cylinder e</query>
+        </nq>
+    </entity>
+    <c/>
     <wsl>
         <ws n="Main" id="_16238885089942">
-            <i ref="_162638646313121" x="561" y="32"/>
-            <i ref="_16263864537273" x="32" y="32"/>
-            <i ref="_16238885459983" x="297" y="32"/>
+            <i ref="_163908596733225" x="131" y="84"/>
+            <i ref="_163908596303719" x="112" y="618"/>
+            <i ref="_163908597108431" x="431" y="618"/>
+            <i ref="_16238885459983" x="598" y="377"/>
+            <i ref="_163908596520722" x="112" y="377"/>
+            <i ref="_163908616129139" x="329" y="167"/>
+            <i ref="_163908726308665" x="685" y="618"/>
+            <i ref="_163908750512876" x="598" y="66"/>
         </ws>
     </wsl>
 </entity-mappings>

@@ -4,6 +4,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * @author Cedric Pemberton
@@ -11,13 +12,15 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class GasType extends BaseEntity {
 
-    @Basic
-    @Column(unique = true, length = 32)
-    @NotBlank(message = "Name of Gass is required")
+    @Basic(optional = false)
+    @Column(unique = true, nullable = false, length = 32)
+    @NotBlank(message = "Name of gas is required")
+    @Size(min = 1, max = 64, message = "Gas Type name can not be longer than 64 characters")
     private String name;
-    @Basic
-    @Column(unique = true, length = 5)
-    @NotBlank(message = "Simbol for gas is required")
+    @Basic(optional = false)
+    @Column(unique = true, nullable = false, length = 3)
+    @NotBlank(message = "Gas Symbol is required")
+    @Size(min = 1, max = 3, message = "Gas Symbol can not be greater than 3 characters")
     private String symbol;
 
     public String getName() {
@@ -28,12 +31,22 @@ public class GasType extends BaseEntity {
         this.name = name;
     }
 
+    public GasType name(String name) {
+        this.name = name;
+        return this;
+    }
+
     public String getSymbol() {
         return symbol;
     }
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public GasType symbol(String symbol) {
+        this.symbol = symbol;
+        return this;
     }
 
 }

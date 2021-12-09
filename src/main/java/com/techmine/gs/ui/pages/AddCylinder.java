@@ -37,7 +37,7 @@ public class AddCylinder extends BasePage {
     private Form<Void> form;
     private TextField serialNumber;
     private DropDownChoice cylinderGasType;
-   
+
     private DropDownChoice cylinderCapacity;
     private DropDownChoice cylinderOwner;
 
@@ -80,7 +80,6 @@ public class AddCylinder extends BasePage {
         form.add(cylinderCapacity);
         //initializeOwner();
 
-
         initializeAdd();
         form.add(add);
 
@@ -88,7 +87,6 @@ public class AddCylinder extends BasePage {
         form.add(serialNumber);
         initializeCancel();
         form.add(cancel);
-
 
     }
 
@@ -99,8 +97,8 @@ public class AddCylinder extends BasePage {
 
     private void initializeCylinderGasType() {
         // create an instance of DropDownChoice and assign it to cylinderGasType.
-        gasTypes = Arrays.asList("Carbon Dioxide","Oxygen","Argon","Dry Air","Helium","Nitrous Oxide","Nitrogen");
-        cylinderGasType = new DropDownChoice("cylinderGasType",LambdaModel.of(cylinderDTO::getGasType, cylinderDTO::setGasType),gasTypes);
+        gasTypes = Arrays.asList("Carbon Dioxide", "Oxygen", "Argon", "Dry Air", "Helium", "Nitrous Oxide", "Nitrogen");
+        cylinderGasType = new DropDownChoice("cylinderGasType", LambdaModel.of(cylinderDTO::getGasType, cylinderDTO::setGasType), gasTypes);
     }
 
     private void initializeCylinderCapacity() {
@@ -121,10 +119,9 @@ public class AddCylinder extends BasePage {
     }
 
     private void initializeAdd() {
- intializeCylinderCapacity
-        add = new AjaxFallbackButton("add", form){};
 
-       
+        add = new AjaxFallbackButton("add", form) {
+        };
 
         // create an instance of AjaxFallBackButton and assign it to add.
     }
