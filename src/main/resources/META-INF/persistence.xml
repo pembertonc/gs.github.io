@@ -8,7 +8,6 @@
     <class>com.techmine.gs.domain.Cylinder</class>
     <class>com.techmine.gs.domain.UinitOfMeasure</class>
     <class>com.techmine.gs.domain.GasType</class>
-    <class>com.techmine.gs.domain.Owner</class>
     <class>com.techmine.gs.domain.Contact</class>
     <class>com.techmine.gs.domain.Person</class>
     <class>com.techmine.gs.domain.Institution</class>

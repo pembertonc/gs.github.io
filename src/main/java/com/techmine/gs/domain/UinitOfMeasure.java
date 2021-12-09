@@ -28,12 +28,22 @@ public class UinitOfMeasure extends BaseEntity {
         this.name = name;
     }
 
+    public UinitOfMeasure name(String name) {
+        this.name = name;
+        return this;
+    }
+
     public String getSymbol() {
         return symbol;
     }
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public UinitOfMeasure symbol(String symbol) {
+        this.symbol = symbol;
+        return this;
     }
 
 }

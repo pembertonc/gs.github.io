@@ -23,12 +23,22 @@ public class Measure {
         this.value = value;
     }
 
+    public Measure value(String value) {
+        this.value = value;
+        return this;
+    }
+
     public UinitOfMeasure getUinitOfMeasure() {
         return uinitOfMeasure;
     }
 
     public void setUinitOfMeasure(UinitOfMeasure uinitOfMeasure) {
         this.uinitOfMeasure = uinitOfMeasure;
+    }
+
+    public Measure uinitOfMeasure(UinitOfMeasure uinitOfMeasure) {
+        this.uinitOfMeasure = uinitOfMeasure;
+        return this;
     }
 
 }
