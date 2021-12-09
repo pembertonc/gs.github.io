@@ -45,6 +45,9 @@ limitations under the License.
                             </select>
                             <label>Customer</label>
                         </div>
+                        
+                        
+                        
                         <div class="w3-mobile w3-quarter w3-panel">
                             <input id="turnedInDate" wicket:id="turnedInDate" class="w3-input"  type="datetime-local"/>
                             <label>Returned Date</label>
@@ -64,6 +67,14 @@ limitations under the License.
                         <button id="checkIn" wicket:id="checkIn" type="submit" class="w3-button w3-green">Check In</button>
                         <button id="cancel" wicket:id="cancel" type="submit" class="w3-button">Cancel</button>
                     </div>
+                    
+                    <div class="w3-center w3-panel w3-dark-gray">
+                        <input id="cylinderDropDownChoice" wicket:id="cylinderDropDownChoice" class="w3-input" type="submit" />
+                        <label>Turned In By</label><br/>
+                        
+                    </div>
+                    
+                        
                 </form>
             </div>
         </wicket:extend>
