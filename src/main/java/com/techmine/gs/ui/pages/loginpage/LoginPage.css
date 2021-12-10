@@ -40,11 +40,12 @@ form {
 }
 
 
-/* Login Avatar alignment*/ 
+/* Login Avatar alignment 
 .imgcontainer{
     text-align: center;
     margin: 48px 0 24px 0;
 }
+*/
 
 .Avatar{
     width: 150px;

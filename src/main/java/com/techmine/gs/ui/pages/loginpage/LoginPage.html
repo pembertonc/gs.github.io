@@ -25,30 +25,33 @@ limitations under the License.
     </head>
 
     <body>
-        <div>TODO write content</div>
-
         <!-- Centers Login Page -->
         <div class="w3-display-middle"> 
 
             <!-- Login Page company logo icon -->
-            <div class="imgcontainer">
-                <h1>Please Login</h1>
-                <img src="logo.png" alt="Avatar" class="Avatar">
-            </div>
-
-            <!-- Login Page Credentials input layout -->
+            <!-- logo image container -->
+            <h1>Please Login</h1>
+            <p><span class="w3-circle w3-margin-left w3-white"><img src="logo.png" alt="Avatar" class="Avatar"></span></p>
+  
+            <!-- Login Page Credentials input layout-->
             <form action="/action_page.java" method="post">  
-                <label for="username"> <b> Username </b> </label>
-                <input type="text" placeholder="Enter Username" name="username" required>
-                <br><br>
-                <label for="password"> <b> Password </b> </label>
-                <input type="password" placeholder="Enter Password" name="password" required>
-                <br><br>
-                <button type="submit"> Login </button>
-                <br><br>
-                <label>
-                    <input type="checkbox" checked="checked" name="rememberMe"> Remember Me
-                </label>
+
+                <div>
+                    <label for="username"> <b> Username </b> </label>
+                    <input id="username" type="text" placeholder="Enter Username" name="username" required>
+                </div> <br><br>
+                <div>
+                    <label for="password"> <b> Password </b> </label>
+                    <input  id="password" type="password" placeholder="Enter Password" name="password" required>
+                </div><br><br>
+                <div>
+                    <button type="submit"> Login </button>
+                </div><br><br>
+                <div>
+                    <label>
+                        <input type="checkbox" checked="checked" name="rememberMe"> Remember Me
+                    </label>
+                </div>
             </form> 
         </div>
     </body>
