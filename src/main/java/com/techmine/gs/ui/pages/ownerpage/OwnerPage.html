@@ -23,50 +23,53 @@ limitations under the License.
         <style> input { max-width: 300px; } </style> 
     </head>
     <body>
-
-        <form class="w3-display-topmiddle">
+    <wicket:extend>
+        <form wicket:id="form" class="w3-display-topmiddle">
             <header>
-
                 <h2>Owner Information</h2>
             </header>
             <div class="w3-container">
-                <label class="txtLabel">Institution Name</label><br>
-                <input class="w3-input" type="text"/>
 
+                <label class="txtLabel">Institution Name</label><br>
+                <input wicket:id="institutionName" class="w3-input" type="text"/>
                 <br>
 
                 <label>Street 1</label><br>
-                <input class="w3-input" type="text" placeholder="Street address, Company name, P.O. Box, c/o"/>
+                <input  wicket:id="street1" class="w3-input" type="text" placeholder="Street address, Company name, P.O. Box, c/o"/>
                 <br>
 
                 <label>Street 2</label><br>
-                <input class="w3-input" type="text" placeholder="Apt, Suite, Building, Unit, Floor, etc."/>
+                <input  wicket:id="street2" class="w3-input" type="text" placeholder="Apt, Suite, Building, Unit, Floor, etc."/>
                 <br>
 
                 <label>City</label><br>
-                <input class="w3-input" type="text"/>
+                <input  wicket:id="city" class="w3-input" type="text"/>
                 <br>
 
                 <label>Country</label><br>
-                <input class="w3-input" type="text"/>
+                <input wicket:id="country" class="w3-input" type="text"/>
                 <br>
 
-                <label>Telephone</label><br>
-                <input class="w3-input" type="tel"/>
+                <label>Telephone 1</label><br>
+                <input wicket:id="telephone1" class="w3-input" type="text"/>
+                <br>
+
+                <label>Telephone 2</label><br>
+                <input wicket:id="telephone2" class="w3-input" type="text"/>
                 <br>
 
                 <label>Email</label><br>
-                <input class="w3-input" type="text"/>
+                <input wicket:id="email" class="w3-input" type="text"/>
                 <br>
-                
+
                 <label>First Name</label><br>
                 <input wicket:id="firstName" class="w3-input" type="text"/>
                 <br>
-                
+
                 <label>Family Name</label><br>
                 <input wicket:id="familyName" class="w3-input" type="text"/>
                 <br>
-                
+
                 <label>Other Name</label><br>
                 <input wicket:id="otherName" class="w3-input" type="text"/>
                 <br>
@@ -79,6 +82,6 @@ limitations under the License.
             </footer>
 
         </form> 
-
-    </body>
+    </wicket:extend>
+</body>
 </html>
