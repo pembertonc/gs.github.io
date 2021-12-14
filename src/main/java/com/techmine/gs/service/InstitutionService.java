@@ -15,10 +15,27 @@
  */
 package com.techmine.gs.service;
 
+import com.techmine.gs.domain.Institution;
+import com.techmine.gs.repository.InstitutionRepository;
+import java.util.List;
+import javax.inject.Inject;
+
 /**
  *
  * @author Cedric Pemberton
  */
 public class InstitutionService {
 
+    @Inject
+    private InstitutionRepository institutionRepository;
+
+    public List<Institution> institutions() {
+
+        return this.institutionRepository.findAll();
+
+    }
+
+    public void create(Institution inst) {
+        this.institutionRepository.create(inst);
+    }
 }
