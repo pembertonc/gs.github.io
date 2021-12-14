@@ -15,10 +15,12 @@
  */
 package com.techmine.gs.ui.pages.ownerpage;
 
+import com.techmine.gs.domain.Institution;
 import com.techmine.gs.ui.pages.BasePage;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.PropertyModel;
 
 /**
  *
@@ -26,8 +28,8 @@ import org.apache.wicket.markup.html.form.TextField;
  */
 public class OwnerPage extends BasePage {
 
-    private Object owner;
-    private TextField name;
+    private Institution owner;
+    private TextField institutionName;
     private TextField street1;
     private TextField street2;
     private TextField city;
@@ -46,15 +48,16 @@ public class OwnerPage extends BasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        if (owner == null) {
+            owner = new Institution();
+        }
 
+        // owner = Objects.requireNonNullElseGet(owner, Institution::new);
         initializeForm();
         add(form);
 
-        initializeOwner();
-        form.add(owner);
-
-        initializeName();
-        form.add(name);
+        initializeInstitutionName();
+        form.add(institutionName);
         initializeStreet1();
         form.add(street1);
         initializeStreet2();
@@ -76,50 +79,46 @@ public class OwnerPage extends BasePage {
     }
 
     private void initializeForm() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void initializeOwner() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void initializeName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.institutionName = new TextField("institutionName", PropertyModel.of(owner, "institutionName"));
     }
 
     private void initializeStreet1() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.street1 = new TextField("street1", PropertyModel.of(owner, "contact:address:street1"));
     }
 
     private void initializeStreet2() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.street2 = new TextField("street2", PropertyModel.of(owner, "contact:address:street2"));
     }
 
     private void initializeCity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.city = new TextField("city", PropertyModel.of(owner, "contact:address:city"));
     }
 
     private void initializeTelephone1() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.telephone1 = new TextField("telephone1", PropertyModel.of(owner, "contact:person:telephone1"));
     }
 
     private void initializeTelephone2() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.telephone2 = new TextField("telephone2", PropertyModel.of(owner, "contact:person:telephone2"));
     }
 
     private void initializeEmail() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.email = new TextField("email", PropertyModel.of(owner, "contact:person:email"));
     }
 
     private void initializeFirstName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.firstName = new TextField("firstName", PropertyModel.of(owner, "contact:person:firstName"));
     }
 
     private void initializeFamilyName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.familyName = new TextField("familyName", PropertyModel.of(owner, "contact:person:familyName"));
     }
 
     private void initializeOtherName() {
+        this.otherName = new TextField("otherName", PropertyModel.of(owner, "contact:person:otherName"));
+    }
+
+    private void initializeInstitutionName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
