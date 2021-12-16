@@ -43,7 +43,7 @@ public class OwnerPage extends WebPage {
     private TextField familyName;
     private TextField otherName;
 
-    private Form<Void> form;
+    private Form<Institution> form;
 
     private AjaxFallbackButton save;
     private AjaxFallbackButton cancel;
@@ -148,7 +148,7 @@ public class OwnerPage extends WebPage {
     }
 
     private void initializeForm() {
-        form = new Form<>("form", CompoundPropertyModel.of(owner));
+        form = new Form<Institution>("form", CompoundPropertyModel.of(owner));
     }
 
     private void initializeSave() {
