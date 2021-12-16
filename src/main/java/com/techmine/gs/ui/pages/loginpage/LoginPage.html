@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+Copyright 2021 NTRC.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+        <link rel="stylesheet" href="LoginPage.css"/>
+        <link rel="stylesheet" href="../../../../../../../webapp/resources/css/www.w3schools.com_w3css_4_w3.css" type="text/css"/>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <!-- Centers Login Page -->
+        <div class="w3-display-middle"> 
+
+            <!-- Login Page company logo icon -->
+            <!-- logo image container -->
+            <h1>Please Login</h1>
+            <p><span class="w3-circle w3-margin-left w3-white"><img src="logo.png" alt="Avatar" class="Avatar"></span></p>
+  
+            <!-- Login Page Credentials input layout-->
+            <form action="/action_page.java" method="post">  
+
+                <div>
+                    <label for="username"> <b> Username </b> </label>
+                    <input id="username" type="text" placeholder="Enter Username" name="username" required>
+                </div> <br><br>
+                <div>
+                    <label for="password"> <b> Password </b> </label>
+                    <input  id="password" type="password" placeholder="Enter Password" name="password" required>
+                </div><br><br>
+                <div>
+                    <button type="submit"> Login </button>
+                </div><br><br>
+                <div>
+                    <label>
+                        <input type="checkbox" checked="checked" name="rememberMe"> Remember Me
+                    </label>
+                </div>
+            </form> 
+        </div>
+    </body>
+</html>
+
