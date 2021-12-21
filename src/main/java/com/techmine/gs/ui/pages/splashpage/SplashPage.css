@@ -1,0 +1,261 @@
+/*
+Copyright 2021 Work.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+/*
+    Created on : Dec 13, 2021, 7:34:48 AM
+    Author     : Work
+*/
+
+.wrapper {
+    display: flex;
+    height: 100vh;
+    font-family: Roboto;
+}
+
+.sidebar {
+    position: fixed;
+    z-index: 30;
+    top: 0px;
+    bottom: 0px;
+    left: 0;
+    width: 16rem;
+    background-color: #1a202c;
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    overflow-y: auto;
+}
+
+@media only screen and (min-width: 992px) {
+    div.sidebar {
+        transform: translateX(0px);
+        transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .sidebar_overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: #000;
+        opacity: 0.5;
+        z-index: 20;
+        transition-property: opacity;
+    }
+}
+
+.sidebar_open {
+    transform: translateX(0px);
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+.sidebar_close {
+    transform: translateX(-16rem);
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.sidebar_menu {
+    margin-top: 2.5rem;
+}
+.sidebar .link_text {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+}
+.sidebar_menu .link {
+    color: #a0aec0;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    text-decoration: none;
+    font-weight: lighter;
+    line-height: 1.5;
+}
+.sidebar_menu .link_selected {
+    background-color: rgba(74, 85, 104, 0.25);
+    --bg-opacity: 0.25;
+    font-weight: normal;
+    color: #fff;
+}
+
+.logo_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.logo_wrapper_inner {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar_logo_icon {
+    width: 3rem;
+    height: 3rem;
+}
+.sidebar_icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.sidebar_logo_text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    font-family: system-ui;
+}
+
+/* Right side */
+
+.right_content_wrap {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+}
+
+.right_content_wrap .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1.5rem;
+    background-color: #fff;
+    box-shadow: 0px 11px 16px -12px rgb(0 0 0 / 54%);
+}
+.right_content_wrap .header .wrap {
+    display: flex;
+    align-items: center;
+}
+
+.btn_mobile_switcher {
+    color: #a0aec0;
+    background-color: transparent;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.btn_mobile_switcher:focus {
+    border: none;
+}
+
+.profile_nav {
+    display: flex;
+    align-items: center;
+}
+.profile_nav_button {
+    display: flex;
+    color: #718096;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: transparent;
+}
+
+.profile_img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.btn_profile {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 9999px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+    background-color: transparent;
+    padding: 0;
+    border: none;
+}
+.btn_profile :focus {
+    outline: none;
+}
+
+.display_object {
+    display: block;
+}
+
+.hide_object {
+    display: none;
+}
+
+.relative {
+    position: relative;
+}
+
+.main_content_wrapper {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    max-width: 640px;
+}
+/* dropdownOpen */
+.dropdownOpen {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+}
+
+.dropdownOpen_inner {
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 12rem;
+    border-radius: 0.375rem;
+    background-color: #fff;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 10%),
+        0 10px 10px -5px rgb(0 0 0 / 10%);
+    overflow: hidden;
+    z-index: 10;
+}
+
+.dropdownOpen_links {
+    display: block;
+    color: rgb(74, 85, 104);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+}
+
+.dropdownOpen_inner a:hover {
+    background-color: coral;
+    color: white;
+}

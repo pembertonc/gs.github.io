@@ -13,17 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.pages.authenticated_base_page;
-
-import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
+package com.techmine.gs.ui.pages.splashpage;
 
 /**
  *
  * @author Work
  */
-public class AuthenticatedBasePage extends UnAuthenticatedBasePage {
-
-    public AuthenticatedBasePage() {
-    }
+public class SplashPage {
 
 }
