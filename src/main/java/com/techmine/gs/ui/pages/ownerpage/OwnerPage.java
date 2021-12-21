@@ -16,6 +16,7 @@
 package com.techmine.gs.ui.pages.ownerpage;
 
 import com.techmine.gs.domain.Institution;
+import com.techmine.gs.ui.pages.authenticated_base_page.AuthenticatedBasePage;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -61,38 +62,37 @@ public class OwnerPage extends AuthenticatedBasePage {
 
         initializeInstitutionName();
         form.add(new TextField("institutionName").setRequired(true));
-        
+
         initializeStreet1();
         form.add(new TextField("street1").setRequired(true));
-        
+
         initializeStreet2();
         form.add(street2);
-       
+
         initializeCity();
         form.add(new TextField("city").setRequired(true));
-       
+
         initializeCountry();
         form.add(new TextField("country").setRequired(true));
-        
+
         initializeTelephone1();
         form.add(new TextField("telephone1").setRequired(true));
-        
+
         initializeTelephone2();
         form.add(telephone2);
-       
+
         initializeEmail();
         form.add(email);
-        
+
         initializeFirstName();
         form.add(new TextField("firstName").setRequired(true));
-        
+
         initializeFamilyName();
         form.add(new TextField("familyName").setRequired(true));
-       
+
         initializeOtherName();
         form.add(otherName);
-        
-        
+
     }
 
     private void initializeStreet1() {
@@ -132,7 +132,7 @@ public class OwnerPage extends AuthenticatedBasePage {
     }
 
     private void initializeInstitutionName() {
-       this.institutionName = new TextField("institutionName", PropertyModel.of(owner, "institutionName"));
+        this.institutionName = new TextField("institutionName", PropertyModel.of(owner, "institutionName"));
     }
 
     private void initializeCountry() {
