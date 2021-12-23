@@ -14,72 +14,79 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
     <head>
         <title>Layout gas type</title>
         <meta charset="UTF-8">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    </head>
-    <body>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+                    <style> 
+                        input { 
+                            max-width: 300px; 
+                        } 
 
-        <form class="w3-display-topmiddle">
-            <header>
+                    </style>
+                    </head>
+                    <body>
+                        <wicket:extend>
+                            <form class="w3-display-topmiddle">
+                                <header>
 
-                <h2>Gas Layout</h2>
-            </header>
-            <div class="w3-container">
-                <label class="txtLabel">Gas name</label><br>
-                <input class="w3-input" type="text"/>
+                                    <h2>Gas Layout</h2>
+                                </header>
+                                
 
-                <br>
+                                    <label>Gas name</label>
+                                    <input class="w3-input" type="text"/>
+                                </div>    
 
-                <label>Symbol</label><br>
-                <input class="w3-input" type="text"/>
-                <br>
-
-
-
-            </div>
-            <br>
-            <br>
-            <footer class="w3-panel w3-blue-gray w3-center">
-                <button class="w3-button">Save</button>
-                <button class="w3-button">Cancel</button>
-            </footer>
-
-            <table>
-                <tr>
-                    <th>Gas name</th>
-                    <th>Symbol</th>
-
-                </tr>
-                <tr>
-                    <td>Oxygen</td>
-                    <td>O</td>
-
-                </tr>
-                <tr>   
-                    <td>Argon</td>
-                    <td>Ar</td>
-
-                </tr>
-
-                <tr>   
-                    <td>Carbon Dioxide</td>
-                    <td>CO2</td>
-
-                </tr>
-            </table>
-            
-            <footer class="w3-panel w3-blue-gray w3-center">
-                <button class="w3-button">Edit</button>
-                <button class="w3-button">Delete</button>
-            </footer>
-            
-        </form> 
+                                <div>
+                                    <label>Symbol</label> 
+                                    <input class="w3-input" type="text"/>
+                                </div>
 
 
-    </body>
-</html>
+                                <footer class="w3-panel w3-blue-gray w3-center">
+                                    <button class="w3-button">Save</button>
+                                    <button class="w3-button">Cancel</button>
+                                </footer>
+
+                                <table>
+                                    <tr> 
+                                        <th> </th>
+                                        <th>Gas name</th>
+                                        <th>Symbol</th>
+
+                                    </tr>
+                                    <tr>
+                                        <td> <input type="checkbox"/></td>
+                                        <td> Oxygen</td>
+                                        <td> O</td>
+
+                                    </tr>
+                                    <tr>   
+                                        <td><input type="checkbox"/></td>
+                                        <td> Argon</td>
+                                        <td> Ar</td>
+
+                                    </tr>
+
+                                    <tr>   
+                                        <td><input type="checkbox"/></td>
+                                        <td> Carbon Dioxide</td>
+                                        <td> CO2</td>
+
+                                    </tr>
+                                </table>
+
+                                <footer class="w3-panel w3-blue-gray w3-center">
+                                    <button class="w3-button">Edit</button>
+                                    <button class="w3-button">Delete</button>
+                                </footer>
+
+                            </form> 
+                        </wicket:extend>
+
+                    </body>
+                    </html>
