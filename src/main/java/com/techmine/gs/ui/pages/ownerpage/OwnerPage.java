@@ -16,10 +16,10 @@
 package com.techmine.gs.ui.pages.ownerpage;
 
 import com.techmine.gs.domain.Institution;
-import com.techmine.gs.ui.pages.authenticated_base_page.AuthenticatedBasePage;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.FormComponent;
+
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
@@ -28,21 +28,23 @@ import org.apache.wicket.model.PropertyModel;
  *
  * @author bethy
  */
-public class OwnerPage extends AuthenticatedBasePage {
+public class OwnerPage extends WebPage {
 
     private Institution owner;
-    private FormComponent institutionName;
-    private FormComponent street1;
-    private FormComponent street2;
-    private FormComponent country;
-    private FormComponent city;
-    private FormComponent email;
-    private FormComponent telephone1;
-    private FormComponent telephone2;
-    private FormComponent firstName;
-    private FormComponent familyName;
-    private FormComponent otherName;
+    private TextField institutionName;
+    private TextField street1;
+    private TextField street2;
+    private TextField country;
+    private TextField city;
+    private TextField email;
+    private TextField telephone1;
+    private TextField telephone2;
+    private TextField firstName;
+    private TextField familyName;
+    private TextField otherName;
+
     private Form<Institution> form;
+
     private AjaxFallbackButton save;
     private AjaxFallbackButton cancel;
 
@@ -61,22 +63,22 @@ public class OwnerPage extends AuthenticatedBasePage {
         add(form);
 
         initializeInstitutionName();
-        form.add(institutionName);
+        form.add(new TextField("institutionName").setRequired(true));
 
         initializeStreet1();
-        form.add(street1);
+        form.add(new TextField("street1").setRequired(true));
 
         initializeStreet2();
         form.add(street2);
 
         initializeCity();
-        form.add(city);
+        form.add(new TextField("city").setRequired(true));
 
         initializeCountry();
-        form.add(country);
+        form.add(new TextField("country").setRequired(true));
 
         initializeTelephone1();
-        form.add(telephone1);
+        form.add(new TextField("telephone1").setRequired(true));
 
         initializeTelephone2();
         form.add(telephone2);
@@ -85,37 +87,36 @@ public class OwnerPage extends AuthenticatedBasePage {
         form.add(email);
 
         initializeFirstName();
-        form.add(firstName);
+        form.add(new TextField("firstName").setRequired(true));
 
         initializeFamilyName();
-        form.add(familyName);
+        form.add(new TextField("familyName").setRequired(true));
 
         initializeOtherName();
         form.add(otherName);
 
+        initializeSave();
+        form.add(save);
+
+        initializeCancel();
+        form.add(cancel);
+
     }
 
     private void initializeStreet1() {
-        this.street1 = new TextField("street1", PropertyModel
-                .of(owner, "contact:address:street1"))
-                .setRequired(true);
+        this.street1 = new TextField("street1", PropertyModel.of(owner, "contact:address:street1"));
     }
 
     private void initializeStreet2() {
-        this.street2 = new TextField("street2", PropertyModel
-                .of(owner, "contact:address:street2"));
+        this.street2 = new TextField("street2", PropertyModel.of(owner, "contact:address:street2"));
     }
 
     private void initializeCity() {
-        this.city = new TextField("city", PropertyModel
-                .of(owner, "contact:address:city"))
-                .setRequired(true);
+        this.city = new TextField("city", PropertyModel.of(owner, "contact:address:city"));
     }
 
     private void initializeTelephone1() {
-        this.telephone1 = new TextField("telephone1", PropertyModel
-                .of(owner, "contact:person:telephone1"))
-                .setRequired(true);
+        this.telephone1 = new TextField("telephone1", PropertyModel.of(owner, "contact:person:telephone1"));
     }
 
     private void initializeTelephone2() {
@@ -127,15 +128,11 @@ public class OwnerPage extends AuthenticatedBasePage {
     }
 
     private void initializeFirstName() {
-        this.firstName = new TextField("firstName", PropertyModel
-                .of(owner, "contact:person:firstName"))
-                .setRequired(true);
+        this.firstName = new TextField("firstName", PropertyModel.of(owner, "contact:person:firstName"));
     }
 
     private void initializeFamilyName() {
-        this.familyName = new TextField("familyName", PropertyModel
-                .of(owner, "contact:person:familyName"))
-                .setRequired(true);
+        this.familyName = new TextField("familyName", PropertyModel.of(owner, "contact:person:familyName"));
     }
 
     private void initializeOtherName() {
@@ -143,18 +140,25 @@ public class OwnerPage extends AuthenticatedBasePage {
     }
 
     private void initializeInstitutionName() {
-        this.institutionName = new TextField("institutionName", PropertyModel.of(owner, "institutionName"))
-                .setRequired(true);
+        this.institutionName = new TextField("institutionName", PropertyModel.of(owner, "institutionName"));
     }
 
     private void initializeCountry() {
-        this.country = new TextField("country", PropertyModel
-                .of(owner, "contact:address:country"))
-                .setRequired(true);
+        this.country = new TextField("country", PropertyModel.of(owner, "contact:address:country"));
     }
 
     private void initializeForm() {
-        this.form = new Form<>("form", CompoundPropertyModel.of(owner));
+        form = new Form<Institution>("form", CompoundPropertyModel.of(owner));
+    }
+
+    private void initializeSave() {
+        save = new AjaxFallbackButton("save", form) {
+        };
+    }
+
+    private void initializeCancel() {
+        cancel = new AjaxFallbackButton("cancel", form) {
+        };
     }
 
 }
