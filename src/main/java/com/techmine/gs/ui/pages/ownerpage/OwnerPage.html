@@ -14,74 +14,83 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
     <head>
         <title>Owner Page</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <style> input { max-width: 300px; } </style> 
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+        <link href="../../../../../../../webapp/resources/css/www.w3schools.com_w3css_4_w3.css" rel="stylesheet" type="text/css"/>
+        <style>
+            input {
+                max-width: 300px;
+            }
+        </style>
     </head>
     <body>
-    <wicket:extend>
-        <form wicket:id="form" class="w3-display-topmiddle">
-            <header>
-                <h2>Owner Information</h2>
-            </header>
-            <div class="w3-container">
+        <wicket:extend>
+            <form wicket:id="form" class="w3-display-topmiddle">
+                <header>
+                    <h2>Owner Information</h2>
+                </header>
+                <div class="w3-container">
+                    <div class="w3-margin-16">
+                        <label>Institution Name</label>
+                        <input wicket:id="institutionName" class="w3-input" type="text"/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Street 1</label>
+                        <input  wicket:id="street1" class="w3-input" type="text" placeholder="Street address, Company name, P.O. Box, c\/o"/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Street 2</label>
+                        <input  wicket:id="street2" class="w3-input" type="text" placeholder="Apt, Suite, Building, Unit, Floor, etc."/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>City</label><br/>
+                        <input  wicket:id="city" class="w3-input" type="text"/>
 
-                <label class="txtLabel">Institution Name</label><br>
-                <input wicket:id="institutionName" class="w3-input" type="text"/>
-                <br>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Country</label><br/>
+                        <input wicket:id="country" class="w3-input" type="text"/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Telephone 1</label><br/>
+                        <input wicket:id="telephone1" class="w3-input" type="text"/>
+                    </div >
+                    <div class="w3-margin-16">
+                        <label>Telephone 2</label>
+                        <input wicket:id="telephone2" class="w3-input" type="text"/>
 
-                <label>Street 1</label><br>
-                <input  wicket:id="street1" class="w3-input" type="text" placeholder="Street address, Company name, P.O. Box, c/o"/>
-                <br>
+                    </div >
+                    <div class="w3-margin-16">  <label>Email</label>
+                        <input wicket:id="email" class="w3-input" type="text"/>
 
-                <label>Street 2</label><br>
-                <input  wicket:id="street2" class="w3-input" type="text" placeholder="Apt, Suite, Building, Unit, Floor, etc."/>
-                <br>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>First Name</label>
+                        <input wicket:id="firstName" class="w3-input" type="text"/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Family Name</label>
+                        <input wicket:id="familyName" class="w3-input" type="text"/>
+                    </div>
 
-                <label>City</label><br>
-                <input  wicket:id="city" class="w3-input" type="text"/>
-                <br>
-
-                <label>Country</label><br>
-                <input wicket:id="country" class="w3-input" type="text"/>
-                <br>
-
-                <label>Telephone 1</label><br>
-                <input wicket:id="telephone1" class="w3-input" type="text"/>
-                <br>
-
-                <label>Telephone 2</label><br>
-                <input wicket:id="telephone2" class="w3-input" type="text"/>
-                <br>
-
-                <label>Email</label><br>
-                <input wicket:id="email" class="w3-input" type="text"/>
-                <br>
-
-                <label>First Name</label><br>
-                <input wicket:id="firstName" class="w3-input" type="text"/>
-                <br>
-
-                <label>Family Name</label><br>
-                <input wicket:id="familyName" class="w3-input" type="text"/>
-                <br>
-
-                <label>Other Name</label><br>
-                <input wicket:id="otherName" class="w3-input" type="text"/>
-                <br>
-            </div>
-            <br>
-            <br>
-            <footer class="w3-panel w3-blue-gray w3-center">
-                <button class="w3-button">Save</button>
-                <button class="w3-button">Cancel</button>
-            </footer>
-
-        </form> 
-    </wicket:extend>
-</body>
+                    <div class="w3-margin-16">
+                        <label>Other Name</label>
+                        <input wicket:id="otherName" class="w3-input" type="text"/>
+                    </div>
+                    <footer class="w3-container w3-gray w3-center w3-bar w3-row">
+                        <div class="w3-half">
+                            <button class="w3-button w3-green">Save</button>
+                        </div>
+                        <div class="w3-half">
+                            <button class="w3-button w3-red">Cancel</button>
+                        </div>
+                    </footer>
+                </div>
+            </form>
+        </wicket:extend>
+    </body>
 </html>

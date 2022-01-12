@@ -35,27 +35,28 @@ import org.junit.jupiter.api.Test;
  * @author CodeCamp4
  */
 public class CylinderCheckInPageTest {
-    
+
     private WicketTester tester;
+
     public CylinderCheckInPageTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
         tester = new WicketTester(new WicketApplication());
     }
-    
+
     @AfterEach
     public void tearDown() {
-        
+
     }
 
     /**
@@ -69,51 +70,51 @@ public class CylinderCheckInPageTest {
     // TODO review the generated test code and remove the default call to fail.
     fail("The test case is a prototype.");
     }
-    */
-    
+     */
     @Test
-    public void testCylinderCheckInFormRendered(){
+    public void testCylinderCheckInFormRendered() {
         tester.startPage(CylinderCheckInPage.class);
         tester.assertComponent("cylinderCheckInForm", Form.class);
     }
-    
+
     @Test
-    public void testSerialNumberInputRendered(){
+    public void testSerialNumberInputRendered() {
         tester.startPage(CylinderCheckInPage.class);
         tester.assertComponent("cylinderCheckInForm:serialNo", TextField.class);
     }
-    
+
     @Test
-    public void testCustomerDropDownChoiceRendered(){
+    public void testCustomerDropDownChoiceRendered() {
         tester.startPage(CylinderCheckInPage.class);
-        tester.assertComponent("cylinderCheckInForm:customer", DropDownChoice.class);
+        tester.assertComponent("cylinderCheckInForm:selectCustomer", DropDownChoice.class);
     }
-    
+
     @Test
-    public void testReturnedDateRendered(){
+    public void testReturnedDateRendered() {
         tester.startPage(CylinderCheckInPage.class);
         tester.assertComponent("cylinderCheckInForm:turnedInDate", DateTextField.class);
     }
-    
+
     @Test
-    public void testCheckedInByRendered(){
+    public void testCheckedInByRendered() {
         tester.startPage(CylinderCheckInPage.class);
         tester.assertComponent("cylinderCheckInForm:checkedInBy", TextField.class);
     }
-    
+
     @Test
-    public void testBroughtInByRendered(){
+    public void testBroughtInByRendered() {
         tester.startPage(CylinderCheckInPage.class);
         tester.assertComponent("cylinderCheckInForm:broughtInBy", TextField.class);
     }
+
     @Test
-    public void testCheckInButtonRendered(){
+    public void testCheckInButtonRendered() {
         tester.startPage(CylinderCheckInPage.class);
         tester.assertComponent("cylinderCheckInForm:checkIn", AjaxFallbackButton.class);
     }
-    
+
     @Test
-    public void testCancelButtonRendered(){
+    public void testCancelButtonRendered() {
         tester.startPage(CylinderCheckInPage.class);
         tester.assertComponent("cylinderCheckInForm:cancel", AjaxFallbackButton.class);
     }

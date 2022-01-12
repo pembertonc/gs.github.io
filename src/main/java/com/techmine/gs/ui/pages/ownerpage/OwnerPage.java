@@ -19,7 +19,9 @@ import com.techmine.gs.domain.Institution;
 import com.techmine.gs.ui.pages.authenticated_base_page.AuthenticatedBasePage;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 
 /**
@@ -29,20 +31,18 @@ import org.apache.wicket.model.PropertyModel;
 public class OwnerPage extends AuthenticatedBasePage {
 
     private Institution owner;
-    private TextField institutionName;
-    private TextField street1;
-    private TextField street2;
-    private TextField country;
-    private TextField city;
-    private TextField email;
-    private TextField telephone1;
-    private TextField telephone2;
-    private TextField firstName;
-    private TextField familyName;
-    private TextField otherName;
-
-    private Form<Void> form;
-
+    private FormComponent institutionName;
+    private FormComponent street1;
+    private FormComponent street2;
+    private FormComponent country;
+    private FormComponent city;
+    private FormComponent email;
+    private FormComponent telephone1;
+    private FormComponent telephone2;
+    private FormComponent firstName;
+    private FormComponent familyName;
+    private FormComponent otherName;
+    private Form<Institution> form;
     private AjaxFallbackButton save;
     private AjaxFallbackButton cancel;
 
@@ -61,22 +61,22 @@ public class OwnerPage extends AuthenticatedBasePage {
         add(form);
 
         initializeInstitutionName();
-        form.add(new TextField("institutionName").setRequired(true));
+        form.add(institutionName);
 
         initializeStreet1();
-        form.add(new TextField("street1").setRequired(true));
+        form.add(street1);
 
         initializeStreet2();
         form.add(street2);
 
         initializeCity();
-        form.add(new TextField("city").setRequired(true));
+        form.add(city);
 
         initializeCountry();
-        form.add(new TextField("country").setRequired(true));
+        form.add(country);
 
         initializeTelephone1();
-        form.add(new TextField("telephone1").setRequired(true));
+        form.add(telephone1);
 
         initializeTelephone2();
         form.add(telephone2);
@@ -85,10 +85,10 @@ public class OwnerPage extends AuthenticatedBasePage {
         form.add(email);
 
         initializeFirstName();
-        form.add(new TextField("firstName").setRequired(true));
+        form.add(firstName);
 
         initializeFamilyName();
-        form.add(new TextField("familyName").setRequired(true));
+        form.add(familyName);
 
         initializeOtherName();
         form.add(otherName);
@@ -96,19 +96,26 @@ public class OwnerPage extends AuthenticatedBasePage {
     }
 
     private void initializeStreet1() {
-        this.street1 = new TextField("street1", PropertyModel.of(owner, "contact:address:street1"));
+        this.street1 = new TextField("street1", PropertyModel
+                .of(owner, "contact:address:street1"))
+                .setRequired(true);
     }
 
     private void initializeStreet2() {
-        this.street2 = new TextField("street2", PropertyModel.of(owner, "contact:address:street2"));
+        this.street2 = new TextField("street2", PropertyModel
+                .of(owner, "contact:address:street2"));
     }
 
     private void initializeCity() {
-        this.city = new TextField("city", PropertyModel.of(owner, "contact:address:city"));
+        this.city = new TextField("city", PropertyModel
+                .of(owner, "contact:address:city"))
+                .setRequired(true);
     }
 
     private void initializeTelephone1() {
-        this.telephone1 = new TextField("telephone1", PropertyModel.of(owner, "contact:person:telephone1"));
+        this.telephone1 = new TextField("telephone1", PropertyModel
+                .of(owner, "contact:person:telephone1"))
+                .setRequired(true);
     }
 
     private void initializeTelephone2() {
@@ -120,11 +127,15 @@ public class OwnerPage extends AuthenticatedBasePage {
     }
 
     private void initializeFirstName() {
-        this.firstName = new TextField("firstName", PropertyModel.of(owner, "contact:person:firstName"));
+        this.firstName = new TextField("firstName", PropertyModel
+                .of(owner, "contact:person:firstName"))
+                .setRequired(true);
     }
 
     private void initializeFamilyName() {
-        this.familyName = new TextField("familyName", PropertyModel.of(owner, "contact:person:familyName"));
+        this.familyName = new TextField("familyName", PropertyModel
+                .of(owner, "contact:person:familyName"))
+                .setRequired(true);
     }
 
     private void initializeOtherName() {
@@ -132,19 +143,18 @@ public class OwnerPage extends AuthenticatedBasePage {
     }
 
     private void initializeInstitutionName() {
-        this.institutionName = new TextField("institutionName", PropertyModel.of(owner, "institutionName"));
+        this.institutionName = new TextField("institutionName", PropertyModel.of(owner, "institutionName"))
+                .setRequired(true);
     }
 
     private void initializeCountry() {
-        this.country = new TextField("country", PropertyModel.of(owner, "contact:address:country"));
+        this.country = new TextField("country", PropertyModel
+                .of(owner, "contact:address:country"))
+                .setRequired(true);
     }
 
     private void initializeForm() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void add(Form<Void> form) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.form = new Form<>("form", CompoundPropertyModel.of(owner));
     }
 
 }

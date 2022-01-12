@@ -16,7 +16,7 @@
 package com.techmine.gs.ui.pages;
 
 import com.techmine.gs.WicketApplication;
-        
+
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.util.tester.TagTester;
@@ -35,74 +35,75 @@ import org.junit.jupiter.api.Test;
 public class BasePageTest {
 
     private WicketTester tester;
-    
+
     public BasePageTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
+        //here is run once for all test in the test suit.
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
+        // frees all resources started in BeforeAll
     }
-    
+
     @BeforeEach
     public void setUp() {
         tester = new WicketTester(new WicketApplication());
     }
-    
+
     @AfterEach
     public void tearDown() {
+
     }
 
     @Test
-    public void testSomeMethod() {
-       // create and render the page under test.
-       
-       tester.startPage(BasePage.class);
-       
-       
-       tester.assertRenderedPage(BasePage.class);
+    public void testPageRenders() {
+        // create and render the page under test.
+
+        tester.startPage(BasePage.class);
+
+        tester.assertRenderedPage(BasePage.class);
     }
-    
+
     @Test
-    public void testHasGassSupplies(){
+    public void testHasGassSupplies() {
         tester.startPage(BasePage.class);
         String string = tester.getLastResponseAsString();
-        //tester.getLastResponseAsString().contains("Gas Supplies");   
+        //tester.getLastResponseAsString().contains("Gas Supplies");
         tester.assertContains("Gas Supplies");
     }
-    
+
     @Test
-    public void testPageHeaderRendered(){
+    public void testPageHeaderRendered() {
         tester.startPage(BasePage.class);
-        
+
         tester.assertComponent("pageHeader", WebMarkupContainer.class);
-        
+
     }
-    
+
     @Test
-    public void testHeaderTextRendered(){
+    public void testHeaderTextRendered() {
         tester.startPage(BasePage.class);
         tester.assertComponent("pageHeader:headerText", Label.class);
     }
-    
+
     @Test
-    public void testHeaderTextHasCssClasses(){
+    public void testHeaderTextHasCssClasses() {
         tester.startPage(BasePage.class);
         TagTester tagTester = tester.getTagByWicketId("headerText");
-        
+
         assertEquals("w3-wide w3-xlarge", tagTester.getAttribute("class"));
-        
-        
+
     }
-    
+
     @Test
-    public void testPageHeaderCssClassess(){
+    public void testPageHeaderCssClassess() {
         tester.startPage(BasePage.class);
         TagTester tagTester = tester.getTagByWicketId("pageHeader");
-        
+
         assertEquals("w3-container w3-light-green w3-center", tagTester.getAttribute("class"));
     }
 
@@ -112,6 +113,7 @@ public class BasePageTest {
         tester.assertContains("www.w3schools.com_w3css_4_w3");
 
     }
+
     @Test
     public void testStyleLoaded() {
         tester.startPage(BasePage.class);
@@ -119,5 +121,4 @@ public class BasePageTest {
 
     }
 
-    
 }
