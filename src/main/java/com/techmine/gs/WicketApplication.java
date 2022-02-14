@@ -1,7 +1,6 @@
 package com.techmine.gs;
 
-import com.techmine.gs.ui.pages.AddCylinder;
-import com.techmine.gs.ui.pages.LandingPage;
+import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
 import org.apache.wicket.csp.CSPDirective;
 import org.apache.wicket.csp.CSPDirectiveSrcValue;
@@ -21,7 +20,8 @@ public class WicketApplication extends WebApplication {
      */
     @Override
     public Class<? extends WebPage> getHomePage() {
-        return LandingPage.class;
+        return UnAuthenticatedBasePage.class;
+        //return LandingPage.class;
         //return BasePage.class;
         //return HomePage.class;
         //return AddCylinder.class;

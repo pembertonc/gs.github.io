@@ -15,6 +15,7 @@
  */
 package com.techmine.gs.ui.pages.unauthenticated_base_page;
 
+import com.techmine.gs.ui.panels.Menu.MenuPanel;
 import org.apache.wicket.markup.html.WebPage;
 
 /**
@@ -24,6 +25,15 @@ import org.apache.wicket.markup.html.WebPage;
 public class UnAuthenticatedBasePage extends WebPage {
 
     public UnAuthenticatedBasePage() {
+    }
+
+    MenuPanel mainMenu;
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        mainMenu = new MenuPanel("menubar");
+        add(mainMenu);
     }
 
 }

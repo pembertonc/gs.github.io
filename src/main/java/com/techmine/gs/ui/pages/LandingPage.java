@@ -15,10 +15,10 @@
  */
 package com.techmine.gs.ui.pages;
 
+import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
 import java.util.Optional;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
-import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -30,44 +30,46 @@ import org.apache.wicket.model.PropertyModel;
  *
  * @author CodeCamp4
  */
-public class LandingPage extends BasePage{
+public class LandingPage extends UnAuthenticatedBasePage {
+
     Form<?> form;
     String userName;
     String password;
+
     @Override
     protected void onInitialize() {
-        super.onInitialize(); 
+        super.onInitialize();
         form = initializeForm();
         add(form);
-      
+
         form.add(initializeUserName());
         form.add(initializePassword());
-       form.add(initializeSignInButton());
-
+        form.add(initializeSignInButton());
 
     }
 
-    private Button initializeSignInButton(){
-        return new AjaxFallbackButton("signIn", form){
+    private Button initializeSignInButton() {
+        return new AjaxFallbackButton("signIn", form) {
             @Override
             protected void onSubmit(Optional<AjaxRequestTarget> target) {
-                super.onSubmit(target); 
-                if(signIn()){
+                super.onSubmit(target);
+                if (signIn()) {
                     setResponsePage(MainPage.class);
                 }
 
             }
-            
+
         };
     }
-    
-    private boolean signIn(){
+
+    private boolean signIn() {
         return userName.equals(password);
     }
-    private TextField initializePassword(){
+
+    private TextField initializePassword() {
         return new PasswordTextField("password", PropertyModel.of(this, "password"));
     }
-    
+
     private Form<?> initializeForm() {
         return new Form<>("signInForm", CompoundPropertyModel.of(this));
     }
@@ -75,7 +77,5 @@ public class LandingPage extends BasePage{
     private TextField initializeUserName() {
         return new TextField("userName", PropertyModel.of(this, "userName"));
     }
-    
-    
-    
+
 }

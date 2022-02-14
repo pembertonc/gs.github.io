@@ -26,7 +26,7 @@ limitations under the License.
         <header class="w3-container  w3-theme-d1 w3-center">
             <label class="w3-text-light-grey w3-large">Gas Supplies Cylinder Management</label>
         </header>
-        <wicket:panel wicket:id="menubar"></wicket:panel>
+        <div wicket:id="menubar"></div>
 
         <!--header class="w3-panel w3-center w3-green w3-row">
 
@@ -39,14 +39,10 @@ limitations under the License.
 
         </header-->
 
-        <wicket:child/>
+
         <footer class="w3-panel w3-display-bottommiddle">
             <label id="date"></label>
         </footer>
     </body>
 
 </html>
-<script>
-    const d = new Date();
-    document.getElementById("date").innerHTML = d;
-</script>
