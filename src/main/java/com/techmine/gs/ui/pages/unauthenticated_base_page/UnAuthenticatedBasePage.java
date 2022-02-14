@@ -16,7 +16,10 @@
 package com.techmine.gs.ui.pages.unauthenticated_base_page;
 
 import com.techmine.gs.ui.panels.Menu.MenuPanel;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.resource.ContextRelativeResourceReference;
 
 /**
  *
@@ -34,6 +37,24 @@ public class UnAuthenticatedBasePage extends WebPage {
         super.onInitialize();
         mainMenu = new MenuPanel("menubar");
         add(mainMenu);
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        ContextRelativeResourceReference cssFile = new ContextRelativeResourceReference("resources/css/www.w3schools.com_w3css_4_w3", false);
+        CssHeaderItem cssItem = CssHeaderItem.forReference(cssFile);
+        response.render(cssItem);
+        cssFile = new ContextRelativeResourceReference("resources/css/style", false);
+        cssItem = CssHeaderItem.forReference(cssFile);
+        response.render(cssItem);
+
+        // by renaming the theme to w3-theme.css we can swap themes by simply replacing the file and giving it that name.
+        cssFile = new ContextRelativeResourceReference("resources/css/w3-theme.css", false);
+        cssItem = CssHeaderItem.forReference(cssFile);
+        response.render(cssItem);
+
+        cssItem = CssHeaderItem.forUrl("https://fonts.googleapis.com/icon?family=Material+Icons");
+        response.render(cssItem);
     }
 
 }
