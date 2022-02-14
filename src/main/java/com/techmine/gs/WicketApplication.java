@@ -1,6 +1,8 @@
 package com.techmine.gs;
 
 import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
+import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
 import org.apache.wicket.csp.CSPDirective;
 import org.apache.wicket.csp.CSPDirectiveSrcValue;
@@ -13,7 +15,7 @@ import org.apache.wicket.protocol.http.WebApplication;
  *
  * @see com.techmine-inc.Start#main(String[])
  */
-public class WicketApplication extends WebApplication {
+public class WicketApplication extends AuthenticatedWebApplication {
 
     /**
      * @return @see org.apache.wicket.Application#getHomePage()
@@ -46,5 +48,15 @@ public class WicketApplication extends WebApplication {
                 .add(CSPDirective.STYLE_SRC, "https://www.w3schools.com/w3css/4/w3.css");
         // add your configuration here
         new BeanValidationConfiguration().configure(this);
+    }
+
+    @Override
+    protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
+        return CustomAuthenticatedWebSession.class;
+    }
+
+    @Override
+    protected Class<? extends WebPage> getSignInPageClass() {
+        return UnAuthenticatedBasePage.class;
     }
 }
