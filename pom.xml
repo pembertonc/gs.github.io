@@ -41,7 +41,7 @@
         </license>
     </licenses>
     <properties>
-        <wicket.version>9.3.0</wicket.version>
+        <wicket.version>9.8.0</wicket.version>
         <jetty9.version>9.4.38.v20210224</jetty9.version>
         <slf4j.version>1.7.25</slf4j.version>
         <junit.version>5.7.2</junit.version>
@@ -71,7 +71,12 @@
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-bean-validation</artifactId>
-            <version>9.3.0</version>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-auth-roles</artifactId>
+            <version>${wicket.version}</version>
         </dependency>
 
         <!-- LOGGING DEPENDENCIES - SLF4J-SIMPLE -->
@@ -197,7 +202,7 @@
             <version>2.6.0</version>
             <classifier>debug</classifier>
         </dependency>
-
+       
     </dependencies>
     <build>
         <resources>
