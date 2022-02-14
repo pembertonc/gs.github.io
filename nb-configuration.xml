@@ -14,18 +14,6 @@ You can copy and paste the single properties, into the pom.xml file and the IDE 
 That way multiple projects can share the same settings (useful for formatting rules for example).
 Any value defined here will override the pom.xml file value but is only applicable to the current project.
 -->
-        <org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_j2eeVersion>8.0-web</org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_j2eeVersion>
-        <org-netbeans-modules-css-prep.less_2e_mappings>/less:/css</org-netbeans-modules-css-prep.less_2e_mappings>
-        <org-netbeans-modules-css-prep.less_2e_enabled>false</org-netbeans-modules-css-prep.less_2e_enabled>
-        <org-netbeans-modules-css-prep.sass_2e_enabled>false</org-netbeans-modules-css-prep.sass_2e_enabled>
-        <org-netbeans-modules-css-prep.sass_2e_compiler_2e_options/>
-        <org-netbeans-modules-css-prep.less_2e_compiler_2e_options/>
-        <org-netbeans-modules-css-prep.sass_2e_mappings>/scss:/css</org-netbeans-modules-css-prep.sass_2e_mappings>
-        <org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>js/libs</org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>
-        <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
-        <io-github-jeddict-jakarta-ee.repository-data>{"cdi":true,"isNamed":false,"package":"repository","prefixName":"","servicePackage":"service","servicePrefixName":"","serviceSuffixName":"Service","suffixName":"Repository"}</io-github-jeddict-jakarta-ee.repository-data>
-        <io-github-jeddict-cloud-provider.cloud-config-data>{"kubernetesConfigData":{"enabled":false},"openshiftConfigData":{"enabled":false}}</io-github-jeddict-cloud-provider.cloud-config-data>
-        <io-github-jeddict-infra.docker-config-data>{"dataSource":"SampleDS","databaseType":"H2","databaseVersion":"--","dbPassword":"secret","dbUserName":"myuser","dockerActivated":false,"dockerEnable":false,"runtimeProviderClassName":"io.github.jeddict.runtime.PayaraMicro"}</io-github-jeddict-infra.docker-config-data>
-        <org-netbeans-modules-payara-micro.version>5.201</org-netbeans-modules-payara-micro.version>
+        <org-netbeans-modules-payara-micro.version>5.2021.10</org-netbeans-modules-payara-micro.version>
     </properties>
 </project-shared-configuration>
