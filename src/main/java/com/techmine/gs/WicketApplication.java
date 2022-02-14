@@ -8,6 +8,8 @@ import org.apache.wicket.csp.CSPDirective;
 import org.apache.wicket.csp.CSPDirectiveSrcValue;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.protocol.https.HttpsConfig;
+import org.apache.wicket.protocol.https.HttpsMapper;
 
 /**
  * Application object for your web application. If you want to run this
@@ -36,6 +38,10 @@ public class WicketApplication extends AuthenticatedWebApplication {
     @Override
     public void init() {
         super.init();
+
+        // needed to prevent password in clear text.
+        setRootRequestMapper(new HttpsMapper(getRootRequestMapper(),
+                new HttpsConfig(8080, 8181)));
 
         // needed for the styling used by the quickstart
         getCspSettings().blocking()
