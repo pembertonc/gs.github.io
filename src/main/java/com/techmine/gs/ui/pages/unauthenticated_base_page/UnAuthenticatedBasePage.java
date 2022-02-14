@@ -44,10 +44,11 @@ public class UnAuthenticatedBasePage extends WebPage {
 
     @Override
     public void renderHead(IHeaderResponse response) {
-        ContextRelativeResourceReference cssFile = new ContextRelativeResourceReference("resources/css/www.w3schools.com_w3css_4_w3", false);
+        ContextRelativeResourceReference cssFile = new ContextRelativeResourceReference("resources/css/w3.css", false);
         CssHeaderItem cssItem = CssHeaderItem.forReference(cssFile);
         response.render(cssItem);
-        cssFile = new ContextRelativeResourceReference("resources/css/style", false);
+
+        cssFile = new ContextRelativeResourceReference("resources/css/style.css", false);
         cssItem = CssHeaderItem.forReference(cssFile);
         response.render(cssItem);
 

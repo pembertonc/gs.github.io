@@ -16,9 +16,7 @@ limitations under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
     <head>
-        <link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold' rel='stylesheet' type='text/css' />
-        <link href='https://www.w3schools.com/w3css/4/w3.css' rel='stylesheet' type='text/css' />
-        <link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet" />
+
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -27,23 +25,23 @@ limitations under the License.
         <wicket:extend>
             <div class="w3-display-middle w3-card-2">
                 <form id="signInForm" wicket:id="signInForm">
-                <div class="w3-blue w3-center">
-                    <label class="w3-center w3-large">Sign In</label>
-                </div>
-                <div class="w3-row-padding">
-                    <div class="w3-mobile">
-                        <label>User Name</label><br/>
-                        <input id="userName" wicket:id="userName" type="text" class="w3-input"/>
-                    </div> 
-                    <div class="w3-mobile">
-                        <label>Password</label><br/>
-                        <input id="userName" wicket:id="password" type="password" class="w3-input"/>
-                    </div> 
-                    <div class="w3-mobile w3-center">
-                        <button id="signId" wicket:id="signIn" class="w3-button">Login</button>
-                        <button  class="w3-button" type="reset">Clear</button>
+                    <div class="w3-blue w3-center">
+                        <label class="w3-center w3-large">Sign In</label>
                     </div>
-                </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-mobile">
+                            <label>User Name</label><br/>
+                            <input id="userName" wicket:id="userName" type="text" class="w3-input"/>
+                        </div>
+                        <div class="w3-mobile">
+                            <label>Password</label><br/>
+                            <input id="userName" wicket:id="password" type="password" class="w3-input"/>
+                        </div>
+                        <div class="w3-mobile w3-center">
+                            <button id="signId" wicket:id="signIn" class="w3-button">Login</button>
+                            <button  class="w3-button" type="reset">Clear</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </wicket:extend>
