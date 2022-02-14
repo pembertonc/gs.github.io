@@ -16,6 +16,7 @@
 package com.techmine.gs.ui.pages.unauthenticated_base_page;
 
 import com.techmine.gs.ui.panels.Menu.MenuPanel;
+import com.techmine.gs.ui.panels.SignIn.SignInPanel;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
@@ -37,6 +38,8 @@ public class UnAuthenticatedBasePage extends WebPage {
         super.onInitialize();
         mainMenu = new MenuPanel("menubar");
         add(mainMenu);
+
+        add(new SignInPanel("body"));
     }
 
     @Override
