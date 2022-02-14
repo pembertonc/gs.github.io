@@ -20,12 +20,14 @@ import com.techmine.gs.ui.panels.SignIn.SignInPanel;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.protocol.https.RequireHttps;
 import org.apache.wicket.request.resource.ContextRelativeResourceReference;
 
 /**
  *
  * @author Work
  */
+@RequireHttps
 public class UnAuthenticatedBasePage extends WebPage {
 
     public UnAuthenticatedBasePage() {
