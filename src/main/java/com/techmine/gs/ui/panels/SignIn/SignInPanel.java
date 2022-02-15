@@ -13,15 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+ /*  NOTES For Clarification.
+* Notes: The SignIn panel must be stateless,  and be Ajaxified at the same time.
+* Wicket generates non-static ids for components we must set the id or self either in the markup or in the code.
+* Ajax components force a component to be non-static.  to over come this we must overrid eht getStateLessHint() mentod
+* So that it returns true.
+ */
 package com.techmine.gs.ui.panels.SignIn;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
-import org.apache.wicket.protocol.https.RequireHttps;
 
 /**
  *
@@ -29,7 +41,7 @@ import org.apache.wicket.protocol.https.RequireHttps;
  */
 public class SignInPanel extends Panel {
 
-    Form<Void> signInForm;
+    StatelessForm<Void> signInForm;
     private Subject user;
 
     public SignInPanel(String id) {
@@ -43,11 +55,42 @@ public class SignInPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+
+        setMarkupId("signIn");
         user = new Subject();
-        this.signInForm = new Form("signInForm");
+        this.signInForm = (StatelessForm) new StatelessForm<>("signInForm")
+                .setMarkupId("signInForm");  // manually set the markup id for the stateless form.
         add(signInForm);
         signInForm.add(new TextField<>("userName", LambdaModel.of(user::getUserName, user::setUserName)));
         signInForm.add(new PasswordTextField("password", LambdaModel.of(user::getPassword, user::setPassword)));
+
+        signInForm.add(new Label("messageLabel", "something"));
+        Button submit;
+        signInForm.add(submit = new Button("signIn"));
+        submit.add(new AjaxFormSubmitBehavior(this.signInForm, "submit") {
+
+            //Override the getStalessHint mentod to return true so that it does not cause to the component to be statefull.
+            @Override
+            public boolean getStatelessHint(Component component) {
+                return super.getStatelessHint(component); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
+                super.onSubmit(target); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                ((Label) signInForm.get("messageLabel")).setDefaultModelObject("walla walla dumplin");
+                target.add(signInForm.get("messageLabel"));
+            }
+
+            @Override
+            protected void onError(AjaxRequestTarget target) {
+                super.onError(target);
+
+                ((Label) signInForm.get("messageLabel")).setDefaultModelObject("walla walla dumplin");
+                target.add(signInForm.get("messageLabel"));// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+
+        });
 
     }
 
