@@ -22,12 +22,12 @@
  */
 package com.techmine.gs.ui.panels.SignIn;
 
-import org.apache.wicket.Component;
+import java.util.Optional;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
+import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
@@ -44,6 +44,22 @@ public class SignInPanel extends Panel {
     StatelessForm<Void> signInForm;
     private Subject user;
 
+    public StatelessForm<Void> getSignInForm() {
+        return signInForm;
+    }
+
+    public void setSignInForm(StatelessForm<Void> signInForm) {
+        this.signInForm = signInForm;
+    }
+
+    public Subject getUser() {
+        return user;
+    }
+
+    public void setUser(Subject user) {
+        this.user = user;
+    }
+
     public SignInPanel(String id) {
         super(id);
     }
@@ -58,43 +74,59 @@ public class SignInPanel extends Panel {
 
         setMarkupId("signIn");
         user = new Subject();
-        this.signInForm = (StatelessForm) new StatelessForm<>("signInForm")
-                .setMarkupId("signInForm");  // manually set the markup id for the stateless form.
+        this.signInForm = (StatelessForm) new StatelessForm<>("signInForm") {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                setMarkupId("signInForm");
+            }
+
+            @Override
+            protected void onSubmit() {
+                super.onSubmit(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+
+            @Override
+            protected void onError() {
+                super.onError(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+
+            @Override
+            public void onEvent(IEvent<?> event) {
+                super.onEvent(event); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+
+        };
         add(signInForm);
-        signInForm.add(new TextField<>("userName", LambdaModel.of(user::getUserName, user::setUserName)));
-        signInForm.add(new PasswordTextField("password", LambdaModel.of(user::getPassword, user::setPassword)));
+        signInForm.add(new TextField<>("userName", LambdaModel.of(user::getUserName, user::setUserName)).setMarkupId("userName"));
+        signInForm.add(new PasswordTextField("password", LambdaModel.of(user::getPassword, user::setPassword)).setMarkupId("password"));
 
         signInForm.add(new Label("messageLabel", "something"));
+
         Button submit;
-        signInForm.add(submit = new Button("signIn"));
-        submit.add(new AjaxFormSubmitBehavior(this.signInForm, "submit") {
-
-            //Override the getStalessHint mentod to return true so that it does not cause to the component to be statefull.
+        signInForm.add(submit = new AjaxFallbackButton("signIn", this.signInForm) {
             @Override
-            public boolean getStatelessHint(Component component) {
-                return super.getStatelessHint(component); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            protected void onInitialize() {
+                super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                setMarkupId("submit");
+                setDefaultFormProcessing(false);
             }
 
             @Override
-            protected void onSubmit(AjaxRequestTarget target) {
+            protected void onSubmit(Optional<AjaxRequestTarget> target) {
                 super.onSubmit(target); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-                ((Label) signInForm.get("messageLabel")).setDefaultModelObject("walla walla dumplin");
-                target.add(signInForm.get("messageLabel"));
             }
 
             @Override
-            protected void onError(AjaxRequestTarget target) {
-                super.onError(target);
-
-                ((Label) signInForm.get("messageLabel")).setDefaultModelObject("walla walla dumplin");
-                target.add(signInForm.get("messageLabel"));// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            protected void onError(Optional<AjaxRequestTarget> target) {
+                super.onError(target); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
             }
 
         });
 
     }
 
-    private class Subject {
+    public class Subject {
 
         private String userName;
         private String Password;
