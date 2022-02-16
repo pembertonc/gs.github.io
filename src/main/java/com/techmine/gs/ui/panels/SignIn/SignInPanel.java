@@ -22,18 +22,20 @@
  */
 package com.techmine.gs.ui.panels.SignIn;
 
+import com.techmine.gs.ui.panels.Dashboard.Dashboard;
 import java.util.Optional;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.event.IEvent;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.Model;
 
 /**
  *
@@ -43,9 +45,15 @@ public class SignInPanel extends Panel {
 
     StatelessForm<Void> signInForm;
     private Subject user;
+    private IndicatingAjaxButton submit;
+    private Label messageLabel;
 
     public StatelessForm<Void> getSignInForm() {
         return signInForm;
+    }
+
+    private boolean signIn(String userName, String password) {
+        return true;
     }
 
     public void setSignInForm(StatelessForm<Void> signInForm) {
@@ -83,17 +91,12 @@ public class SignInPanel extends Panel {
 
             @Override
             protected void onSubmit() {
-                super.onSubmit(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                super.onSubmit();
             }
 
             @Override
             protected void onError() {
-                super.onError(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-            }
-
-            @Override
-            public void onEvent(IEvent<?> event) {
-                super.onEvent(event); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                super.onError();
             }
 
         };
@@ -101,25 +104,35 @@ public class SignInPanel extends Panel {
         signInForm.add(new TextField<>("userName", LambdaModel.of(user::getUserName, user::setUserName)).setMarkupId("userName"));
         signInForm.add(new PasswordTextField("password", LambdaModel.of(user::getPassword, user::setPassword)).setMarkupId("password"));
 
-        signInForm.add(new Label("messageLabel", "something"));
+        signInForm.add(messageLabel = (Label) new Label("messageLabel", "something").setMarkupId("messageLabel"));
 
-        Button submit;
-        signInForm.add(submit = new AjaxFallbackButton("signIn", this.signInForm) {
+        signInForm.add(submit = new IndicatingAjaxButton("signIn", this.signInForm) {
+
             @Override
             protected void onInitialize() {
-                super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                super.onInitialize();
                 setMarkupId("submit");
                 setDefaultFormProcessing(false);
+
             }
 
             @Override
-            protected void onSubmit(Optional<AjaxRequestTarget> target) {
-                super.onSubmit(target); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            protected void onSubmit(AjaxRequestTarget target) {
+                super.onSubmit(target);
+                messageLabel.setDefaultModel(Model.of("submit clicked on button"));
+
+                target.add(messageLabel);
+                if (signIn(user.userName, user.password)) {
+                    Dashboard db = new Dashboard("body");
+                    this.getPage().replace(db);
+                    target.add(db);
+                };
+
             }
 
             @Override
-            protected void onError(Optional<AjaxRequestTarget> target) {
-                super.onError(target); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            protected void onError(AjaxRequestTarget target) {
+                super.onError(target);
             }
 
         });
@@ -129,7 +142,7 @@ public class SignInPanel extends Panel {
     public class Subject {
 
         private String userName;
-        private String Password;
+        private String password;
 
         public String getUserName() {
             return userName;
@@ -140,11 +153,11 @@ public class SignInPanel extends Panel {
         }
 
         public String getPassword() {
-            return Password;
+            return this.password;
         }
 
-        public void setPassword(String Password) {
-            this.Password = Password;
+        public void setPassword(String password) {
+            this.password = password;
         }
 
     }

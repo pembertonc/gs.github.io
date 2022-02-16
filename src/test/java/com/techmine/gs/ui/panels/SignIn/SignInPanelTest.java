@@ -17,6 +17,7 @@ package com.techmine.gs.ui.panels.SignIn;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
@@ -83,7 +84,7 @@ public class SignInPanelTest {
         SignInPanel panel = tester.startComponentInPage(new SignInPanel("signInPanel"));
         FormTester ft = tester.newFormTester("signInPanel:signInForm");
 
-        AjaxFallbackButton btn = (AjaxFallbackButton) tester.getComponentFromLastRenderedPage("signInPanel:signInForm:signIn");
+        IndicatingAjaxButton btn = (IndicatingAjaxButton) tester.getComponentFromLastRenderedPage("signInPanel:signInForm:signIn");
 
         ft.setValue("userName", "SomeUserName")
                 .setValue("password", "somePassword");
