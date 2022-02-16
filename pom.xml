@@ -44,7 +44,8 @@
         <wicket.version>9.8.0</wicket.version>
         <jetty9.version>9.4.38.v20210224</jetty9.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <junit.version>5.7.2</junit.version>
+        <!--junit.version>5.7.2</junit.version-->
+        <junit.version>5.8.2</junit.version>
         <cdi-unit.version>4.1.0</cdi-unit.version>
         <weld.version>3.1.7.Final</weld.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -83,7 +84,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
+            <version>1.8.0-beta4</version>
         </dependency>
 
         <!--  JUNIT DEPENDENCY FOR TESTING -->
@@ -93,6 +94,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <!--dependency>
+        <-groupId>org.junit.vintage</groupId>
+         <artifactId>junit-vintage-engine</artifactId>
+         <version>${junit.version}</version>
+         <scope>test</scope>
+            </dependency-->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -100,6 +107,15 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+        <!--dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.8.2</version>
+            <scope>test</scope>
+        </dependency-->
+
 
         <!--  JETTY DEPENDENCIES FOR TESTING WITH JETTY -->
         <dependency>
@@ -123,10 +139,22 @@
                 <scope>test</scope>
         </dependency>
         -->
-        <dependency>
+        <!--dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>2.28.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -149,12 +177,12 @@
         </dependency>
 
         <!-- CDI UNIT TESTING DEPENDENCIES -->
-        <dependency>
+        <!--dependency>
             <groupId>org.jglue.cdi-unit</groupId>
             <artifactId>cdi-unit</artifactId>
             <version>${cdi-unit.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
@@ -190,19 +218,18 @@
             <version>2.2.6</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>3.11.1</version>
-            <scope>test</scope>
-        </dependency>
+        
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.6.0</version>
             <classifier>debug</classifier>
         </dependency>
-       
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-cdi</artifactId>
+            <version>9.8.0</version>
+        </dependency>
     </dependencies>
     <build>
         <resources>
