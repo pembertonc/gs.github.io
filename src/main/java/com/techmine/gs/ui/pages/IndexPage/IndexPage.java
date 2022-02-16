@@ -16,6 +16,8 @@
 package com.techmine.gs.ui.pages.IndexPage;
 
 import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
+import com.techmine.gs.ui.panels.Menu.MenuPanel;
+import com.techmine.gs.ui.panels.SignIn.SignInPanel;
 
 /**
  *
@@ -23,12 +25,18 @@ import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePag
  */
 public class IndexPage extends UnAuthenticatedBasePage {
 
+    private MenuPanel mainMenu;
+
     public IndexPage() {
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        mainMenu = new MenuPanel("menubar");
+        add(mainMenu);
+
+        add(new SignInPanel("body"));
     }
 
 }

@@ -28,20 +28,15 @@ import org.apache.wicket.request.resource.ContextRelativeResourceReference;
  * @author Work
  */
 @RequireHttps
-public class UnAuthenticatedBasePage extends WebPage {
+public abstract class UnAuthenticatedBasePage extends WebPage {
 
     public UnAuthenticatedBasePage() {
     }
 
-    MenuPanel mainMenu;
-
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        mainMenu = new MenuPanel("menubar");
-        add(mainMenu);
 
-        add(new SignInPanel("body"));
     }
 
     @Override
