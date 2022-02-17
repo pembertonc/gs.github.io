@@ -16,6 +16,7 @@
 package com.techmine.gs.ui.panels.SignIn;
 
 import com.github.cschabl.cdiunit.junit5.CdiUnitExtension;
+import com.techmine.gs.WicketApplication;
 import com.techmine.gs.service.AuthenticationService;
 
 import com.techmine.gs.ui.pages.IndexPage.IndexPage;
@@ -48,23 +49,21 @@ import org.mockito.junit.jupiter.MockitoExtension;
  */
 @InRequestScope
 @ExtendWith(CdiUnitExtension.class)
-@AdditionalClasses({SignInPanel.class})
+@AdditionalClasses({SignInPanel.class, WicketApplication.class})
 @ExtendWith(MockitoExtension.class)
 public class SignInPanelTest {
 
-    @Inject
-    BeanManager manager;
-
+    // @Inject
+    //  BeanManager manager;
     WicketTester tester1;
 
     public SignInPanelTest() {
-        System.out.println("Say someting");
     }
 
     @Mock
     AuthenticationService authenticationService;
 
-    //@InjectMocks
+    // @InjectMocks
     SignInPanel signInPanel;
 
     @BeforeAll
@@ -99,7 +98,7 @@ public class SignInPanelTest {
 
         assertNotNull(panel);
 
-        assertNotNull(this.manager, "manager is null");
+        // assertNotNull(this.manager, "manager is null");
     }
 
     @Test
@@ -117,36 +116,28 @@ public class SignInPanelTest {
 
     @Test
     public void testAjaxSubmitValuesReturned() {
-        AuthenticationService ser = Mockito.mock(AuthenticationService.class);
         Mockito.when(authenticationService.login("SomeUserName", "password")).thenReturn(true);
-        //   ((SignInPanel) tester1.startPage(IndexPage.class).get("body")).setAuthenticationService(authenticationService);
         FormTester ft = tester1.newFormTester("body:signInForm");
         Button btn = (Button) tester1.getComponentFromLastRenderedPage("body:signInForm:signIn");
-        //get an instance of the signInPanel before it  executing the click other wise we get an instance of Dashboard
-        SignInPanel panel = (SignInPanel) tester1.getComponentFromLastRenderedPage("body");
-        ft.setValue("userName", "SomeUserName").setValue("password", "somePassword");
+        ft.setValue("userName", "SomeUserName").setValue("password", "password");
+        this.signInPanel.setAuthenticationService(authenticationService);
 
         tester1.executeAjaxEvent(btn, "click");
 
-        assertEquals("SomeUserName", panel.getUser().getUserName(), "User Name is not set");
+        assertEquals("SomeUserName", this.signInPanel.getUser().getUserName(), "User Name is not set");
 
         // the password is cleared from the Model for security reasons on rendering so it is null by the time we access it here.
-        // assertEquals("password", panel.getUser().getPassword(), "User Name is not set");
     }
 
     @Test
     void testSuccessfulLoginNavigation() {
-        AuthenticationService ser = Mockito.mock(AuthenticationService.class);
-        Mockito.when(ser.login("SomeUserName", "SomeUserName")).thenReturn(true);
-        IndexPage page = tester1.startPage(IndexPage.class);
-        ((SignInPanel) page.get("body")).setAuthenticationService(ser);
         FormTester ft = tester1.newFormTester("body:signInForm");
         Button btn = (Button) tester1.getComponentFromLastRenderedPage("body:signInForm:signIn");
+        Mockito.when(authenticationService.login("SomeUserName", "SomeUserName")).thenReturn(true);
+        tester1.assertComponent("body", SignInPanel.class);
+        ft.setValue("userName", "SomeUserName").setValue("password", "SomeUserName");
+        this.signInPanel.setAuthenticationService(authenticationService);
 
-        tester1.assertRenderedPage(IndexPage.class);
-
-        ft.setValue("userName", "SomeUserName")
-                .setValue("password", "SomeUserName");
         tester1.executeAjaxEvent(btn, "click");
 
         tester1.assertComponent("body", Dashboard.class);
@@ -154,26 +145,30 @@ public class SignInPanelTest {
 
     @Test
     void testNavigationOnLoginFailure() {
-        //AuthenticationService ser = Mockito.mock(AuthenticationService.class);
-        Mockito.when(authenticationService.login("SomeUserName", "SomeUserName")).thenReturn(false);
-        IndexPage page = tester1.startPage(IndexPage.class);
-        ((SignInPanel) page.get("body")).setAuthenticationService(authenticationService);
+
+        //  IndexPage page = tester1.startPage(IndexPage.class);
+        //  ((SignInPanel) page.get("body")).setAuthenticationService(authenticationService);
+        SignInPanel p = new SignInPanel("body");
+
+        p = tester1.startComponentInPage(p);
+        MockitoAnnotations.openMocks(p);
         FormTester ft = tester1.newFormTester("body:signInForm");
         Button btn = (Button) tester1.getComponentFromLastRenderedPage("body:signInForm:signIn");
 
-        tester1.assertRenderedPage(IndexPage.class);
+        tester1.assertComponent("body", SignInPanel.class);
 
         ft.setValue("userName", "SomeUserName")
                 .setValue("password", "SomeUserName");
+
+        //  AuthenticationService ser = Mockito.mock(AuthenticationService.class);
+        Mockito.when(authenticationService.login("SomeUserName", "SomeUserName")).thenReturn(false);
+
+        //MockitoAnnotations.openMocks(p);.
+        p.setAuthenticationService(authenticationService);
         tester1.executeAjaxEvent(btn, "click");
 
         tester1.assertComponent("body", SignInPanel.class);
 
-    }
-
-    @PostConstruct
-    public void init() {
-        System.out.println("am  i called.");
     }
 
 }
