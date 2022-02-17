@@ -25,17 +25,17 @@ limitations under the License.
             <form  wicket:id="signInForm" class="w3-container w3-display-middle w3-theme-l5 w3-card">
                 <header class="w3-theme-d1 w3-stretch w3-center w3-text-light-grey ">
                     <label>Sign In</label>
-                    <label id="message" wicket:id="messageLabel">message goes here</label>
+
                 </header>
 
                 <section class="w3-panel">
                     <div>
                         <label for="username"> <b> Username </b> </label>
-                        <input class="w3-input w3-transparent" wicket:id="userName" type="text" placeholder="Enter Username" name="username" required>
+                        <input class="w3-input w3-transparent" wicket:id="userName" type="text" placeholder="Enter Username" name="username" required="true"/>
                     </div>
                     <div>
                         <label for="password"> <b> Password </b> </label>
-                        <input  class="w3-input w3-transparent"   wicket:id="password" type="password" name="password" required>
+                        <input  class="w3-input w3-transparent"   wicket:id="password" type="password" name="password"/>
                     </div>
 
                 </section>

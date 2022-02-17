@@ -35,8 +35,8 @@ public class IndexPage extends UnAuthenticatedBasePage {
         super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         mainMenu = new MenuPanel("menubar");
         add(mainMenu);
-
-        add(new SignInPanel("body"));
+        
+        add(new SignInPanel("body").setMarkupId("body"));
     }
 
 }

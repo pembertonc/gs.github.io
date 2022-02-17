@@ -2,9 +2,16 @@ package com.techmine.gs;
 
 import com.techmine.gs.ui.pages.IndexPage.IndexPage;
 import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
+import jakarta.inject.Inject;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.CDI;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
+import org.apache.wicket.cdi.CdiConfiguration;
+import org.apache.wicket.cdi.ConversationPropagation;
 import org.apache.wicket.csp.CSPDirective;
 import org.apache.wicket.csp.CSPDirectiveSrcValue;
 import org.apache.wicket.markup.html.WebPage;
@@ -19,17 +26,19 @@ import org.apache.wicket.protocol.https.HttpsMapper;
  */
 public class WicketApplication extends AuthenticatedWebApplication {
 
+    BeanManager beanManager;
+
+    @Inject
+    public void setBeanManager(BeanManager beanManager) {
+        this.beanManager = beanManager;
+    }
+
     /**
      * @return @see org.apache.wicket.Application#getHomePage()
      */
     @Override
     public Class<? extends WebPage> getHomePage() {
         return IndexPage.class;
-// return UnAuthenticatedBasePage.class;
-        //return LandingPage.class;
-        //return BasePage.class;
-        //return HomePage.class;
-        //return AddCylinder.class;
 
     }
 
@@ -54,8 +63,15 @@ public class WicketApplication extends AuthenticatedWebApplication {
         getCspSettings().blocking()
                 .add(CSPDirective.STYLE_SRC, "https://www.w3schools.com/w3css/4/w3.css")
                 .add(CSPDirective.STYLE_SRC, "https://fonts.googleapis.com/icon?family=Material+Icons");
+
         // add your configuration here
+        // support for CDI  .
+        new CdiConfiguration().setFallbackBeanManager(beanManager)
+                .setPropagation(ConversationPropagation.NONE)
+                .configure(this);
+        // support for vean validation.
         new BeanValidationConfiguration().configure(this);
+
     }
 
     @Override
@@ -67,4 +83,5 @@ public class WicketApplication extends AuthenticatedWebApplication {
     protected Class<? extends WebPage> getSignInPageClass() {
         return UnAuthenticatedBasePage.class;
     }
+
 }

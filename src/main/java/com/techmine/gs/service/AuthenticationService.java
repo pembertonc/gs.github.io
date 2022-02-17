@@ -15,13 +15,11 @@
  */
 package com.techmine.gs.service;
 
-import java.io.Serializable;
-
 /**
  *
  * @author Cedric-Pemberton
  */
-public class AuthenticationService implements Serializable {
+public class AuthenticationService {
 
     public boolean login(String userName, String password) {
         return userName.equals(password);

@@ -18,12 +18,14 @@ package com.techmine.gs.service;
 import com.techmine.gs.domain.Institution;
 import com.techmine.gs.repository.InstitutionRepository;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 /**
  *
  * @author Cedric Pemberton
  */
+@RequestScoped
 public class InstitutionService {
 
     @Inject

@@ -22,38 +22,41 @@
  */
 package com.techmine.gs.ui.panels.SignIn;
 
+import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.ui.panels.Dashboard.Dashboard;
-import java.util.Optional;
+import java.io.Serializable;
+import javax.inject.Inject;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
-import org.apache.wicket.event.IEvent;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
-import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
-import org.apache.wicket.model.Model;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-public class SignInPanel extends Panel {
+public class SignInPanel extends Panel implements Serializable {
 
+    //@RequestScoped
+    private AuthenticationService authenticationService;
+
+    @Inject
+    public void setAuthenticationService(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
     StatelessForm<Void> signInForm;
     private Subject user;
-    private IndicatingAjaxButton submit;
-    private Label messageLabel;
+    private Button submit;
 
     public StatelessForm<Void> getSignInForm() {
         return signInForm;
-    }
-
-    private boolean signIn(String userName, String password) {
-        return true;
     }
 
     public void setSignInForm(StatelessForm<Void> signInForm) {
@@ -68,6 +71,10 @@ public class SignInPanel extends Panel {
         this.user = user;
     }
 
+    /**
+     *
+     * @param service
+     */
     public SignInPanel(String id) {
         super(id);
     }
@@ -80,13 +87,14 @@ public class SignInPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
 
-        setMarkupId("signIn");
+        setMarkupId("signInPanel");
         user = new Subject();
         this.signInForm = (StatelessForm) new StatelessForm<>("signInForm") {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
                 setMarkupId("signInForm");
+
             }
 
             @Override
@@ -104,9 +112,7 @@ public class SignInPanel extends Panel {
         signInForm.add(new TextField<>("userName", LambdaModel.of(user::getUserName, user::setUserName)).setMarkupId("userName"));
         signInForm.add(new PasswordTextField("password", LambdaModel.of(user::getPassword, user::setPassword)).setMarkupId("password"));
 
-        signInForm.add(messageLabel = (Label) new Label("messageLabel", "something").setMarkupId("messageLabel"));
-
-        signInForm.add(submit = new IndicatingAjaxButton("signIn", this.signInForm) {
+        signInForm.add(submit = new Button("signIn") {
 
             @Override
             protected void onInitialize() {
@@ -114,29 +120,71 @@ public class SignInPanel extends Panel {
                 setMarkupId("submit");
                 setDefaultFormProcessing(false);
 
+                this.add(new AjaxFormSubmitBehavior("click") {
+
+                    @Override
+                    protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+                        super.updateAjaxAttributes(attributes);
+                        attributes.setPreventDefault(true);
+                    }
+
+                    @Override
+                    protected void onSubmit(AjaxRequestTarget target) {
+                        super.onSubmit(target);
+
+                        if (signIn(user.userName, user.password)) {
+                            Dashboard db = new Dashboard("body");
+                            db.setMarkupId(getPage().get("body").getMarkupId());
+                            Component c = getPage().get("body").replaceWith(db);
+                            if (target != null) {
+
+                                target.add(db);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public boolean getStatelessHint(Component component) {
+                        return true;
+                    }
+
+                });
             }
 
+            /*
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 super.onSubmit(target);
-                messageLabel.setDefaultModel(Model.of("submit clicked on button"));
+                Label.setDefaultModel(Model.of("submit clicked on button " + user.userName));
 
-                target.add(messageLabel);
+                if (target != null) {
+                    target.add(Label);
+                }
+
                 if (signIn(user.userName, user.password)) {
                     Dashboard db = new Dashboard("body");
-                    this.getPage().replace(db);
-                    target.add(db);
+                    db.setMarkupId("body");
+                    Component c = getPage().get("body");
+                    if (c != null) {
+                        //  c.replaceWith(db);
+                    }
+                    if (target != null) {
+                        target.add(db);
+                    }
                 };
 
-            }
-
+            }*/
+ /*
             @Override
             protected void onError(AjaxRequestTarget target) {
-                super.onError(target);
-            }
-
+            super.onError(target);
+            }*/
         });
 
+    }
+
+    private boolean signIn(String userName, String password) {
+        return this.authenticationService.login(userName, password);
     }
 
     public class Subject {

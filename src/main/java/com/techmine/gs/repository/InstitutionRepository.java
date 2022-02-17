@@ -23,7 +23,8 @@ import javax.persistence.EntityManager;
  *
  * @author bethy
  */
-public class InstitutionRepository extends AbstractRepository<Institution,String> {
+public class InstitutionRepository extends AbstractRepository<Institution, String> {
+
     @Inject
     private EntityManager em;
 

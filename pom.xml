@@ -90,6 +90,12 @@
         <!--  JUNIT DEPENDENCY FOR TESTING -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
@@ -177,29 +183,47 @@
         </dependency>
 
         <!-- CDI UNIT TESTING DEPENDENCIES -->
-        <!--dependency>
+        <dependency>
             <groupId>org.jglue.cdi-unit</groupId>
             <artifactId>cdi-unit</artifactId>
-            <version>${cdi-unit.version}</version>
+            <version>4.1.0</version>
             <scope>test</scope>
-        </dependency-->
+        </dependency>
 
+        <dependency>
+            <groupId>com.github.cschabl.cdi-unit-junit5</groupId>
+            <artifactId>cdi-unit-junit5</artifactId>
+            <version>0.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>3.0.0</version>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
             <!-- or weld-se -->
             <artifactId>weld-se-core</artifactId>
             <!-- Your preferred Weld version: -->
-            <version>${weld.version}</version>
+            <version>3.1.9.Final</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.weld.module</groupId>
             <artifactId>weld-web</artifactId>
-            <version>${weld.version}</version>
+            <version>3.1.9.Final</version>
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-junit5</artifactId>
+            <version>2.0.2.Final</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
