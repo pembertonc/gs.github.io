@@ -22,6 +22,7 @@
  */
 package com.techmine.gs.ui.panels.SignIn;
 
+import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.ui.panels.Dashboard.Dashboard;
 import java.io.Serializable;
@@ -51,15 +52,15 @@ public class SignInPanel extends Panel implements Serializable {
     public void setAuthenticationService(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
-    StatelessForm<Void> signInForm;
+    StatelessForm<Subject> signInForm;
     private Subject user;
     private Button submit;
 
-    public StatelessForm<Void> getSignInForm() {
+    public StatelessForm<Subject> getSignInForm() {
         return signInForm;
     }
 
-    public void setSignInForm(StatelessForm<Void> signInForm) {
+    public void setSignInForm(StatelessForm<Subject> signInForm) {
         this.signInForm = signInForm;
     }
 
@@ -89,7 +90,7 @@ public class SignInPanel extends Panel implements Serializable {
 
         setMarkupId("signInPanel");
         user = new Subject();
-        this.signInForm = (StatelessForm) new StatelessForm<>("signInForm") {
+        this.signInForm = (StatelessForm) new StatelessForm("signInForm") {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
@@ -132,7 +133,7 @@ public class SignInPanel extends Panel implements Serializable {
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
 
-                        if (signIn(user.userName, user.password)) {
+                        if (signIn(user.getUserName(), user.getPassword())) {
                             Dashboard db = new Dashboard("body");
                             db.setMarkupId(getPage().get("body").getMarkupId());
                             Component c = getPage().get("body").replaceWith(db);
@@ -150,35 +151,6 @@ public class SignInPanel extends Panel implements Serializable {
 
                 });
             }
-
-            /*
-            @Override
-            protected void onSubmit(AjaxRequestTarget target) {
-                super.onSubmit(target);
-                Label.setDefaultModel(Model.of("submit clicked on button " + user.userName));
-
-                if (target != null) {
-                    target.add(Label);
-                }
-
-                if (signIn(user.userName, user.password)) {
-                    Dashboard db = new Dashboard("body");
-                    db.setMarkupId("body");
-                    Component c = getPage().get("body");
-                    if (c != null) {
-                        //  c.replaceWith(db);
-                    }
-                    if (target != null) {
-                        target.add(db);
-                    }
-                };
-
-            }*/
- /*
-            @Override
-            protected void onError(AjaxRequestTarget target) {
-            super.onError(target);
-            }*/
         });
 
     }
@@ -187,26 +159,4 @@ public class SignInPanel extends Panel implements Serializable {
         return this.authenticationService.login(userName, password);
     }
 
-    public class Subject {
-
-        private String userName;
-        private String password;
-
-        public String getUserName() {
-            return userName;
-        }
-
-        public void setUserName(String userName) {
-            this.userName = userName;
-        }
-
-        public String getPassword() {
-            return this.password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-    }
 }
