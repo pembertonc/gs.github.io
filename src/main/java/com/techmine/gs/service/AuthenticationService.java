@@ -15,14 +15,33 @@
  */
 package com.techmine.gs.service;
 
+import com.techmine.gs.domain.Subject;
+import com.techmine.gs.repository.SubjectRepository;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import javax.inject.Inject;
+
 /**
  *
  * @author Cedric-Pemberton
  */
 public class AuthenticationService {
 
+    @Inject
+    SubjectRepository subjectRepository;
+
     public boolean login(String userName, String password) {
-        return userName.equals(password);
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.clear();
+        parameters.put("userName", userName);
+        Optional<Subject> subject = this.subjectRepository.findSingleByNamedQuery("Subject.findByUserName", parameters);
+        if (subject.isEmpty()) {
+            return false;
+        }
+        return subject.get().getPassword().equals(password);
+
     }
 
 }

@@ -1,9 +1,11 @@
 package com.techmine.gs.domain;
 
+import java.util.Objects;
 import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,6 +14,7 @@ import javax.validation.constraints.Size;
  * @author Cedric Pemberton
  */
 @Entity
+@NamedQuery(name = "Subject.findByUserName", query = "Select a from Subject a where a.userName=:userName")
 public class Subject extends BaseEntity {
 
     @Basic(optional = false)
@@ -78,6 +81,36 @@ public class Subject extends BaseEntity {
     public Subject person(Person person) {
         this.person = person;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!Objects.equals(getClass(), obj.getClass())) {
+            return false;
+        }
+        final Subject other = (Subject) obj;
+        if (!java.util.Objects.equals(this.getId(), other.getId())) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.getId());
+        hash = 31 * hash + Objects.hashCode(this.getUserName());
+        hash = 31 * hash + Objects.hashCode(this.getPassword());
+        hash = 31 * hash + Objects.hashCode(this.getRole().orElse(null));
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" + " userName=" + userName + ", password=" + password + ", role=" + role + '}';
     }
 
 }

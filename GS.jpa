@@ -211,6 +211,20 @@
         </nq>
     </entity>
     <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
+        <ts e="true">
+            <a>_163908735716373</a>
+            <a>_163908735774074</a>
+            <a>_163908735849175</a>
+        </ts>
+        <hc e="true">
+            <a>_163908625849641</a>
+            <a>_163908735716373</a>
+            <a>_163908735774074</a>
+            <a>_163908735849175</a>
+        </hc>
+        <eq e="true">
+            <a>_163908625849641</a>
+        </eq>
         <ath>Cedric Pemberton</ath>
         <attributes>
             <basic optional="false" attribute-type="String" v="true" xvt="" name="userName" ft="false" id="_163908735716373">
@@ -242,7 +256,7 @@
         <nq e="false" name="Subject.findAll">
             <query>Select e from Subject e</query>
         </nq>
-        <nq e="false" name="Subject.findByUserName">
+        <nq e="true" name="Subject.findByUserName">
             <query>Select a from Subject a where a.userName=:userName</query>
         </nq>
         <nq e="false" name="Subject.findByPassword">
