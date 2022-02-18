@@ -15,8 +15,13 @@
  */
 package com.techmine.gs.ui.panels.Menu;
 
+import java.util.Optional;
+import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.protocol.http.WebSession;
 
 /**
  *
@@ -34,7 +39,40 @@ public class MenuPanel extends Panel {
 
     @Override
     protected void onInitialize() {
-        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.onInitialize();
+
+        add(new AjaxFallbackLink("logout") {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                setMarkupId("logout");
+
+            }
+
+            @Override
+            protected boolean getStatelessHint() {
+                return true;
+            }
+
+            @Override
+            public void onClick(Optional optnl) {
+                // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                AuthenticatedWebSession session = (AuthenticatedWebSession) getSession();
+
+                if (session.isTemporary()) {
+                    this.setVisible(false);
+                } else {
+                    this.setVisible(true);
+                }
+            }
+
+        });
+
     }
 
 }
