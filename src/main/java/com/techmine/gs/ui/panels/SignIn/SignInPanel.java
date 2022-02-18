@@ -38,6 +38,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.protocol.http.WebSession;
 
 /**
  *
@@ -156,7 +157,15 @@ public class SignInPanel extends Panel implements Serializable {
     }
 
     private boolean signIn(String userName, String password) {
-        return this.authenticationService.login(userName, password);
+        boolean result = false;
+        if (result = this.authenticationService.login(userName, password)) {
+
+            if (WebSession.get().isTemporary()) {
+                WebSession.get().dirty(true);
+            }
+
+        }
+        return result;
     }
 
 }
