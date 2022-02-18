@@ -18,12 +18,9 @@ package com.techmine.gs.ui.panels.SignIn;
 import com.github.cschabl.cdiunit.junit5.CdiUnitExtension;
 import com.techmine.gs.WicketApplication;
 import com.techmine.gs.service.AuthenticationService;
-
 import com.techmine.gs.ui.pages.IndexPage.IndexPage;
+
 import com.techmine.gs.ui.panels.Dashboard.Dashboard;
-import jakarta.annotation.PostConstruct;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
@@ -36,7 +33,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -141,6 +137,8 @@ public class SignInPanelTest {
         tester1.executeAjaxEvent(btn, "click");
 
         tester1.assertComponent("body", Dashboard.class);
+
+        assertFalse(tester1.getLastRenderedPage().isPageStateless(), "page must be now statefull");
     }
 
     @Test
@@ -168,6 +166,21 @@ public class SignInPanelTest {
         tester1.executeAjaxEvent(btn, "click");
 
         tester1.assertComponent("body", SignInPanel.class);
+
+    }
+
+    public void testIndexPageStatelessWhenContainsSignInPanel() {
+
+        // create page default behaviour is to house the SignInPanel
+        IndexPage page = tester1.startPage(IndexPage.class);
+        //assert that the rendered page is an instance of IndexPage
+        tester1.assertRenderedPage(IndexPage.class);
+        // assert that a component exists with a wicket:id or body
+        tester1.assertExists("body");
+        // asset that the component with wicket:id body is an instance of SignInPanel
+        tester1.assertComponent("body", SignInPanel.class);
+
+        assertTrue(page.isStateless());
 
     }
 
