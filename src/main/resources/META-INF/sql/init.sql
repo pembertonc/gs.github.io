@@ -17,4 +17,5 @@
  * Author:  Cedric-Pemberton
  * Created: Feb 17, 2022
  */
-INSERT INTO SUBJECT (ID, USERNAME, PASSWORD) VALUES ("-0000", "Administrator", "Password");
+
+INSERT INTO subject (id, username, password, role) VALUES ('-0000', 'Administrator', 'Password', 'Administrator')  ON CONFLICT DO NOTHING;
