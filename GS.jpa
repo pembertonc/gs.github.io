@@ -93,7 +93,7 @@
             <query>Select c from Contact c where c.telephone2=:telephone2</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="InstitutionPK" abs="false" class="Institution" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596520722">
+    <entity compositePrimaryKeyClass="InstitutionPK" abs="false" class="Institution" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596520722">
         <ts e="true">
             <a>_163908608217736</a>
             <a>_163908610434838</a>
@@ -210,7 +210,7 @@
             <query>Select p from Person p where p.familyName=:familyName</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="AuthenticatedUserPK" abs="false" class="AuthenticatedUser" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
+    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
         <ath>Cedric Pemberton</ath>
         <attributes>
             <basic optional="false" attribute-type="String" v="true" xvt="" name="userName" ft="false" id="_163908735716373">
@@ -239,17 +239,17 @@
                 <xm/>
             </one-to-one>
         </attributes>
-        <nq e="false" name="AuthenticatedUser.findAll">
-            <query>Select e from AuthenticatedUser e</query>
+        <nq e="false" name="Subject.findAll">
+            <query>Select e from Subject e</query>
         </nq>
-        <nq e="false" name="AuthenticatedUser.findByUserName">
-            <query>Select a from AuthenticatedUser a where a.userName=:userName</query>
+        <nq e="false" name="Subject.findByUserName">
+            <query>Select a from Subject a where a.userName=:userName</query>
         </nq>
-        <nq e="false" name="AuthenticatedUser.findByPassword">
-            <query>Select a from AuthenticatedUser a where a.password=:password</query>
+        <nq e="false" name="Subject.findByPassword">
+            <query>Select a from Subject a where a.password=:password</query>
         </nq>
-        <nq e="false" name="AuthenticatedUser.findByRole">
-            <query>Select a from AuthenticatedUser a where a.role=:role</query>
+        <nq e="false" name="Subject.findByRole">
+            <query>Select a from Subject a where a.role=:role</query>
         </nq>
     </entity>
     <entity compositePrimaryKeyClass="CylinderPK" abs="false" class="Cylinder" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088335659142">
@@ -308,12 +308,12 @@
             <i ref="_163908596733225" x="240" y="28"/>
             <i ref="_1639088335659142" x="956" y="216"/>
             <i ref="_163908596303719" x="580" y="564"/>
-            <i ref="_163908597108431" x="956" y="564"/>
+            <i ref="_163908597108431" x="913" y="562"/>
             <i ref="_1639088466730176" x="714" y="362"/>
             <i ref="_1639088473362211" x="1156" y="362"/>
             <i ref="_16238885459983" x="714" y="28"/>
-            <i ref="_163908596520722" x="240" y="546"/>
-            <i ref="_163908726308665" x="240" y="362"/>
+            <i ref="_163908596520722" x="214" y="564"/>
+            <i ref="_163908726308665" x="214" y="362"/>
             <i ref="_163908616129139" x="500" y="216"/>
         </ws>
     </wsl>

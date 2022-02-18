@@ -15,5 +15,8 @@ That way multiple projects can share the same settings (useful for formatting ru
 Any value defined here will override the pom.xml file value but is only applicable to the current project.
 -->
         <org-netbeans-modules-payara-micro.version>5.2021.10</org-netbeans-modules-payara-micro.version>
+        <io-github-jeddict-cloud-provider.cloud-config-data>{"kubernetesConfigData":{"enabled":false},"openshiftConfigData":{"enabled":false}}</io-github-jeddict-cloud-provider.cloud-config-data>
+        <io-github-jeddict-jakarta-ee.repository-data>{"cdi":true,"isNamed":false,"package":"repository","prefixName":"","servicePackage":"service","servicePrefixName":"","serviceSuffixName":"Service","suffixName":"Repository"}</io-github-jeddict-jakarta-ee.repository-data>
+        <io-github-jeddict-infra.docker-config-data>{"dataSource":"gsDataSource","databaseType":"POSTGRESQL","databaseVersion":"latest","dbHost":"localhost","dbName":"gs","dbPassword":"24QZzi?|","dbPort":"5432","dbUserName":"sa","dockerActivated":false,"dockerEnable":false,"runtimeProviderClassName":"io.github.jeddict.runtime.PayaraServer"}</io-github-jeddict-infra.docker-config-data>
     </properties>
 </project-shared-configuration>

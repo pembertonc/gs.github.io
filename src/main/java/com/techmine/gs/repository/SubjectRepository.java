@@ -17,5 +17,4 @@ public class SubjectRepository extends AbstractRepository<Subject, String> {
     public SubjectRepository() {
         super(Subject.class);
     }
-
 }
