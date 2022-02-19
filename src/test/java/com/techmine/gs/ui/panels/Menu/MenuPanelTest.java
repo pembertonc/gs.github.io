@@ -31,10 +31,9 @@ import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -47,7 +46,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(WeldJunit5AutoExtension.class)
 @AddBeanClasses(value = {WicketApplication.class, AuthenticationService.class, SubjectRepository.class, EntityManagerProducer.class})
 @ExtendWith(MockitoExtension.class)
-@ActivateScopes(RequestScoped.class)
+@ActivateScopes(value = {RequestScoped.class})
 public class MenuPanelTest {
 
     @Inject
@@ -80,12 +79,12 @@ public class MenuPanelTest {
 
     @AfterEach
     public void tearDown() {
-
+        tester.destroy();
     }
 
     @Test
     public void testWicketApplicationInjected() {
-        assertNotNull(this.wicketApplication, "wicket Application is not correctly injected");
+        //assertNotNull(this.wicketApplication, "wicket Application is not correctly injected");
         assertNotNull(this.indexPage, "Index Page is not Created");
     }
 
@@ -94,8 +93,8 @@ public class MenuPanelTest {
      */
     @Test
     public void testPageRenders() {
-        //tester.startComponentInPage(new MenuPanel("menu"));
-        tester.assertComponent(":menubar", MenuPanel.class);
+
+        tester.assertComponent("menubar", MenuPanel.class);
 
         //Invisible components are rendered as hidden span tags.
         tester.assertInvisible("menubar:logout");
@@ -103,24 +102,29 @@ public class MenuPanelTest {
     }
 
     @Test
-    @Disabled
     public void testLogOutButtonHidenWhenSinInPanelDisplayed() {
-        tester.startPage(IndexPage.class);
-        AjaxFallbackLink link = (AjaxFallbackLink) tester.getComponentFromLastRenderedPage("menu:logout", true);
 
-        tester.assertInvisible("menu:logout");
+        AjaxFallbackLink link = (AjaxFallbackLink) tester.getComponentFromLastRenderedPage("menubar:logout", true);
+
+        tester.assertInvisible("menubar:logout");
 
     }
 
     @Test
-    @Disabled
     public void testLogOutButtonShownOnSingIn() {
-        //SignInPage page = tester.startPage(SignInPage.class);
+        // lolgin
+        // verigy dashboard displayed
+        // Verify sign out displayed
+        // click on sign out
+        // verify SignInPanel displayed.
+        // verify signOut hidden
 
-        FormTester formTester = tester.newFormTester("body:SingInForm");
+        FormTester formTester = tester.newFormTester("body:signInForm");
 
         formTester.setValue("userName", "Administrator")
                 .setValue("password", "Password");
+
+        fail("test not complete");
 
     }
 }
