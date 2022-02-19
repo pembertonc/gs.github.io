@@ -17,26 +17,48 @@ package com.techmine.gs.ui.panels.Menu;
 
 import com.github.cschabl.cdiunit.junit5.CdiUnitExtension;
 import com.techmine.gs.WicketApplication;
+import com.techmine.gs.producer.EntityManagerProducer;
+import com.techmine.gs.repository.AbstractRepository;
+import com.techmine.gs.repository.SubjectRepository;
+import com.techmine.gs.service.AuthenticationService;
+import com.techmine.gs.ui.pages.IndexPage.IndexPage;
+import com.techmine.gs.ui.panels.SignIn.SignInPanel;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
+import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
+import org.jglue.cdiunit.AdditionalClasses;
+import org.jglue.cdiunit.deltaspike.SupportDeltaspikeCore;
+import org.jglue.cdiunit.deltaspike.SupportDeltaspikeJpa;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  *
  * @author Cedric-Pemberton
  */
 @ExtendWith(CdiUnitExtension.class)
+@SupportDeltaspikeCore
+@SupportDeltaspikeJpa
+@AdditionalClasses(value = {EntityManagerProducer.class, SignInPanel.class, WicketApplication.class, AuthenticationService.class, AbstractRepository.class, SubjectRepository.class})
+@ExtendWith(MockitoExtension.class)
 public class MenuPanelTest {
 
-    WicketTester tester1;
+    WicketTester tester1; // = new WicketTester(new WicketApplication());
 
-    MenuPanel instance;
+    IndexPage instance;
+
+    @Mock
+    private AuthenticationService authenticationService;
+
+    //@InjectMocks
+    private IndexPage indexPage;// = tester1.startPage(IndexPage.class);
 
     public MenuPanelTest() {
     }
@@ -52,11 +74,12 @@ public class MenuPanelTest {
     @BeforeEach
     public void setUp() {
         tester1 = new WicketTester(new WicketApplication());
-        this.instance = this.tester1.startComponentInPage(new MenuPanel("menu"));
+
     }
 
     @AfterEach
     public void tearDown() {
+
     }
 
     /**
@@ -64,20 +87,31 @@ public class MenuPanelTest {
      */
     @Test
     public void testPageRenders() {
+        tester1.startComponentInPage(new MenuPanel("menu"));
         tester1.assertComponent("menu", MenuPanel.class);
 
-        tester1.assertExists("menu:logout");
-        tester1.assertComponent("menu:logout", AjaxFallbackLink.class);
+        //Invisible components are rendered as hidden span tags.
+        tester1.assertInvisible("menu:logout");
 
     }
 
     @Test
     public void testLogOutButtonHidenWhenSinInPanelDisplayed() {
-
+        tester1.startPage(IndexPage.class);
         AjaxFallbackLink link = (AjaxFallbackLink) tester1.getComponentFromLastRenderedPage("menu:logout", true);
-        //assertFalse(link.isVisible(), "Link Should not be visible when SingInPanel is displayed");
+
         tester1.assertInvisible("menu:logout");
 
     }
 
+    @Test
+    public void testLogOutButtonShownOnSingIn() {
+        //SignInPage page = tester1.startPage(SignInPage.class);
+
+        FormTester formTester = tester1.newFormTester("body:SingInForm");
+
+        formTester.setValue("userName", "Administrator")
+                .setValue("password", "Password");
+
+    }
 }
