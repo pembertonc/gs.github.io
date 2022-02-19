@@ -25,7 +25,6 @@ import javax.inject.Inject;
  *
  * @author Cedric Pemberton
  */
-@RequestScoped
 public class InstitutionService {
 
     @Inject

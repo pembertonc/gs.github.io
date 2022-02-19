@@ -15,7 +15,6 @@
  */
 package com.techmine.gs.ui.panels.SignIn;
 
-import com.github.cschabl.cdiunit.junit5.CdiUnitExtension;
 import com.techmine.gs.WicketApplication;
 import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.ui.pages.IndexPage.IndexPage;
@@ -24,8 +23,6 @@ import com.techmine.gs.ui.panels.Dashboard.Dashboard;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.InRequestScope;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,9 +40,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
  *
  * @author Cedric-Pemberton
  */
-@InRequestScope
-@ExtendWith(CdiUnitExtension.class)
-@AdditionalClasses({SignInPanel.class, WicketApplication.class})
 @ExtendWith(MockitoExtension.class)
 public class SignInPanelTest {
 

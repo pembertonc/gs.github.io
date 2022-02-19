@@ -2,11 +2,11 @@ package com.techmine.gs;
 
 import com.techmine.gs.ui.pages.IndexPage.IndexPage;
 import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
-import jakarta.inject.Inject;
+
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.CDI;
+import javax.inject.Inject;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
@@ -26,11 +26,16 @@ import org.apache.wicket.protocol.https.HttpsMapper;
  */
 public class WicketApplication extends AuthenticatedWebApplication {
 
+    @Inject
     BeanManager beanManager;
 
-    @Inject
-    public void setBeanManager(BeanManager beanManager) {
+    // for testing convience  To be removed 
+    WicketApplication(BeanManager beanManager) {
         this.beanManager = beanManager;
+    }
+
+    // automatice generation default no-argument constructor blocked by argument constuctor.
+    public WicketApplication() {
     }
 
     /**
@@ -66,6 +71,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 
         // add your configuration here
         // support for CDI  .
+        beanManager = getBeanManager();
         new CdiConfiguration().setFallbackBeanManager(beanManager)
                 .setPropagation(ConversationPropagation.NONE)
                 .configure(this);
@@ -84,4 +90,20 @@ public class WicketApplication extends AuthenticatedWebApplication {
         return UnAuthenticatedBasePage.class;
     }
 
+    public static BeanManager getBeanManager() {
+        try {
+            return CDI.current().getBeanManager();
+        } catch (Exception ignore) {
+        }
+        try {
+            return (BeanManager) InitialContext.doLookup("java:comp/BeanManager");
+        } catch (Exception ignore) {
+        }
+        try {
+            return (BeanManager) InitialContext.doLookup("java:comp/env/BeanManager");
+        } catch (Exception ignore) {
+        }
+
+        return null;
+    }
 }

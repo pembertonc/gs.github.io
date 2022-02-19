@@ -15,7 +15,7 @@
  */
 package com.techmine.gs.ui.pages;
 
-import com.github.cschabl.cdiunit.junit5.CdiUnitExtension;
+//import com.github.cschabl.cdiunit.junit5.CdiUnitExtension;
 import com.techmine.gs.WicketApplication;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -34,7 +34,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
  *
  * @author CodeCamp4
  */
-@ExtendWith(CdiUnitExtension.class)
+//@ExtendWith(CdiUnitExtension.class)
 public class BasePageTest {
 
     private WicketTester tester;
