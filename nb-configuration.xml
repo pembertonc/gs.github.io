@@ -18,5 +18,23 @@ Any value defined here will override the pom.xml file value but is only applicab
         <io-github-jeddict-cloud-provider.cloud-config-data>{"kubernetesConfigData":{"enabled":false},"openshiftConfigData":{"enabled":false}}</io-github-jeddict-cloud-provider.cloud-config-data>
         <io-github-jeddict-jakarta-ee.repository-data>{"cdi":true,"isNamed":false,"package":"repository","prefixName":"","servicePackage":"service","servicePrefixName":"","serviceSuffixName":"Service","suffixName":"Repository"}</io-github-jeddict-jakarta-ee.repository-data>
         <io-github-jeddict-infra.docker-config-data>{"dataSource":"gsDataSource","databaseType":"POSTGRESQL","databaseVersion":"latest","dbHost":"localhost","dbName":"gs","dbPassword":"24QZzi?|","dbPort":"5432","dbUserName":"sa","dockerActivated":false,"dockerEnable":false,"runtimeProviderClassName":"io.github.jeddict.runtime.PayaraServer"}</io-github-jeddict-infra.docker-config-data>
+        <org-netbeans-modules-css-prep.less_2e_mappings>/less:/css</org-netbeans-modules-css-prep.less_2e_mappings>
+        <org-netbeans-modules-css-prep.less_2e_enabled>false</org-netbeans-modules-css-prep.less_2e_enabled>
+        <org-netbeans-modules-css-prep.sass_2e_enabled>false</org-netbeans-modules-css-prep.sass_2e_enabled>
+        <org-netbeans-modules-css-prep.sass_2e_compiler_2e_options/>
+        <org-netbeans-modules-css-prep.less_2e_compiler_2e_options/>
+        <org-netbeans-modules-css-prep.sass_2e_mappings>/scss:/css</org-netbeans-modules-css-prep.sass_2e_mappings>
+        <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
+        <de-funfried-netbeans-plugins-externalcodeformatter.enableIndentationSettings>true</de-funfried-netbeans-plugins-externalcodeformatter.enableIndentationSettings>
+        <de-funfried-netbeans-plugins-externalcodeformatter.overrideTabSizeValue>4</de-funfried-netbeans-plugins-externalcodeformatter.overrideTabSizeValue>
+        <de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_XML>netbeans-formatter</de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_XML>
+        <de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_JAVASCRIPT>netbeans-formatter</de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_JAVASCRIPT>
+        <de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_JSON>netbeans-formatter</de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_JSON>
+        <de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_SQL>netbeans-formatter</de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_SQL>
+        <de-funfried-netbeans-plugins-externalcodeformatter.overrideTabSize>false</de-funfried-netbeans-plugins-externalcodeformatter.overrideTabSize>
+        <de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_JAVA>netbeans-formatter</de-funfried-netbeans-plugins-externalcodeformatter.enabledFormatter_2e_JAVA>
+        <de-funfried-netbeans-plugins-externalcodeformatter.showNotifications>false</de-funfried-netbeans-plugins-externalcodeformatter.showNotifications>
+        <de-funfried-netbeans-plugins-externalcodeformatter.useProjectSettings>false</de-funfried-netbeans-plugins-externalcodeformatter.useProjectSettings>
+        <org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>js/libs</org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>
     </properties>
 </project-shared-configuration>
