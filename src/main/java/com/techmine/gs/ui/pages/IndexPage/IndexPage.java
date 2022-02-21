@@ -38,24 +38,25 @@ public class IndexPage extends UnAuthenticatedBasePage {
 
     @Override
     protected void onInitialize() {
-        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.onInitialize();
 
         add(mainMenu = (MenuPanel) new MenuPanel("menubar"));
+        mainMenu.setVisibilityAllowed(true);
         add(currentView = new SignInPanel("body").setMarkupId("body"));
     }
 
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        if (AuthenticatedWebSession.exists()) {
-            mainMenu.setVisible(AuthenticatedWebSession.get().isSignedIn());
-        }
+        System.out.println("Stop 6 IndexPage onConfigure");
+        mainMenu.setVisible(AuthenticatedWebSession.get().isSignedIn());
 
     }
 
     @Override
     public void onEvent(IEvent<?> event) {
         super.onEvent(event);
+        System.out.println("Stop 2 onEvent");
         if (event.getPayload() instanceof Route) {
             Route route = (Route) event.getPayload();
             routeTo(route);
@@ -79,12 +80,15 @@ public class IndexPage extends UnAuthenticatedBasePage {
 
     private void routeOnLogin(Route route) {
         Dashboard comp = (Dashboard) new Dashboard("body").setMarkupId("dashboard");
-        currentView.replaceWith(comp);
+        System.out.println("Stop 3 routeLogin");
+        //currentView.replaceWith(comp);
+
+        this.replace(comp);
         route.getTarget().ifPresent((var target) -> {
-            // mainMenu.setVisible(true);
             target.add(mainMenu);
             target.add(comp);
         });
+        setResponsePage(IndexPage.class);
     }
 
     private void routeOnLogout(Route route) {
