@@ -16,18 +16,20 @@
 package com.techmine.gs.ui.panels.Menu;
 
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.protocol.http.WebSession;
 
 /**
  *
  * @author Cedric-Pemberton
  */
 public class MenuPanel extends Panel {
+
+    private AjaxFallbackLink logout;
 
     public MenuPanel(String id) {
         super(id);
@@ -40,12 +42,12 @@ public class MenuPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
-        add(new AjaxFallbackLink("logout") {
+        setOutputMarkupPlaceholderTag(true);
+        setMarkupId("menubar");
+        add(logout = new AjaxFallbackLink("logout") {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
-                setMarkupId("logout");
 
             }
 
@@ -56,23 +58,36 @@ public class MenuPanel extends Panel {
 
             @Override
             public void onClick(Optional optnl) {
-                // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                getSession().invalidate();
+                // SignInPanel newBody = new SignInPanel("body");
+                // getPage().get("Body").replaceWith(newBody);
+                // ((AjaxRequestTarget) optnl.get()).add(getPage().get("logout"));
+
+                /*    if (!AuthenticatedWebSession.get().isSignedIn()) {
+                ((AuthenticatedWebApplication) Application.get()).restartResponseAtSignInPage();
+                }*/
             }
 
-            @Override
-            protected void onConfigure() {
-                super.onConfigure();
-                AuthenticatedWebSession session = (AuthenticatedWebSession) getSession();
-
-                if (session.isTemporary()) {
-                    this.setVisible(false);
-                } else {
-                    this.setVisible(true);
-                }
-            }
-
-        });
+        }
+        );
 
     }
 
+    private static final Logger LOG = Logger.getLogger(MenuPanel.class.getName());
+
+    /* @Override
+    public boolean isVisible() {
+    LOG.log(Level.INFO, "is Visible being called");
+    return AuthenticatedWebSession.get().isSignedIn();
+
+    }*/
+    @Override
+    protected void onConfigure() {
+        LOG.log(Level.INFO, "On Config being called being called is Visisble =" + isVisible());
+        setVisible(AuthenticatedWebSession.get().isSignedIn());
+        LOG.log(Level.INFO, "On Config being called being called again is Visisble =" + isVisible());
+        LOG.log(Level.INFO, "iS signed in Value " + AuthenticatedWebSession.get().isSignedIn());
+        LOG.log(Level.INFO, "iIs Session Temporary " + AuthenticatedWebSession.get().isTemporary());
+        super.onConfigure();
+    }
 }

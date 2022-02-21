@@ -13,28 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.panels.Dashboard;
+package com.techmine.gs;
 
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
+import java.util.Optional;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-public class Dashboard extends Panel {
+public class Route {
 
-    public Dashboard(String id) {
-        super(id);
+    private final Actions action;
+
+    private final Optional<AjaxRequestTarget> target;
+
+    public Route(Actions action, Optional<AjaxRequestTarget> target) {
+        this.action = action;
+        this.target = target;
     }
 
-    public Dashboard(String id, IModel<?> model) {
-        super(id, model);
+    public Actions getAction() {
+        return this.action;
     }
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    public Optional<AjaxRequestTarget> getTarget() {
+        return target;
+    }
+
+    public enum Actions {
+        LOGIN, LOGOUT
     }
 
 }

@@ -37,6 +37,7 @@ public class CustomAuthenticatedWebSession extends AuthenticatedWebSession {
     @Override
     protected boolean authenticate(String userName, String password) {
         return authenticationService.login(userName, password);
+
     }
 
     @Override

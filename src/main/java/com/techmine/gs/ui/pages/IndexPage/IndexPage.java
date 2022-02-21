@@ -15,9 +15,14 @@
  */
 package com.techmine.gs.ui.pages.IndexPage;
 
+import com.techmine.gs.Route;
 import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
+import com.techmine.gs.ui.panels.Dashboard.Dashboard;
 import com.techmine.gs.ui.panels.Menu.MenuPanel;
 import com.techmine.gs.ui.panels.SignIn.SignInPanel;
+import org.apache.wicket.Component;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.event.IEvent;
 
 /**
  *
@@ -26,6 +31,7 @@ import com.techmine.gs.ui.panels.SignIn.SignInPanel;
 public class IndexPage extends UnAuthenticatedBasePage {
 
     private MenuPanel mainMenu;
+    private Component currentView;
 
     public IndexPage() {
     }
@@ -33,10 +39,44 @@ public class IndexPage extends UnAuthenticatedBasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-        mainMenu = new MenuPanel("menubar");
-        add(mainMenu);
-        
-        add(new SignInPanel("body").setMarkupId("body"));
+
+        add(mainMenu = (MenuPanel) new MenuPanel("menubar"));
+        add(currentView = new SignInPanel("body").setMarkupId("body"));
+    }
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+
+    }
+
+    @Override
+    public void onEvent(IEvent<?> event) {
+        super.onEvent(event); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        if (event.getPayload() instanceof Route) {
+            Route route = (Route) event.getPayload();
+            routeTo(route);
+
+        }
+    }
+
+    private void routeTo(Route route) {
+
+        switch (route.getAction()) {
+            case LOGIN:
+                Dashboard comp = (Dashboard) new Dashboard("body").setMarkupId("dashboard");
+                currentView.replaceWith(comp);
+                route.getTarget().ifPresent((var target) -> {
+                    mainMenu.setVisible(true);
+                    target.add(mainMenu);
+                    target.add(comp);
+
+                });
+
+                break;
+            default:
+                throw new AssertionError("Unknown Action.");
+        }
     }
 
 }

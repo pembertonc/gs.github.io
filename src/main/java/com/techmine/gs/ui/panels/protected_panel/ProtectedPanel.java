@@ -13,28 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.panels.Dashboard;
+
+ /* checks for for authentication and redirects to load SignInPanel if not authenticated
+
+ */
+package com.techmine.gs.ui.panels.protected_panel;
 
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-public class Dashboard extends Panel {
+public abstract class ProtectedPanel extends Panel {
 
-    public Dashboard(String id) {
+    public ProtectedPanel() {
+        super(null);
+    }
+
+    public ProtectedPanel(String id) {
         super(id);
-    }
-
-    public Dashboard(String id, IModel<?> model) {
-        super(id, model);
-    }
-
-    @Override
-    protected void onInitialize() {
-        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
 }

@@ -15,7 +15,6 @@
  */
 package com.techmine.gs.ui.panels.SignIn;
 
-import com.techmine.gs.WicketApplication;
 import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.ui.pages.IndexPage.IndexPage;
 
@@ -110,7 +109,7 @@ public class SignInPanelTest {
         FormTester ft = tester1.newFormTester("body:signInForm");
         Button btn = (Button) tester1.getComponentFromLastRenderedPage("body:signInForm:signIn");
         ft.setValue("userName", "SomeUserName").setValue("password", "password");
-        this.signInPanel.setAuthenticationService(authenticationService);
+        //this.signInPanel.setAuthenticationService(authenticationService);
 
         tester1.executeAjaxEvent(btn, "click");
 
@@ -126,7 +125,7 @@ public class SignInPanelTest {
         Mockito.when(authenticationService.login("SomeUserName", "SomeUserName")).thenReturn(true);
         tester1.assertComponent("body", SignInPanel.class);
         ft.setValue("userName", "SomeUserName").setValue("password", "SomeUserName");
-        this.signInPanel.setAuthenticationService(authenticationService);
+        //this.signInPanel.setAuthenticationService(authenticationService);
 
         tester1.executeAjaxEvent(btn, "click");
 
@@ -156,7 +155,7 @@ public class SignInPanelTest {
         Mockito.when(authenticationService.login("SomeUserName", "SomeUserName")).thenReturn(false);
 
         //MockitoAnnotations.openMocks(p);.
-        p.setAuthenticationService(authenticationService);
+        // p.setAuthenticationService(authenticationService);
         tester1.executeAjaxEvent(btn, "click");
 
         tester1.assertComponent("body", SignInPanel.class);

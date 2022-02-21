@@ -22,15 +22,17 @@
  */
 package com.techmine.gs.ui.panels.SignIn;
 
+import com.techmine.gs.Route;
+import com.techmine.gs.Route.Actions;
 import com.techmine.gs.domain.Subject;
-import com.techmine.gs.service.AuthenticationService;
-import com.techmine.gs.ui.panels.Dashboard.Dashboard;
 import java.io.Serializable;
-import javax.inject.Inject;
+import java.util.Optional;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
@@ -38,7 +40,6 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
-import org.apache.wicket.protocol.http.WebSession;
 
 /**
  *
@@ -46,23 +47,18 @@ import org.apache.wicket.protocol.http.WebSession;
  */
 public class SignInPanel extends Panel implements Serializable {
 
-    //@RequestScoped
-    private AuthenticationService authenticationService;
-
-    @Inject
-    public void setAuthenticationService(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
-    }
     StatelessForm<Subject> signInForm;
     private Subject user;
     private Button submit;
 
     public StatelessForm<Subject> getSignInForm() {
         return signInForm;
+
     }
 
     public void setSignInForm(StatelessForm<Subject> signInForm) {
         this.signInForm = signInForm;
+
     }
 
     public Subject getUser() {
@@ -135,13 +131,9 @@ public class SignInPanel extends Panel implements Serializable {
                         super.onSubmit(target);
 
                         if (signIn(user.getUserName(), user.getPassword())) {
-                            Dashboard db = new Dashboard("body");
-                            db.setMarkupId(getPage().get("body").getMarkupId());
-                            Component c = getPage().get("body").replaceWith(db);
-                            if (target != null) {
+                            Route r = new Route(Actions.LOGIN, Optional.of(target));
+                            send(this.getComponent().getPage(), Broadcast.EXACT, r);
 
-                                target.add(db);
-                            }
                         }
                     }
 
@@ -157,15 +149,8 @@ public class SignInPanel extends Panel implements Serializable {
     }
 
     private boolean signIn(String userName, String password) {
-        boolean result = false;
-        if (result = this.authenticationService.login(userName, password)) {
+        return AuthenticatedWebSession.get().signIn(userName, password);
 
-            if (WebSession.get().isTemporary()) {
-                WebSession.get().dirty(true);
-            }
-
-        }
-        return result;
     }
 
 }
