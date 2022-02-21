@@ -19,6 +19,7 @@ import com.techmine.gs.Route;
 import com.techmine.gs.Route.Actions;
 import java.util.Optional;
 import java.util.logging.Logger;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.event.Broadcast;
@@ -47,6 +48,7 @@ public class MenuPanel extends Panel {
         setOutputMarkupPlaceholderTag(true);
         setMarkupId("menubar");
         add(logout = new AjaxFallbackLink("logout") {
+
             @Override
             protected void onInitialize() {
                 super.onInitialize();
@@ -55,7 +57,7 @@ public class MenuPanel extends Panel {
 
             @Override
             protected boolean getStatelessHint() {
-                return true;
+                return super.getStatelessHint();
             }
 
             @Override

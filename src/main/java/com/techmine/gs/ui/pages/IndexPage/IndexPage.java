@@ -41,7 +41,6 @@ public class IndexPage extends UnAuthenticatedBasePage {
         super.onInitialize();
 
         add(mainMenu = (MenuPanel) new MenuPanel("menubar"));
-        mainMenu.setVisibilityAllowed(true);
         add(currentView = new SignInPanel("body").setMarkupId("body"));
     }
 
@@ -88,7 +87,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
             target.add(mainMenu);
             target.add(comp);
         });
-        setResponsePage(IndexPage.class);
+
     }
 
     private void routeOnLogout(Route route) {
@@ -97,6 +96,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
         route.getTarget().ifPresent((var target) -> {
             target.add(new SignInPanel("body"));
         });
+        //setResponsePage(IndexPage.class);
     }
 
 }
