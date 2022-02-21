@@ -17,6 +17,7 @@ package com.techmine.gs.ui.panels.Menu;
 
 import com.techmine.gs.Route;
 import com.techmine.gs.Route.Actions;
+import com.techmine.gs.ui.pages.IndexPage.IndexPage;
 import java.util.Optional;
 import java.util.logging.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -34,6 +35,8 @@ public class MenuPanel extends Panel {
 
     private AjaxFallbackLink logout;
 
+    private static final Logger LOG = Logger.getLogger(MenuPanel.class.getName());
+
     public MenuPanel(String id) {
         super(id);
     }
@@ -47,6 +50,7 @@ public class MenuPanel extends Panel {
         super.onInitialize();
         setOutputMarkupPlaceholderTag(true);
         setMarkupId("menubar");
+        add(this.initializeUserLink());
         add(logout = new AjaxFallbackLink("logout") {
 
             @Override
@@ -67,15 +71,22 @@ public class MenuPanel extends Panel {
                 send(this.getPage(), Broadcast.EXACT, route);
             }
 
-        }
-        );
-
+        });
     }
-
-    private static final Logger LOG = Logger.getLogger(MenuPanel.class.getName());
 
     @Override
     public boolean isVisible() {
         return AuthenticatedWebSession.get().isSignedIn();
     }
+
+    private AjaxFallbackLink initializeUserLink() {
+        return new AjaxFallbackLink("user") {
+            @Override
+            public void onClick(Optional optnl) {
+                Route route = new Route(Actions.USER, optnl);
+                send(getPage(), Broadcast.EXACT, route);
+            }
+        };
+    }
+
 }

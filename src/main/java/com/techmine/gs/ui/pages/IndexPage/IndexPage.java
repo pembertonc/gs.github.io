@@ -20,6 +20,7 @@ import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePag
 import com.techmine.gs.ui.panels.Dashboard.Dashboard;
 import com.techmine.gs.ui.panels.Menu.MenuPanel;
 import com.techmine.gs.ui.panels.SignIn.SignInPanel;
+import com.techmine.gs.ui.panels.views.userView.UserView;
 import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.event.IEvent;
@@ -72,6 +73,8 @@ public class IndexPage extends UnAuthenticatedBasePage {
             case LOGOUT:
                 routeOnLogout(route);
                 break;
+            case USER:
+                routeOnUser(route);
             default:
                 throw new AssertionError("Unknown Action.");
         }
@@ -97,6 +100,13 @@ public class IndexPage extends UnAuthenticatedBasePage {
             target.add(new SignInPanel("body"));
         });
         //setResponsePage(IndexPage.class);
+    }
+
+    private void routeOnUser(Route route) {
+        replace(new UserView("body"));
+        route.getTarget().ifPresent((var target) -> {
+            target.add(getPage().get("body"));
+        });
     }
 
 }
