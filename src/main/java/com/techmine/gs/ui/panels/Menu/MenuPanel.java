@@ -72,4 +72,8 @@ public class MenuPanel extends Panel {
 
     private static final Logger LOG = Logger.getLogger(MenuPanel.class.getName());
 
+    @Override
+    public boolean isVisible() {
+        return AuthenticatedWebSession.get().isSignedIn();
+    }
 }
