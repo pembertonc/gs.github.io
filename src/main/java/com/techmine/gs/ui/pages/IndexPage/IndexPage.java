@@ -75,6 +75,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
                 break;
             case USER:
                 routeOnUser(route);
+                break;
             default:
                 throw new AssertionError("Unknown Action.");
         }
@@ -94,18 +95,20 @@ public class IndexPage extends UnAuthenticatedBasePage {
     }
 
     private void routeOnLogout(Route route) {
-        //SignInPanel comp = (SignInPanel) new SignInPanel("body");
-        //currentView.replaceWith(comp);
+        SignInPanel comp = (SignInPanel) new SignInPanel("body");
+        currentView.replaceWith(comp);
+        currentView = comp;
         route.getTarget().ifPresent((var target) -> {
-            target.add(new SignInPanel("body"));
+            target.add(comp);
         });
         //setResponsePage(IndexPage.class);
     }
 
     private void routeOnUser(Route route) {
-        replace(new UserView("body"));
+        Component userView = new UserView("body");
+        replace(userView);
         route.getTarget().ifPresent((var target) -> {
-            target.add(getPage().get("body"));
+            target.add(userView);
         });
     }
 

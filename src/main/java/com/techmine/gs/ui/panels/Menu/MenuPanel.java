@@ -24,6 +24,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.event.Broadcast;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
@@ -50,7 +51,8 @@ public class MenuPanel extends Panel {
         super.onInitialize();
         setOutputMarkupPlaceholderTag(true);
         setMarkupId("menubar");
-        add(this.initializeUserLink());
+        add(this.initializeNavLink(Actions.USER, "users"));
+
         add(logout = new AjaxFallbackLink("logout") {
 
             @Override
@@ -79,14 +81,20 @@ public class MenuPanel extends Panel {
         return AuthenticatedWebSession.get().isSignedIn();
     }
 
-    private AjaxFallbackLink initializeUserLink() {
-        return new AjaxFallbackLink("user") {
+    private AjaxFallbackLink initializeNavLink(Actions action, String wicketId) {
+        return new AjaxFallbackLink("users") {
             @Override
             public void onClick(Optional optnl) {
-                Route route = new Route(Actions.USER, optnl);
+                Route route = new Route(action, optnl);
                 send(getPage(), Broadcast.EXACT, route);
             }
         };
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+
     }
 
 }
