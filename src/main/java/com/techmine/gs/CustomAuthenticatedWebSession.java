@@ -15,6 +15,8 @@
  */
 package com.techmine.gs;
 
+import com.techmine.gs.service.AuthenticationService;
+import javax.inject.Inject;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
@@ -25,13 +27,16 @@ import org.apache.wicket.request.Request;
  */
 public class CustomAuthenticatedWebSession extends AuthenticatedWebSession {
 
+    @Inject
+    private AuthenticationService authenticationService;
+
     public CustomAuthenticatedWebSession(Request request) {
         super(request);
     }
 
     @Override
     protected boolean authenticate(String userName, String password) {
-        return userName.equals(password);
+        return authenticationService.login(userName, password);
     }
 
     @Override
