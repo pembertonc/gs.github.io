@@ -29,7 +29,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
     @Inject
     BeanManager beanManager;
 
-    // for testing convience  To be removed 
+    // for testing convience  To be removed
     WicketApplication(BeanManager beanManager) {
         this.beanManager = beanManager;
     }
@@ -87,7 +87,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 
     @Override
     protected Class<? extends WebPage> getSignInPageClass() {
-        return UnAuthenticatedBasePage.class;
+        return IndexPage.class;
     }
 
     public static BeanManager getBeanManager() {
