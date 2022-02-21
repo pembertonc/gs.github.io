@@ -22,13 +22,13 @@ import org.apache.wicket.model.IModel;
  *
  * @author Cedric-Pemberton
  */
-public class UserEditor extends Panel {
+public class UserSearch extends Panel {
 
-    public UserEditor(String id) {
+    public UserSearch(String id) {
         super(id);
     }
 
-    public UserEditor(String id, IModel<?> model) {
+    public UserSearch(String id, IModel<?> model) {
         super(id, model);
     }
 

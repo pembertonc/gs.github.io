@@ -16,11 +16,21 @@
 package com.techmine.gs.ui.panels.views.userView;
 
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-public class UserView extends WebPage {
+public class UserView extends Panel {
+
+    public UserView(String id, IModel<?> model) {
+        super(id, model);
+    }
+
+    public UserView(String id) {
+        super(id);
+    }
 
 }
