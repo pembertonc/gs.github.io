@@ -47,12 +47,15 @@ public class IndexPage extends UnAuthenticatedBasePage {
     @Override
     protected void onConfigure() {
         super.onConfigure();
+        if (AuthenticatedWebSession.exists()) {
+            mainMenu.setVisible(AuthenticatedWebSession.get().isSignedIn());
+        }
 
     }
 
     @Override
     public void onEvent(IEvent<?> event) {
-        super.onEvent(event); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.onEvent(event);
         if (event.getPayload() instanceof Route) {
             Route route = (Route) event.getPayload();
             routeTo(route);
@@ -64,19 +67,32 @@ public class IndexPage extends UnAuthenticatedBasePage {
 
         switch (route.getAction()) {
             case LOGIN:
-                Dashboard comp = (Dashboard) new Dashboard("body").setMarkupId("dashboard");
-                currentView.replaceWith(comp);
-                route.getTarget().ifPresent((var target) -> {
-                    mainMenu.setVisible(true);
-                    target.add(mainMenu);
-                    target.add(comp);
-
-                });
-
+                routeOnLogin(route);
+                break;
+            case LOGOUT:
+                routeOnLogout(route);
                 break;
             default:
                 throw new AssertionError("Unknown Action.");
         }
+    }
+
+    private void routeOnLogin(Route route) {
+        Dashboard comp = (Dashboard) new Dashboard("body").setMarkupId("dashboard");
+        currentView.replaceWith(comp);
+        route.getTarget().ifPresent((var target) -> {
+            // mainMenu.setVisible(true);
+            target.add(mainMenu);
+            target.add(comp);
+        });
+    }
+
+    private void routeOnLogout(Route route) {
+        //SignInPanel comp = (SignInPanel) new SignInPanel("body");
+        //currentView.replaceWith(comp);
+        route.getTarget().ifPresent((var target) -> {
+            target.add(new SignInPanel("body"));
+        });
     }
 
 }
