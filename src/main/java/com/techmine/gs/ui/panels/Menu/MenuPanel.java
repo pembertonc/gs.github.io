@@ -15,11 +15,13 @@
  */
 package com.techmine.gs.ui.panels.Menu;
 
+import com.techmine.gs.Route;
+import com.techmine.gs.Route.Actions;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
@@ -58,14 +60,9 @@ public class MenuPanel extends Panel {
 
             @Override
             public void onClick(Optional optnl) {
-                getSession().invalidate();
-                // SignInPanel newBody = new SignInPanel("body");
-                // getPage().get("Body").replaceWith(newBody);
-                // ((AjaxRequestTarget) optnl.get()).add(getPage().get("logout"));
-
-                /*    if (!AuthenticatedWebSession.get().isSignedIn()) {
-                ((AuthenticatedWebApplication) Application.get()).restartResponseAtSignInPage();
-                }*/
+                AuthenticatedWebSession.get().signOut();
+                Route route = new Route(Actions.LOGOUT, optnl);
+                send(this.getPage(), Broadcast.EXACT, route);
             }
 
         }
@@ -75,19 +72,4 @@ public class MenuPanel extends Panel {
 
     private static final Logger LOG = Logger.getLogger(MenuPanel.class.getName());
 
-    /* @Override
-    public boolean isVisible() {
-    LOG.log(Level.INFO, "is Visible being called");
-    return AuthenticatedWebSession.get().isSignedIn();
-
-    }*/
-    @Override
-    protected void onConfigure() {
-        LOG.log(Level.INFO, "On Config being called being called is Visisble =" + isVisible());
-        setVisible(AuthenticatedWebSession.get().isSignedIn());
-        LOG.log(Level.INFO, "On Config being called being called again is Visisble =" + isVisible());
-        LOG.log(Level.INFO, "iS signed in Value " + AuthenticatedWebSession.get().isSignedIn());
-        LOG.log(Level.INFO, "iIs Session Temporary " + AuthenticatedWebSession.get().isTemporary());
-        super.onConfigure();
-    }
 }
