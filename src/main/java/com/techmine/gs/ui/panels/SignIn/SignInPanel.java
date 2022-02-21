@@ -130,7 +130,8 @@ public class SignInPanel extends Panel implements Serializable {
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
 
-                        if (signIn(user.getUserName(), user.getPassword())) {
+                        if (SignInPanel.this.signIn(user.getUserName(), user.getPassword())) {
+                            System.out.println("onSubmit Stop 1");
                             Route r = new Route(Actions.LOGIN, Optional.of(target));
                             send(this.getComponent().getPage(), Broadcast.EXACT, r);
 
@@ -151,6 +152,11 @@ public class SignInPanel extends Panel implements Serializable {
     private boolean signIn(String userName, String password) {
         return AuthenticatedWebSession.get().signIn(userName, password);
 
+    }
+
+    @Override
+    public boolean isVisible() {
+        return !AuthenticatedWebSession.get().isSignedIn();
     }
 
 }
