@@ -53,6 +53,8 @@ public class WicketApplication extends AuthenticatedWebApplication {
     @Override
     public void init() {
         super.init();
+// set the error page for expired page
+        getApplicationSettings().setPageExpiredErrorPage(IndexPage.class);
 
         // needed to prevent password in clear text.
         setRootRequestMapper(new HttpsMapper(getRootRequestMapper(),
