@@ -18,15 +18,12 @@ Additionally you should visit the Discussion tab, to review the discussions, thi
 1. The application expects to have available a Server Registered with the IDE Called **Payara Server** version 5 or later.  
 2. There is no need to configure a database as the database is embedded in the application.
 
-#### Client Requests ####
-For the colour scheme:
-primary color: #41c300
-complimentary color: #8200c3
-Analogous : #a2c300
-Analogous: #00c320
-Triadic: #00c382
-Triadic: #0041c3
-https://material.io/design/color/the-color-system.html#tools-for-picking-colors
+### Styling ###
+1. Component Back ground colours w3-theme-l5.
+2. Component Header classes w3-theme-d1 w3-stretch w3-center w3-text-light-grey.
+3. Component Footer Classes w3-panel w3-stretch w3-center.
+4. Button Classes w3-button w3-hover-theme.
+5. Input Classes w3-input w3-transparent
 
 ### Standard Procedures..  
 
