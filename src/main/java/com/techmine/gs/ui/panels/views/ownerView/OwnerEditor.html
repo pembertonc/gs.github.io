@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+Copyright 2022 bethy.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+  <form wicket:id="form" class="w3-display-topmiddle">
+                <header>
+                    <h2>Owner Information</h2>
+                </header>
+                <div class="w3-container">
+                    <div class="w3-margin-16">
+                        <label>Institution Name</label>
+                        <input wicket:id="institutionName" class="w3-input" type="text"/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Street 1</label>
+                        <input  wicket:id="street1" class="w3-input" type="text" placeholder="Street address, Company name, P.O. Box, c\/o"/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Street 2</label>
+                        <input  wicket:id="street2" class="w3-input" type="text" placeholder="Apt, Suite, Building, Unit, Floor, etc."/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>City</label><br/>
+                        <input  wicket:id="city" class="w3-input" type="text"/>
+
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Country</label><br/>
+                        <input wicket:id="country" class="w3-input" type="text"/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Telephone 1</label><br/>
+                        <input wicket:id="telephone1" class="w3-input" type="text"/>
+                    </div >
+                    <div class="w3-margin-16">
+                        <label>Telephone 2</label>
+                        <input wicket:id="telephone2" class="w3-input" type="text"/>
+
+                    </div >
+                    <div class="w3-margin-16">  <label>Email</label>
+                        <input wicket:id="email" class="w3-input" type="text"/>
+
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>First Name</label>
+                        <input wicket:id="firstName" class="w3-input" type="text"/>
+                    </div>
+                    <div class="w3-margin-16">
+                        <label>Family Name</label>
+                        <input wicket:id="familyName" class="w3-input" type="text"/>
+                    </div>
+
+                    <div class="w3-margin-16">
+                        <label>Other Name</label>
+                        <input wicket:id="otherName" class="w3-input" type="text"/>
+                    </div>
+                    <footer class="w3-container w3-gray w3-center w3-bar w3-row">
+                        <div class="w3-half">
+                            <button class="w3-button w3-green">Save</button>
+                        </div>
+                        <div class="w3-half">
+                            <button class="w3-button w3-red">Cancel</button>
+                        </div>
+                    </footer>
+                </div>
+            </form>
+
+    </body>
+</html>
