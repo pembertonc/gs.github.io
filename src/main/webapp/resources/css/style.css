@@ -13,3 +13,7 @@ i.material-icons {
 .fit-menu {
     transform: scaleY(1.06);
 }
+
+input.w3-input{
+    max-width: 200px;
+}
