@@ -1,10 +1,13 @@
 package com.techmine.gs.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
@@ -26,10 +29,10 @@ public class Subject extends BaseEntity {
     @NotBlank(message = "Password is required")
     @Size(min = 4, max = 12, message = "Password must be from 4 to 12 characters long.")
     private String password;
-    @Basic
-    private String role;
     @OneToOne
     private Person person;
+    @ManyToMany
+    private List<Role> roles;
 
     public String getUserName() {
         return userName;
@@ -57,19 +60,6 @@ public class Subject extends BaseEntity {
         return this;
     }
 
-    public Optional<String> getRole() {
-        return Optional.ofNullable(role);
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Subject role(String role) {
-        this.role = role;
-        return this;
-    }
-
     public Optional<Person> getPerson() {
         return Optional.ofNullable(person);
     }
@@ -81,6 +71,30 @@ public class Subject extends BaseEntity {
     public Subject person(Person person) {
         this.person = person;
         return this;
+    }
+
+    public List<Role> getRoles() {
+        if (roles == null) {
+            roles = new ArrayList<>();
+        }
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Subject roles(List<Role> roles) {
+        this.roles = roles;
+        return this;
+    }
+
+    public void addRole(Role role) {
+        getRoles().add(role);
+    }
+
+    public void removeRole(Role role) {
+        getRoles().remove(role);
     }
 
     @Override
@@ -104,13 +118,12 @@ public class Subject extends BaseEntity {
         hash = 31 * hash + Objects.hashCode(this.getId());
         hash = 31 * hash + Objects.hashCode(this.getUserName());
         hash = 31 * hash + Objects.hashCode(this.getPassword());
-        hash = 31 * hash + Objects.hashCode(this.getRole().orElse(null));
         return hash;
     }
 
     @Override
     public String toString() {
-        return "Subject{" + " userName=" + userName + ", password=" + password + ", role=" + role + '}';
+        return "Subject{" + " userName=" + userName + ", password=" + password + '}';
     }
 
 }
