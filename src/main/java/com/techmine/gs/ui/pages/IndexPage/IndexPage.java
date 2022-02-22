@@ -48,7 +48,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        System.out.println("Stop 6 IndexPage onConfigure");
+
         mainMenu.setVisible(AuthenticatedWebSession.get().isSignedIn());
 
     }
@@ -56,7 +56,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
     @Override
     public void onEvent(IEvent<?> event) {
         super.onEvent(event);
-        System.out.println("Stop 2 onEvent");
+
         if (event.getPayload() instanceof Route) {
             Route route = (Route) event.getPayload();
             routeTo(route);
@@ -83,7 +83,6 @@ public class IndexPage extends UnAuthenticatedBasePage {
 
     private void routeOnLogin(Route route) {
         Dashboard comp = (Dashboard) new Dashboard("body").setMarkupId("dashboard");
-        System.out.println("Stop 3 routeLogin");
         //currentView.replaceWith(comp);
 
         this.replace(comp);
