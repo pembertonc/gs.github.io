@@ -66,14 +66,15 @@ public class UserEditorTest {
 
     @Test
     void testFormExist() {
-        tester.assertEnabled("editor:editForm");
+        tester.assertExists("editor:editForm");
 
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"userName", "firstName", "otherName", "Password",})
-    public void testUserNameRenders() {
-        tester.assertExists("editor:editForm:userName");
+    @ValueSource(strings = {"userName", "firstName", "otherName", "password", "email", "telephone1", "telephone2", "save", "cancel", "new"})
+    public void testFieldsRender(String wicketId) {
+        String path = "editor:editForm:" + wicketId;
+        tester.assertExists(path);
 
     }
 
