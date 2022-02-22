@@ -15,7 +15,7 @@
  */
 package com.techmine.gs.ui.panels.views.userView;
 
-import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
@@ -24,6 +24,8 @@ import org.apache.wicket.model.IModel;
  * @author Cedric-Pemberton
  */
 public class UserView extends Panel {
+
+    private Component editor;
 
     public UserView(String id, IModel<?> model) {
         super(id, model);
@@ -37,6 +39,11 @@ public class UserView extends Panel {
     protected void onInitialize() {
         super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         setOutputMarkupId(true);
+        add(editor = initializeUserEditor());
+    }
+
+    private Component initializeUserEditor() {
+        return new UserEditor("editor");
     }
 
 }

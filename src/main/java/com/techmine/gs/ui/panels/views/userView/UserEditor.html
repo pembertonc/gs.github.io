@@ -14,13 +14,59 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
     <head>
         <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     </head>
     <body>
-        <div>TODO write content</div>
+        <wicket:panel>
+            <div class="w3-container">
+                <header class="w3-theme-d1 w3-stretch w3-center w3-text-light-grey ">Editor</header>
+                <section>
+                    <div>
+                        <input id="userName" class="w3-input w3-transparent" type="text"/>
+                        <label for="userName">User Name</label>
+                    </div>
+                    <div>
+                        <input id="password" class="w3-input w3-transparent" type="password"/>
+                        <label for="password">Password</label>
+                    </div>
+                    <div>
+                        <input id="firstName" class="w3-input w3-transparent" type="text"/>
+                        <label for="firstName">First Name</label>
+                    </div>
+                    <div>
+                        <input id="familyName" class="w3-input w3-transparent" type="text"/>
+                        <label for="familyName">Family Name</label>
+                    </div>
+                    <div>
+                        <input id="otherName" class="w3-input w3-transparent" type="text"/>
+                        <label for="otherName">Other Name</label>
+                    </div>
+                    <div>
+                        <input id="email" class="w3-input w3-transparent" type="tel"/>
+                        <label for="email">Email</label>
+                    </div>
+                    <div>
+                        <input id="telephone1" class="w3-input w3-transparent"/>
+                        <label for="telephone1" type="tel">Telephone 1</label>
+                    </div>
+                    <div>
+                        <input id="telephone2" class="w3-input w3-transparent" type="tel"/>
+                        <label for="telephone2">Telephone 1</label>
+                    </div>
+                </section>
+                <footer>
+                    <div class="w3-bar">
+                        <button class="w3-button w3-bar-item w3-mobile w3-hover-orange">Save</button>
+                        <button class="w3-button w3-bar-item w3-mobile w3-hover-orange">Cancel</button>
+                        <button class="w3-button w3-bar-item w3-mobile w3-hover-orange">New</button>
+                    </div>
+                </footer>
+            </div>
+        </wicket:panel>
     </body>
 </html>

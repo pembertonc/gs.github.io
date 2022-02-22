@@ -32,4 +32,9 @@ public class UserEditor extends Panel {
         super(id, model);
     }
 
+    @Override
+    protected void onInitialize() {
+        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
 }
