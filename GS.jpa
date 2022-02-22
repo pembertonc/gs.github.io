@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<entity-mappings ptype="MONOLITH" ppkg="com.techmine.gs" epkg="domain" v="5.4.4" rws="_16238885089942" Pws="_16238885089942" cws="_16238885089942" persistenceUnitName="GS_PU" pp="E" sm="false" xs="false" id="_16238885089941" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<entity-mappings ptype="MONOLITH" ppkg="com.techmine.gs" epkg="domain" v="5.4.4" rws="_16238885089942" Pws="_164550291943336" cws="_164550291943336" persistenceUnitName="GS_PU" pp="E" sm="false" xs="false" id="_16238885089941" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <mapped-superclass compositePrimaryKeyClass="BaseEntityPK" abs="false" class="BaseEntity" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908616129139">
         <inf e="true" n="java.io.Serializable"/>
         <snp loc="IMPORT" e="true">java.util.UUID</snp>
@@ -214,13 +214,11 @@
         <ts e="true">
             <a>_163908735716373</a>
             <a>_163908735774074</a>
-            <a>_163908735849175</a>
         </ts>
         <hc e="true">
             <a>_163908625849641</a>
             <a>_163908735716373</a>
             <a>_163908735774074</a>
-            <a>_163908735849175</a>
         </hc>
         <eq e="true">
             <a>_163908625849641</a>
@@ -244,14 +242,14 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="12"/>
             </basic>
-            <basic attribute-type="String" v="true" xvt="" name="role" id="_163908735849175">
-                <xwm/>
-                <xm/>
-            </basic>
             <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" id="_163908734901372">
                 <xwm/>
                 <xm/>
             </one-to-one>
+            <many-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_164550302254398" v="true" xvt="" name="roles" id="_1645503104978107">
+                <xwm/>
+                <xm/>
+            </many-to-many>
         </attributes>
         <nq e="false" name="Subject.findAll">
             <query>Select e from Subject e</query>
@@ -303,6 +301,28 @@
             </basic>
         </attributes>
     </entity>
+    <entity compositePrimaryKeyClass="RolePK" abs="false" class="Role" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_164550302254398">
+        <ath>Cedric-Pemberton</ath>
+        <attributes>
+            <basic attribute-type="String" v="true" xvt="" name="roleName" id="_1645503052170102">
+                <xwm/>
+                <xm/>
+            </basic>
+            <basic attribute-type="String" v="true" xvt="" name="description" id="_1645503059049103">
+                <xwm/>
+                <xm/>
+            </basic>
+        </attributes>
+        <nq e="false" name="Role.findAll">
+            <query>Select e from Role e</query>
+        </nq>
+        <nq e="false" name="Role.findByRoleName">
+            <query>Select r from Role r where r.roleName=:roleName</query>
+        </nq>
+        <nq e="false" name="Role.findByDescription">
+            <query>Select r from Role r where r.description=:description</query>
+        </nq>
+    </entity>
     <embeddable abs="false" class="Measure" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088473362211">
         <attributes>
             <basic attribute-type="String" v="true" xvt="" am="PRIVATE" name="value" jbt="false" id="_1639088473362212">
@@ -329,6 +349,13 @@
             <i ref="_163908596520722" x="214" y="564"/>
             <i ref="_163908726308665" x="214" y="362"/>
             <i ref="_163908616129139" x="500" y="216"/>
+        </ws>
+        <ws n="User" id="_164550291943336">
+            <i ref="_163908596303719" x="553" y="408"/>
+            <i ref="_163908597108431" x="893" y="424"/>
+            <i ref="_164550302254398" x="57" y="261"/>
+            <i ref="_163908616129139" x="646" y="51"/>
+            <i ref="_163908726308665" x="350" y="261"/>
         </ws>
     </wsl>
 </entity-mappings>
