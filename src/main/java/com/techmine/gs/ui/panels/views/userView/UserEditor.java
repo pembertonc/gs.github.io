@@ -15,7 +15,11 @@
  */
 package com.techmine.gs.ui.panels.views.userView;
 
+import com.techmine.gs.domain.Contact;
+import com.techmine.gs.domain.Person;
 import com.techmine.gs.domain.Subject;
+import com.techmine.gs.service.AuthenticationService;
+import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -28,6 +32,7 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LambdaModel;
 
 /**
  *
@@ -35,7 +40,14 @@ import org.apache.wicket.model.IModel;
  */
 public class UserEditor extends Panel {
 
-    private Form<Void> editForm;
+    private AuthenticationService authenticatedService;
+
+    @Inject
+    void setAuthenticatedService(AuthenticationService authenticatedService) {
+        this.authenticatedService = authenticatedService;
+    }
+
+    private Form<Subject> editForm;
 
     public UserEditor(String id) {
         super(id);
@@ -49,24 +61,26 @@ public class UserEditor extends Panel {
     protected void onInitialize() {
         super.onInitialize();
         setOutputMarkupId(true); // needed for ajax support.
-
-        add(editForm = initializeEditForm());
-        editForm.add(initializeTextField("userName", null, true));
-        editForm.add(initializePassword("password", null, true));
-        editForm.add(initializeTextField("firstName", null, true));
-        editForm.add(initializeTextField("familyName", null, true));
-        editForm.add(initializeTextField("otherName", null, true));
-        editForm.add(initializeEmailField("email", null, true));
-        editForm.add(initializeTextField("telephone1", null, true));
-        editForm.add(initializeTextField("telephone2", null, true));
+        Subject sub = (Subject) getDefaultModelObject();
+        add(editForm = initializeEditForm("editForm", (IModel<Subject>) getDefaultModel()));
+        editForm.add(initializeTextField("userName", LambdaModel.of(sub::getUserName, sub::setUserName), true));
+        editForm.add(initializePassword("password", LambdaModel.of(sub::getPassword, sub::setPassword), true));
+        Person person = sub.getPerson().get();
+        editForm.add(initializeTextField("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), true));
+        editForm.add(initializeTextField("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), true));
+        editForm.add(initializeTextField("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), true));
+        Contact cont = person.getContacts().stream().findFirst().get();
+        editForm.add(initializeEmailField("email", LambdaModel.of(cont::getEmail, cont::setEmail), true));
+        editForm.add(initializeTextField("telephone1", LambdaModel.of(cont::getTelephone1, cont::setTelephone1), true));
+        editForm.add(initializeTextField("telephone2", LambdaModel.of(cont::getTelephone2, cont::setTelephone2), true));
         editForm.add(initializeSave("save", null));
         editForm.add(initializeCancel("cancel", null));
         editForm.add(initializeNew("new", null));
 
     }
 
-    private Form<Void> initializeEditForm() {
-        return new Form("editForm");
+    private Form<Subject> initializeEditForm(String id, IModel<Subject> model) {
+        return new Form(id, model);
     }
 
     private TextField initializeTextField(String id, IModel<String> model, boolean required) {
@@ -74,7 +88,7 @@ public class UserEditor extends Panel {
     }
 
     private FormComponent initializePassword(String id, IModel<String> model, boolean required) {
-        return new PasswordTextField(id, model).setRequired(required);
+        return new PasswordTextField(id, model).setResetPassword(false);
 
     }
 
@@ -87,15 +101,20 @@ public class UserEditor extends Panel {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
+                setDefaultFormProcessing(false);
                 add(new AjaxFormSubmitBehavior("click") {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
+
+                        save((Subject) getParent().getDefaultModel().getObject());
+                        target.add(UserEditor.this);
                     }
 
                     @Override
                     protected void onError(AjaxRequestTarget target) {
                         super.onError(target);
+
                     }
 
                 });
@@ -150,6 +169,10 @@ public class UserEditor extends Panel {
             }
 
         };
+    }
+
+    private Subject save(Subject subject) {
+        return this.authenticatedService.save(subject);
     }
 
 }
