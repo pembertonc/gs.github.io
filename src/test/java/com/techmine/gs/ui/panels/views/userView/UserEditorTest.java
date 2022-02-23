@@ -17,6 +17,8 @@ package com.techmine.gs.ui.panels.views.userView;
 
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.AuthenticationService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -24,6 +26,7 @@ import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -53,6 +56,7 @@ public class UserEditorTest {
     UserEditor instance;
 
     UserEditor userEditor;
+    private AutoCloseable closure;
 
     public UserEditorTest() {
     }
@@ -70,12 +74,19 @@ public class UserEditorTest {
         this.tester = new WicketTester();
 
         instance = new UserEditor("editor", Model.of(new Subject()));
-        tester.startComponentInPage(instance);
-        MockitoAnnotations.openMocks(instance);
+        instance = tester.startComponentInPage(instance);
+        closure = MockitoAnnotations.openMocks(instance);
     }
 
     @AfterEach
     public void tearDown() {
+        try {
+            closure.close();
+        } catch (Exception ex) {
+            Logger.getLogger(UserEditorTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tester.destroy();
+
     }
 
     /**
@@ -94,7 +105,7 @@ public class UserEditorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"userName", "firstName", "otherName", "password", "email", "telephone1", "telephone2", "save", "cancel", "new"})
-    public void testFieldsRender(String wicketId) {
+    public void testComponentsRender(String wicketId) {
         String path = "editor:editForm:" + wicketId;
         tester.assertExists(path);
 
@@ -104,13 +115,15 @@ public class UserEditorTest {
     public void testSaveCalled() {
         FormTester formTester = tester.newFormTester("editor:editForm");
         UserEditor editor = (UserEditor) tester.getComponentFromLastRenderedPage("editor");
-        IModel<Subject> subject = (IModel<Subject>) editor.getDefaultModelObject();
+        Subject subject = (Subject) editor.getDefaultModelObject();
 
         populateSubject(formTester);
         // click the save button.
 
-        verify(authenticationService, times(1)).save(subject.getObject());
-
+        assertNotNull(this.authenticationService);
+        instance.setAuthenticatedService(authenticationService);
+        tester.executeAjaxEvent("editor:editForm:save", "click");
+        verify(authenticationService, times(1)).save(subject);
     }
 
     private void populateSubject(FormTester formTester) {
@@ -119,10 +132,9 @@ public class UserEditorTest {
         formTester.setValue("firstName", "Jason");
         formTester.setValue("familyName", "David");
         formTester.setValue("otherName", "Smith");
-        formTester.setValue("emal", "jason@smith.com");
+        formTester.setValue("email", "jason@smith.com");
         formTester.setValue("telephone1", "128-265-5698");
         formTester.setValue("telephone2", "128-265-8965");
-
     }
 
 }
