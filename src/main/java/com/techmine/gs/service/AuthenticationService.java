@@ -44,4 +44,8 @@ public class AuthenticationService {
 
     }
 
+    public Subject save(Subject subject) {
+        throw new UnsupportedOperationException("Not yet implmented");
+    }
+
 }
