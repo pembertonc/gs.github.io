@@ -12,7 +12,7 @@
     <class>com.techmine.gs.domain.Person</class>
     <class>com.techmine.gs.domain.Institution</class>
     <class>com.techmine.gs.domain.Subject</class>
-    <class>com.techmine.gs.domain.Role</class>
+    <class>com.techmine.gs.domain.AuthorizationRole</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

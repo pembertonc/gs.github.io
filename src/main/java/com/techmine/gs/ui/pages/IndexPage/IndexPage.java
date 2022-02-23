@@ -86,7 +86,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
         //currentView.replaceWith(comp);
 
         this.replace(comp);
-        route.getTarget().ifPresent((var target) -> {
+        route.getTarget().ifPresent((target) -> {
             target.add(mainMenu);
             target.add(comp);
         });
