@@ -3,7 +3,6 @@ package com.techmine.gs.domain;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -16,15 +15,13 @@ public class Contact extends BaseEntity {
     @Basic
     @Email(message = "Not a valid Email ")
     private String email;
-    @Basic
+    @Basic(optional = false)
     @Column(nullable = false, length = 14)
     @NotBlank(message = "Telehone 1 is required")
     private String telephone1;
     @Basic
     @Column(length = 14)
     private String telephone2;
-    @OneToOne
-    private Person person;
 
     public String getEmail() {
         return email;
@@ -62,19 +59,6 @@ public class Contact extends BaseEntity {
 
     public Contact telephone2(String telephone2) {
         this.telephone2 = telephone2;
-        return this;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public Contact person(Person person) {
-        this.person = person;
         return this;
     }
 
