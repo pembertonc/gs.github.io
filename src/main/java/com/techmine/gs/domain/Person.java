@@ -1,10 +1,15 @@
 package com.techmine.gs.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -26,6 +31,14 @@ public class Person extends BaseEntity {
     @NotBlank(message = "Family Name is required")
     @Size(min = 1, max = 64, message = "First Name must not be longer than  64 characters")
     private String familyName;
+    @OneToMany
+    @NotNull
+    @Size(min = 1)
+    private List<Contact> contacts = new ArrayList<Contact>();
+
+    public Person() {
+        contacts.add(new Contact());
+    }
 
     public String getFirstName() {
         return firstName;
@@ -64,6 +77,30 @@ public class Person extends BaseEntity {
     public Person familyName(String familyName) {
         this.familyName = familyName;
         return this;
+    }
+
+    public List<Contact> getContacts() {
+        if (contacts == null) {
+            contacts = new ArrayList<>();
+        }
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public Person contacts(List<Contact> contacts) {
+        this.contacts = contacts;
+        return this;
+    }
+
+    public void addContact(Contact contact) {
+        getContacts().add(contact);
+    }
+
+    public void removeContact(Contact contact) {
+        getContacts().remove(contact);
     }
 
 }
