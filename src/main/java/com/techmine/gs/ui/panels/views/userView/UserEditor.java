@@ -33,6 +33,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.Model;
 
 /**
  *
@@ -50,7 +51,8 @@ public class UserEditor extends Panel {
     private Form<Subject> editForm;
 
     public UserEditor(String id) {
-        super(id);
+        this(id, Model.of(new Subject()));
+
     }
 
     public UserEditor(String id, IModel<Subject> model) {
