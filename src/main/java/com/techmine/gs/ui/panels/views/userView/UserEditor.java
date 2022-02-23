@@ -15,6 +15,7 @@
  */
 package com.techmine.gs.ui.panels.views.userView;
 
+import com.techmine.gs.domain.Subject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -40,13 +41,15 @@ public class UserEditor extends Panel {
         super(id);
     }
 
-    public UserEditor(String id, IModel<?> model) {
+    public UserEditor(String id, IModel<Subject> model) {
         super(id, model);
     }
 
     @Override
     protected void onInitialize() {
-        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.onInitialize();
+        setOutputMarkupId(true); // needed for ajax support.
+
         add(editForm = initializeEditForm());
         editForm.add(initializeTextField("userName", null, true));
         editForm.add(initializePassword("password", null, true));
@@ -110,6 +113,8 @@ public class UserEditor extends Panel {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
+
+                        target.add(getParent());
 
                     }
 
