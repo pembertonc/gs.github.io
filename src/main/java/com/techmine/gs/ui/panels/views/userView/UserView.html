@@ -20,11 +20,20 @@ limitations under the License.
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
     </head>
     <body>
         <wicket:panel>
+
             <header class="w3-theme-d1 w3-stretch w3-center w3-text-light-grey ">User Manager</header>
-            <div wicket:id="editor">User View works</div>
+            <div class="w3-container w3-row">
+                <div class="w3-third w3-mobile w3-blue">
+                    <div wicket:id="editor">Editor</div>
+                </div>
+                <div class="w3-twothird w3-mobile w3-gray">Search</div>
+            </div>
+
         </wicket:panel>
     </body>
 </html>
