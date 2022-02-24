@@ -15,13 +15,17 @@
  */
 package com.techmine.gs.service;
 
-import com.techmine.gs.producer.EntityManagerProducer;
 import com.techmine.gs.repository.SubjectRepository;
+import com.techmine.gs.testutils.TestEntityManagerProvider;
+
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
 import org.jboss.weld.junit5.auto.ActivateScopes;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.EnableAlternatives;
 import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -36,7 +40,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
  * @author Cedric-Pemberton
  */
 @ExtendWith(WeldJunit5AutoExtension.class)
-@AddBeanClasses(value = {EntityManagerProducer.class, EntityManager.class, UserServiceTest.class, UserService.class, SubjectRepository.class})
+@AddBeanClasses(value = {TestEntityManagerProvider.class, UserServiceTest.class, UserService.class, SubjectRepository.class})
+@EnableAlternatives(value = {TestEntityManagerProvider.class})
 @ActivateScopes(value = {RequestScoped.class})
 public class UserServiceTest {
 
@@ -44,6 +49,7 @@ public class UserServiceTest {
     UserService instance;
 
     @Inject
+    @Alternative
     EntityManager em;
 
     public UserServiceTest() {

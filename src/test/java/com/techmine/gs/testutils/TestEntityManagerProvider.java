@@ -15,10 +15,22 @@
  */
 package com.techmine.gs.testutils;
 
+import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Produces;
+import javax.persistence.EntityManager;
+
+import javax.persistence.Persistence;
+
 /**
  *
  * @author Cedric-Pemberton
  */
 public class TestEntityManagerProvider {
 
+    @Alternative
+    @Produces
+    public EntityManager getEntitytManager() {
+        return (EntityManager) Persistence.createEntityManagerFactory("GS_PU_TEST1")
+                .createEntityManager();
+    }
 }
