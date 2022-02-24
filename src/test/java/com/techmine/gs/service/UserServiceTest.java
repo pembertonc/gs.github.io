@@ -19,6 +19,7 @@ import com.techmine.gs.producer.EntityManagerProducer;
 import com.techmine.gs.repository.SubjectRepository;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import org.jboss.weld.junit5.auto.ActivateScopes;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
@@ -35,12 +36,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
  * @author Cedric-Pemberton
  */
 @ExtendWith(WeldJunit5AutoExtension.class)
-@AddBeanClasses(value = {EntityManagerProducer.class, SubjectRepository.class})
+@AddBeanClasses(value = {EntityManagerProducer.class, EntityManager.class, UserServiceTest.class, UserService.class, SubjectRepository.class})
 @ActivateScopes(value = {RequestScoped.class})
 public class UserServiceTest {
 
     @Inject
     UserService instance;
+
+    @Inject
+    EntityManager em;
 
     public UserServiceTest() {
     }
@@ -69,6 +73,12 @@ public class UserServiceTest {
         System.out.println("createUser");
 
         assertNotNull(this.instance);
+    }
+
+    @Test
+    public void testInjected() {
+        assertNotNull(this.em);
+
     }
 
 }
