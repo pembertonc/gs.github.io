@@ -22,6 +22,8 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 /**
@@ -31,7 +33,7 @@ import org.apache.wicket.model.PropertyModel;
 public class OwnerEditor extends Panel {
 
     public OwnerEditor(String id) {
-        super(id);
+        this(id, Model.of(new Institution()));
     }
 
     public OwnerEditor(String id, IModel<?> model) {
@@ -65,16 +67,16 @@ public class OwnerEditor extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        if (owner == null) {
-            owner = new Institution();
-        }
+       
 
         // owner = Objects.requireNonNullElseGet(owner, Institution::new);
-        initializeForm();
-        add(form);
-
-        initializeInstitutionName();
-        form.add(new TextField("institutionName").setRequired(true));
+       
+       
+        add(form = new Form<>("form", (IModel<Institution>) getDefaultModel()));
+        
+        Institution institution = (Institution) getDefaultModelObject();
+        form.add(initializeInstitutionName("institutionName", LambdaModel.of(institution::getName, institution::setName), true));
+        
 
         initializeStreet1();
         form.add(new TextField("street1").setRequired(true));
@@ -150,16 +152,17 @@ public class OwnerEditor extends Panel {
         this.otherName = new TextField("otherName", PropertyModel.of(owner, "contact:person:otherName"));
     }
 
-    private void initializeInstitutionName() {
-        this.institutionName = new TextField("institutionName", PropertyModel.of(owner, "institutionName"));
+    private TextField initializeInstitutionName(String id, IModel<String> model, boolean isRequired) {
+        return (TextField) new TextField(id, model).setRequired(true);
+        
     }
 
     private void initializeCountry() {
         this.country = new TextField("country", PropertyModel.of(owner, "contact:address:country"));
     }
 
-    private void initializeForm() {
-        form = new Form<Institution>("form", CompoundPropertyModel.of(owner));
+    private Form<Institution> initializeForm(String id, IModel<Institution> model) {
+        return new Form<Institution>(id, model);
     }
 
     private void initializeSave() {
