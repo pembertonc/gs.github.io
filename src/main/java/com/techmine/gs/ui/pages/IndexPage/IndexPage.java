@@ -22,6 +22,7 @@ import com.techmine.gs.ui.panels.Menu.MenuPanel;
 import com.techmine.gs.ui.panels.SignIn.SignInPanel;
 import com.techmine.gs.ui.panels.views.userView.UserView;
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.event.IEvent;
 
@@ -97,7 +98,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
         SignInPanel comp = (SignInPanel) new SignInPanel("body");
         currentView.replaceWith(comp);
         currentView = comp;
-        route.getTarget().ifPresent((var target) -> {
+        route.getTarget().ifPresent((AjaxRequestTarget target) -> {
             target.add(comp);
         });
         //setResponsePage(IndexPage.class);
@@ -106,7 +107,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
     private void routeOnUser(Route route) {
         Component userView = new UserView("body");
         replace(userView);
-        route.getTarget().ifPresent((var target) -> {
+        route.getTarget().ifPresent((AjaxRequestTarget target) -> {
             target.add(userView);
         });
     }
