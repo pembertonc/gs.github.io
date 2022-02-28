@@ -19,8 +19,10 @@ import com.techmine.gs.domain.Contact;
 import com.techmine.gs.domain.Person;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.AuthenticationService;
+import com.techmine.gs.service.UserService;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 
@@ -34,6 +36,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.ValidatorAdapter;
 
 /**
  *
@@ -65,13 +70,21 @@ public class UserEditor extends Panel {
         setOutputMarkupId(true); // needed for ajax support.
         Subject sub = (Subject) getDefaultModelObject();
         add(editForm = initializeEditForm("editForm", (IModel<Subject>) getDefaultModel()));
-        editForm.add(initializeTextField("userName", LambdaModel.of(sub::getUserName, sub::setUserName), true));
+
+        editForm.add(initializeTextField("userName", LambdaModel.of(sub::getUserName, sub::setUserName), true)
+                .add(new AjaxFormComponentUpdatingBehavior("blur") {
+                    @Override
+                    protected void onUpdate(AjaxRequestTarget target) {
+                        target.add(get("userNameFeedback"));
+                    }
+                }));
+
         editForm.add(initializePassword("password", LambdaModel.of(sub::getPassword, sub::setPassword), true));
         Person person = sub.getPerson().get();
         editForm.add(initializeTextField("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), true));
         editForm.add(initializeTextField("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), true));
         editForm.add(initializeTextField("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), true));
-        Contact cont = person.getContacts().stream().findFirst().get();
+        Contact cont = person.getContact().get();
         editForm.add(initializeEmailField("email", LambdaModel.of(cont::getEmail, cont::setEmail), true));
         editForm.add(initializeTextField("telephone1", LambdaModel.of(cont::getTelephone1, cont::setTelephone1), true));
         editForm.add(initializeTextField("telephone2", LambdaModel.of(cont::getTelephone2, cont::setTelephone2), true));
@@ -103,7 +116,7 @@ public class UserEditor extends Panel {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
-                setDefaultFormProcessing(false);
+                setDefaultFormProcessing(true);
                 add(new AjaxFormSubmitBehavior("click") {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
@@ -166,15 +179,27 @@ public class UserEditor extends Panel {
                     protected void onError(AjaxRequestTarget target) {
                         super.onError(target);
                     }
-
                 });
             }
-
         };
     }
 
     private Subject save(Subject subject) {
         return this.authenticatedService.save(subject);
+    }
+
+    private IValidator getUserNameValidator() {
+        return new IValidator<String>() {
+            @Inject
+            UserService service;
+
+            @Override
+            public void validate(IValidatable<String> iv) {
+                boolean exists = service.checkUserExistxByUserName(iv.getValue());
+
+            }
+
+        };
     }
 
 }
