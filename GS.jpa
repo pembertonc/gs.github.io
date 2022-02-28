@@ -52,7 +52,7 @@
             <query>Select a from Address a where a.country=:country</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="ContactPK" abs="false" class="Contact" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596303719">
+    <entity compositePrimaryKeyClass="ContactPK" abs="false" class="Contact" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596303719">
         <ath>Cedric Pemberton</ath>
         <attributes>
             <basic attribute-type="String" v="true" xvt="" name="email" ft="false" id="_163908635323244">
@@ -165,8 +165,23 @@
         </nq>
     </entity>
     <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
+        <ts e="true">
+            <a>_163908674093457</a>
+            <a>_163908674218158</a>
+            <a>_163908674281459</a>
+            <a>_164607145269019</a>
+        </ts>
+        <hc e="true">
+            <a>_163908625849641</a>
+            <a>_163908674093457</a>
+            <a>_163908674218158</a>
+            <a>_163908674281459</a>
+        </hc>
+        <eq e="true">
+            <a>_163908625849641</a>
+        </eq>
         <con am="PUBLIC" e="true">
-            <post>contacts.add(new Contact());</post>
+            <post></post>
         </con>
         <ath>Cedric Pemberton</ath>
         <attributes>
@@ -195,14 +210,13 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true"/>
             </basic>
-            <one-to-many orp="false" own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_163908596303719" v="true" xvt="" name="contacts" dv="new  ArrayList&lt;Contact&gt;()" id="_164562804914370">
+            <one-to-one own="true" orp="true" optional="false" primaryKey="false" connected-entity-id="_163908596303719" v="true" xvt="" name="contact" dv="new Contact()" id="_164607145269019">
                 <xwm/>
                 <xm/>
-                <bv>
-                    <nn/>
-                    <si mi="1"/>
-                </bv>
-            </one-to-many>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
         </attributes>
         <nq e="false" name="Person.findAll">
             <query>Select e from Person e</query>
@@ -217,7 +231,7 @@
             <query>Select p from Person p where p.familyName=:familyName</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
+    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
         <ts e="true">
             <a>_163908735716373</a>
             <a>_163908735774074</a>
@@ -255,6 +269,9 @@
                 <bv>
                     <nn/>
                 </bv>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
             </one-to-one>
             <many-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_164550302254398" v="true" xvt="" name="authorizationRoles" dv="new ArrayList&lt;AuthorizationRole&gt;()" id="_1645503104978107">
                 <xwm/>
@@ -311,7 +328,7 @@
             </basic>
         </attributes>
     </entity>
-    <entity compositePrimaryKeyClass="AuthorizationRolePK" abs="false" class="AuthorizationRole" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_164550302254398">
+    <entity compositePrimaryKeyClass="AuthorizationRolePK" abs="false" class="AuthorizationRole" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_164550302254398">
         <ath>Cedric-Pemberton</ath>
         <attributes>
             <basic attribute-type="String" v="true" xvt="" name="roleName" dv="&quot;&quot;" id="_1645503052170102">
