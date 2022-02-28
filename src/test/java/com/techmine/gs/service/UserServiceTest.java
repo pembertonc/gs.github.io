@@ -28,6 +28,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 
 import javax.transaction.Transactional;
 
@@ -58,7 +59,7 @@ public class UserServiceTest {
     UserService instance;
 
     @Inject
-    EntityManager em;
+    EntityManager entityManager;
 
     public UserServiceTest() {
     }
@@ -84,14 +85,12 @@ public class UserServiceTest {
      */
     @Test
     public void testUsersServiceInjectable() {
-
         assertNotNull(this.instance);
     }
 
     @Test
-    public void testInjected() {
-        assertNotNull(this.em);
-
+    public void testEntityManagerInjected() {
+        assertNotNull(this.entityManager);
     }
 
     @Test
@@ -101,18 +100,16 @@ public class UserServiceTest {
         Subject sub = createTestSubject();
         //this.em.getTransaction().begin();
         //assertTrue(this.instance.checkUserExistxByUserName("Administrator"));
-        //instance.createUser(sub);
-        this.em.getTransaction().begin();
-        this.em.persist(sub);
-        this.em.getTransaction().commit();
-        //this.em.flush();
-        // this.em.getTransaction().commit();
-    }
 
-    @Test
-    @Disabled
-    public void testPersistenceContextInjection() {
-        //  assertNotNull(entityManager);
+        // this.em.getTransaction().begin();
+        this.entityManager.persist(sub);
+        instance.createUser(sub);
+        //this.em.getTransaction().commit();
+        Subject result = this.entityManager.find(Subject.class, sub.getId());
+        assertNotNull(result);
+
+        //this.em.
+        // this.em.getTransaction().commit();
     }
 
     private Subject createTestSubject() {
