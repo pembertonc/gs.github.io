@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -24,13 +25,13 @@ public class Subject extends BaseEntity {
     @Basic(optional = false)
     @Column(unique = true, nullable = false, length = 64)
     @NotBlank(message = "User Name is required")
-    private String userName = "";
+    private String userName;
     @Basic(optional = false)
     @Column(nullable = false, length = 12)
     @NotBlank(message = "Password is required")
     @Size(min = 4, max = 12, message = "Password must be from 4 to 12 characters long.")
-    private String password = "";
-    @OneToOne(optional = false)
+    private String password;
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @NotNull
     private Person person = new Person();
     @ManyToMany
@@ -126,10 +127,6 @@ public class Subject extends BaseEntity {
     @Override
     public String toString() {
         return "Subject{" + " userName=" + userName + ", password=" + password + '}';
-    }
-
-    public Subject getObject() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
