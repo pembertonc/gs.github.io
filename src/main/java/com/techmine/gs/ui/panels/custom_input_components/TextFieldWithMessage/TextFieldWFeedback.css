@@ -1,46 +1,79 @@
 .control-group{
     margin-bottom: 0em;
     transition: all .3s;
+    margin-bottom: 1em;
+
 
 }
 
 .control-label{
     font-size: 1em;
-    color: #aaa;
+    color: #003399;
+    opacity: .5;
     display: block;
     opacity: 1;
-    transform: translateY(-1.25em);
+    transform: translateY(-2em);
     transform-origin: 0 0;
     transition: all 0.3s;
     pointer-events: none;
+    padding-left: .5em;
+
 }
+
 
 .form-control{
     box-shadow: none;
-    background: rgba(0,0,0,.02);
+    /* background: rgba(0,0,0,.02); */
+    background: transparent;
     border-radius: 0px;
     border-color: red;
     border-style: none none solid none;
     width: 100%;
     transition:all .5s;
-    padding: 5px;
+
+
 }
 
 .form-control::placeholder{
     color: transparent;
+
 }
 
 .form-control:focus{
     box-shadow: none;
     outline: none;
-    border-color: green;
+    border-color: #003399;
 
 }
 
 .form-control:focus + .control-label,
 .form-control:not(:placeholder-shown) + .control-label{
-    transform: translateY(-2.5em) scale(0.8);
+    transform: translateY(-2.8em) scale(0.8);
+    text-transform: uppercase;
 }
 .control-group:focus-within{
-    transform:scale(1.02, 1.02);
+    transform:scale(1, 1);
+}
+
+.form-control:invalid{
+    border-color: red;
+}
+.form-control:valid{
+    border-color: blue;
+}
+
+.feedbackPanel{
+    padding-left: 0em;
+    padding-top: 0em;
+    margin: 0em;
+
+}
+
+.feedbackPanelERROR{
+    background-color: #000;
+    color: whitesmoke;
+    border-radius: 3px;
+    padding-left: 0em;
+    font-size: x-small;
+    transform: translateY(-1.5em);
 }

@@ -15,20 +15,23 @@
  */
 package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
+import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.validation.IValidator;
 
 /**
@@ -36,25 +39,19 @@ import org.apache.wicket.validation.IValidator;
  * @author Cedric-Pemberton
  * @param <T>
  */
-public class TextFieldWFeedback<T extends FormComponent> extends FormComponentPanel {
+public class TextFieldWFeedback extends FormComponentPanel {
 
     private FormComponent component;
 
     private Label fieldLabel;
 
     private FeedbackPanel feedback;
+    private String caption;
 
-    public TextFieldWFeedback(String id, LambdaModel<?> model, String caption, Class<? extends FormComponent> componentClass) {
+    public TextFieldWFeedback(String id, IModel model, String caption) {
         this(id, model);
+        this.caption = caption;
 
-        Class[] parameterTypes = {String.class, IModel.class};
-        try {
-            this.component = componentClass.getDeclaredConstructor(parameterTypes).newInstance("formComponent", model);
-        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(TextFieldWFeedback.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        this.fieldLabel = new Label("fieldLabel", caption);
     }
 
     private TextFieldWFeedback(String id, IModel model) {
@@ -86,9 +83,19 @@ public class TextFieldWFeedback<T extends FormComponent> extends FormComponentPa
     @Override
     protected void onInitialize() {
         super.onInitialize();
+
         setOutputMarkupPlaceholderTag(true);
-        this.fieldLabel.setOutputMarkupPlaceholderTag(true);
-        this.component.add(initializeUpdatingBehavior());
+        this.fieldLabel = (Label) new Label("inputLabel", caption)
+                .setOutputMarkupPlaceholderTag(true);
+        this.component = (FormComponent) initializeInPutField();
+
+        internalAdd(initializeUpdatingBehavior());
+
+        this.feedback = (FeedbackPanel) new FeedbackPanel("feedback", new ComponentFeedbackMessageFilter(component))
+                .setOutputMarkupPlaceholderTag(true);
+        add(this.component)
+                .add(fieldLabel)
+                .add(feedback);
 
     }
 
@@ -98,14 +105,59 @@ public class TextFieldWFeedback<T extends FormComponent> extends FormComponentPa
             protected void onUpdate(AjaxRequestTarget target) {
                 Optional.of(target).ifPresent((t) -> {
                     t.add(feedback);
-                    t.add(fieldLabel);
+                    //t.add(fieldLabel);
                 });
             }
+
+            @Override
+            protected void onError(AjaxRequestTarget target, RuntimeException e) {
+                super.onError(target, e);
+                Optional.of(target).ifPresent((AjaxRequestTarget t) -> {
+                    t.add(feedback);
+                    //t.add(fieldLabel);
+                });
+
+            }
+
         };
     }
 
     public FormComponent internalSetRequired(boolean required) {
-        return this.component.setRequired(required);
+        return setRequired(required);
+    }
+
+    private Component initializeInPutField() {
+        return new TextField("inputComponent", getDefaultModel()) {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                setLabel(Model.of(caption));
+
+            }
+
+            @Override
+            protected void onComponentTag(ComponentTag tag) {
+                super.onComponentTag(tag); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                if (isRequired()) {
+                    tag.put("required", "true");
+                } else {
+                    tag.put("required", "false");
+                }
+
+            }
+
+        }.setRequired(this.isRequired());
+        //.setLabel(Model.of(caption))
+        // .setRequired(this.isRequired());
+
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        PackageResourceReference cssFile = new PackageResourceReference(this.getClass(), "TextFieldWFeedback.css");
+        CssHeaderItem cssItem = CssHeaderItem.forReference(cssFile);
+        response.render(cssItem);
 
     }
 
