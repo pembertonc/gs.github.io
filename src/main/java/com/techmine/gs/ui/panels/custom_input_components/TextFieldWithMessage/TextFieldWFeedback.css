@@ -1,0 +1,46 @@
+.control-group{
+    margin-bottom: 0em;
+    transition: all .3s;
+
+}
+
+.control-label{
+    font-size: 1em;
+    color: #aaa;
+    display: block;
+    opacity: 1;
+    transform: translateY(-1.25em);
+    transform-origin: 0 0;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.form-control{
+    box-shadow: none;
+    background: rgba(0,0,0,.02);
+    border-radius: 0px;
+    border-color: red;
+    border-style: none none solid none;
+    width: 100%;
+    transition:all .5s;
+    padding: 5px;
+}
+
+.form-control::placeholder{
+    color: transparent;
+}
+
+.form-control:focus{
+    box-shadow: none;
+    outline: none;
+    border-color: green;
+
+}
+
+.form-control:focus + .control-label,
+.form-control:not(:placeholder-shown) + .control-label{
+    transform: translateY(-2.5em) scale(0.8);
+}
+.control-group:focus-within{
+    transform:scale(1.02, 1.02);
+}
