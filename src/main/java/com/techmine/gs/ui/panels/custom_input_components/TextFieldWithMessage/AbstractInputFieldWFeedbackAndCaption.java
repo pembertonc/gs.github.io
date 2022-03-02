@@ -106,23 +106,24 @@ public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponen
     }
 
     protected FormComponent initializeInputField(FieldType fieldType, IModel model, String id) {
+        FormComponent result;
         switch (fieldType) {
             case TEXT:
-                return initializeTextField(model, id);
-
+                result = initializeTextField(model, id);
+                break;
             case NUMBER:
-                return initializeNumberTextField(model, id);
-
+                result = initializeNumberTextField(model, id);
+                break;
             case PASSWORD:
-                return initializePasswordTextField(model, id);
-
+                result = initializePasswordTextField(model, id);
+                break;
             case EMAIL:
-                return initializeEmailTextField(model, id);
-
+                result = initializeEmailTextField(model, id);
+                break;
             default:
                 throw new UnsupportedOperationException("InputFieldWFeedbackAndCaption does not support the specified field type");
         }
-
+        return result;
     }
 
     private FormComponent initializeTextField(IModel model, String id) {
@@ -141,6 +142,29 @@ public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponen
     private FormComponent initializeEmailTextField(IModel model, String id) {
 
         return new EmailTextField(id, model);
+
+    }
+
+    protected String getInputType() {
+        String inputType = null;
+        switch (this.fieldType) {
+            case TEXT:
+                inputType = "type=text";
+                break;
+            case NUMBER:
+                inputType = "type=number";
+                break;
+            case EMAIL:
+                inputType = "type=email";
+                break;
+            case PASSWORD:
+                inputType = "type=text";
+                break;
+            default:
+                throw new UnsupportedOperationException("Html Input type not supported");
+        }
+
+        return inputType;
 
     }
 
