@@ -15,8 +15,14 @@
  */
 package com.techmine.gs.ui.panels.views.ownerView;
 
+import com.techmine.gs.domain.Address;
+import com.techmine.gs.domain.Contact;
 import com.techmine.gs.domain.Institution;
+import com.techmine.gs.domain.Person;
+import java.util.Arrays;
+import java.util.List;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -39,10 +45,7 @@ public class OwnerEditor extends Panel {
     public OwnerEditor(String id, IModel<?> model) {
         super(id, model);
     }
-    
-    
-    
-    
+
     private Institution owner;
     private TextField institutionName;
     private TextField street1;
@@ -67,46 +70,49 @@ public class OwnerEditor extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-       
 
         // owner = Objects.requireNonNullElseGet(owner, Institution::new);
-       
-       
         add(form = new Form<>("form", (IModel<Institution>) getDefaultModel()));
         
+        //institutionName
         Institution institution = (Institution) getDefaultModelObject();
         form.add(initializeInstitutionName("institutionName", LambdaModel.of(institution::getName, institution::setName), true));
+
+       //street1
+        Address addr = institution.getAddress();
+        form.add(initializeStreet1("street1", LambdaModel.of(addr::getStreet1, addr::setStreet1), true));
+
+       //street2 
+       form.add(initializeStreet2("street2", LambdaModel.of(addr::getStreet2, addr::setStreet2)));
+       
+       //city
+       form.add(initializeCity("city", LambdaModel.of(addr::getCity, addr::setCity)));
+
+        //country
+        List<String> country = Arrays.asList("Antigua and Barbuda", "The Bahamas", "Barbados", "Belize", "Dominica", 
+                            "Grenada","Guyana","Haiti","Jamaica","Monsterrat","Saint Kitts and Nevis","Saint Lucia",
+                            "Saint Vincent and the Grenadines","Suriname", "Trinidad and Tobago","Other");
+        form.add(initializeCountry("country", LambdaModel.of(addr::getCountry, addr::setCountry), true));
         
+        //telephone1
+        Contact contact = institution.getContact();
+        form.add(initializeTelephone1("telephone1", LambdaModel.of(contact::getTelephone1, contact::setTelephone1), true));
 
-        initializeStreet1();
-        form.add(new TextField("street1").setRequired(true));
+        //telephone2
+        form.add(initializeTelephone2("telephone2", LambdaModel.of(contact::getTelephone2, contact::setTelephone2)));
 
-        initializeStreet2();
-        form.add(street2);
+        //email
+        form.add(initializeEmail("email", LambdaModel.of(contact::getEmail, contact::setEmail)));
 
-        initializeCity();
-        form.add(new TextField("city").setRequired(true));
+        //firstName
+        Person person = institution.getContact().getPerson();
+        form.add(initializeFirstName("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), true));
 
-        initializeCountry();
-        form.add(new TextField("country").setRequired(true));
-
-        initializeTelephone1();
-        form.add(new TextField("telephone1").setRequired(true));
-
-        initializeTelephone2();
-        form.add(telephone2);
-
-        initializeEmail();
-        form.add(email);
-
-        initializeFirstName();
-        form.add(new TextField("firstName").setRequired(true));
-
-        initializeFamilyName();
-        form.add(new TextField("familyName").setRequired(true));
-
-        initializeOtherName();
-        form.add(otherName);
+        //familyName
+        form.add(initializeFamilyName("fammilyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), true));
+        
+        //otherName
+        form.add(initializeOtherName("otherName", LambdaModel.of(person::getOtherName, person::setOtherName)));
 
         initializeSave();
         form.add(save);
@@ -116,49 +122,49 @@ public class OwnerEditor extends Panel {
 
     }
 
-    private void initializeStreet1() {
-        this.street1 = new TextField("street1", PropertyModel.of(owner, "contact:address:street1"));
+    private TextField initializeStreet1(String id, IModel<String> model, boolean isRequired) {
+       return (TextField) new TextField(id, model).setRequired(true);
     }
 
-    private void initializeStreet2() {
-        this.street2 = new TextField("street2", PropertyModel.of(owner, "contact:address:street2"));
+    private TextField initializeStreet2(String id, IModel<String> model) {
+        return (TextField) new TextField(id, model);
     }
 
-    private void initializeCity() {
-        this.city = new TextField("city", PropertyModel.of(owner, "contact:address:city"));
+    private TextField initializeCity(String id, IModel<String> model) {
+        return (TextField) new TextField(id, model);
     }
 
-    private void initializeTelephone1() {
-        this.telephone1 = new TextField("telephone1", PropertyModel.of(owner, "contact:person:telephone1"));
+    private TextField initializeTelephone1(String id, IModel<String> model, boolean isRequired) {
+        return (TextField) new TextField(id, model).setRequired(true);
     }
 
-    private void initializeTelephone2() {
-        this.telephone2 = new TextField("telephone2", PropertyModel.of(owner, "contact:person:telephone2"));
+    private TextField initializeTelephone2(String id, IModel<String> model) {
+        return (TextField) new TextField(id, model);
     }
 
-    private void initializeEmail() {
-        this.email = new TextField("email", PropertyModel.of(owner, "contact:person:email"));
+    private TextField initializeEmail(String id, IModel<String> model) {
+        return (TextField) new TextField(id, model);
     }
 
-    private void initializeFirstName() {
-        this.firstName = new TextField("firstName", PropertyModel.of(owner, "contact:person:firstName"));
+    private TextField initializeFirstName(String id, IModel<String> model, boolean isRequired) {
+        return (TextField) new TextField(id, model).setRequired(true);
     }
 
-    private void initializeFamilyName() {
-        this.familyName = new TextField("familyName", PropertyModel.of(owner, "contact:person:familyName"));
+    private TextField initializeFamilyName(String id, IModel<String> model, boolean isRequired) {
+        return (TextField) new TextField(id, model).setRequired(true);
     }
 
-    private void initializeOtherName() {
-        this.otherName = new TextField("otherName", PropertyModel.of(owner, "contact:person:otherName"));
+    private TextField initializeOtherName(String id, IModel<String> model) {
+        return (TextField) new TextField(id, model);
     }
 
     private TextField initializeInstitutionName(String id, IModel<String> model, boolean isRequired) {
         return (TextField) new TextField(id, model).setRequired(true);
-        
+
     }
 
-    private void initializeCountry() {
-        this.country = new TextField("country", PropertyModel.of(owner, "contact:address:country"));
+    private DropDownChoice initializeCountry(String id, IModel<String> model, boolean isRequired) {
+        return (DropDownChoice) new DropDownChoice(id, model).setRequired(true);
     }
 
     private Form<Institution> initializeForm(String id, IModel<Institution> model) {
