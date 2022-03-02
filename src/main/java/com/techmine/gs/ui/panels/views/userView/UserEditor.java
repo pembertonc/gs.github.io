@@ -20,9 +20,9 @@ import com.techmine.gs.domain.Person;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.service.UserService;
+import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.TextFieldWFeedback;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 
@@ -38,7 +38,6 @@ import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
-import org.apache.wicket.validation.ValidatorAdapter;
 
 /**
  *
@@ -67,30 +66,36 @@ public class UserEditor extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        setRenderBodyOnly(true);
         setOutputMarkupId(true); // needed for ajax support.
         Subject sub = (Subject) getDefaultModelObject();
         add(editForm = initializeEditForm("editForm", (IModel<Subject>) getDefaultModel()));
-
+        /*
         editForm.add(initializeTextField("userName", LambdaModel.of(sub::getUserName, sub::setUserName), true)
-                .add(new AjaxFormComponentUpdatingBehavior("blur") {
-                    @Override
-                    protected void onUpdate(AjaxRequestTarget target) {
-                        target.add(get("userNameFeedback"));
-                    }
-                }));
-
+        .add(new AjaxFormComponentUpdatingBehavior("blur") {
+        @Override
+        protected void onUpdate(AjaxRequestTarget target) {
+        target.add(get("userNameFeedback"));
+        }
+        }));*/
         editForm.add(initializePassword("password", LambdaModel.of(sub::getPassword, sub::setPassword), true));
         Person person = sub.getPerson().get();
-        editForm.add(initializeTextField("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), true));
-        editForm.add(initializeTextField("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), true));
-        editForm.add(initializeTextField("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), true));
+        // editForm.add(initializeTextField("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), true));
+        // editForm.add(initializeTextField("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), true));
+        // editForm.add(initializeTextField("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), true));
         Contact cont = person.getContact().get();
         editForm.add(initializeEmailField("email", LambdaModel.of(cont::getEmail, cont::setEmail), true));
         editForm.add(initializeTextField("telephone1", LambdaModel.of(cont::getTelephone1, cont::setTelephone1), true));
         editForm.add(initializeTextField("telephone2", LambdaModel.of(cont::getTelephone2, cont::setTelephone2), true));
+        // Buttons
         editForm.add(initializeSave("save", null));
         editForm.add(initializeCancel("cancel", null));
         editForm.add(initializeNew("new", null));
+
+        editForm.add(new TextFieldWFeedback("userName", LambdaModel.of(sub::getUserName, sub::setUserName), "User Name").setRequired(true));
+        editForm.add(new TextFieldWFeedback("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), "firstName").setRequired(true));
+        editForm.add(new TextFieldWFeedback("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), "Family Name").setRequired(true));
+        editForm.add(new TextFieldWFeedback("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), "Other Name").setRequired(false));
 
     }
 

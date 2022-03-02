@@ -8,7 +8,7 @@
         <name>java:global/jdbc/gsDataSource</name>
         <class-name>org.postgresql.xa.PGXADataSource</class-name>
         <server-name>${db.svc}</server-name>
-        <port-number>${db.port}</port-number>
+        <port-number>5432</port-number>
         <database-name>${db.name}</database-name>
         <user>${db.user}</user>
         <password>${db.password}</password>

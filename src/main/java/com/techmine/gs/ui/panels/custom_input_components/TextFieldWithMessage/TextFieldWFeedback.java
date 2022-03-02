@@ -87,7 +87,7 @@ public class TextFieldWFeedback extends FormComponentPanel {
         setOutputMarkupPlaceholderTag(true);
         this.fieldLabel = (Label) new Label("inputLabel", caption)
                 .setOutputMarkupPlaceholderTag(true);
-        this.component = (FormComponent) initializeInPutField();
+        this.component = (FormComponent) initializeInputField();
 
         internalAdd(initializeUpdatingBehavior());
 
@@ -126,7 +126,7 @@ public class TextFieldWFeedback extends FormComponentPanel {
         return setRequired(required);
     }
 
-    private Component initializeInPutField() {
+    private Component initializeInputField() {
         return new TextField("inputComponent", getDefaultModel()) {
             @Override
             protected void onInitialize() {
@@ -138,11 +138,7 @@ public class TextFieldWFeedback extends FormComponentPanel {
             @Override
             protected void onComponentTag(ComponentTag tag) {
                 super.onComponentTag(tag); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-                if (isRequired()) {
-                    tag.put("required", "true");
-                } else {
-                    tag.put("required", "false");
-                }
+                tag.put("required", ((FormComponent) getParent()).isRequired());
 
             }
 

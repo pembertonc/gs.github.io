@@ -17,18 +17,39 @@ package com.techmine.gs.service;
 
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.repository.SubjectRepository;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import javax.inject.Inject;
 
 /**
+ *
  *
  * @author Cedric-Pemberton
  */
 public class UserService {
 
-    //@Inject
+    @Inject
     SubjectRepository subjectRepository;
 
-    public Subject createUser(Subject subject) {
-        return null;
+    public SubjectRepository getSubjectRepository() {
+        return subjectRepository;
+    }
+
+    public void createUser(Subject subject) {
+        subjectRepository.create(subject);
+    }
+
+    public boolean checkUserExistxByUserName(String userName) {
+
+        return findByUserName(userName).isPresent();
+    }
+
+    public Optional<Subject> findByUserName(String userName) {
+        Map<String, Object> properties = new HashMap<>();
+
+        properties.put("userName", userName);
+        return subjectRepository.findSingleByNamedQuery("Subject.findByUserName", properties);
+
     }
 }

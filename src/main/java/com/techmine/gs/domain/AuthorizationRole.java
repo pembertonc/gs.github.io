@@ -11,9 +11,9 @@ import javax.persistence.Entity;
 public class AuthorizationRole extends BaseEntity {
 
     @Basic
-    private String roleName;
+    private String roleName = "";
     @Basic
-    private String description;
+    private String description = "";
 
     public Optional<String> getRoleName() {
         return Optional.ofNullable(roleName);

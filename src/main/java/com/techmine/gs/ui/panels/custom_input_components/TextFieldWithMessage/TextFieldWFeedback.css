@@ -26,7 +26,7 @@
     /* background: rgba(0,0,0,.02); */
     background: transparent;
     border-radius: 0px;
-    border-color: red;
+    border-color: #003399;
     border-style: none none solid none;
     width: 100%;
     transition:all .5s;
@@ -42,7 +42,7 @@
 .form-control:focus{
     box-shadow: none;
     outline: none;
-    border-color: #003399;
+    border-color: #009688;
 
 }
 
@@ -55,11 +55,21 @@
     transform:scale(1, 1);
 }
 
+.form-control:valid{
+    border-color: #003399;
+}
+
 .form-control:invalid{
     border-color: red;
 }
-.form-control:valid{
-    border-color: blue;
+.form-control:not(required){
+    border-color: #003399;
+}
+.form-control:required + form-control:invalid{
+    border-color: red;
+}
+.form-control:not(required) + form-control:valid{
+    border-color: #003399;
 }
 
 .feedbackPanel{

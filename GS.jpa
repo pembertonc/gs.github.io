@@ -287,9 +287,6 @@
         <nq e="false" name="Subject.findByPassword">
             <query>Select a from Subject a where a.password=:password</query>
         </nq>
-        <nq e="false" name="Subject.findByRole">
-            <query>Select a from Subject a where a.role=:role</query>
-        </nq>
     </entity>
     <entity compositePrimaryKeyClass="CylinderPK" abs="false" class="Cylinder" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088335659142">
         <ath>Cedric Pemberton</ath>
