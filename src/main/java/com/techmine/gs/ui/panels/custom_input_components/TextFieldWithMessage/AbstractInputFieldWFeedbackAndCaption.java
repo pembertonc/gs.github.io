@@ -28,7 +28,11 @@ import org.apache.wicket.util.resource.IResourceStream;
  */
 public abstract class AbstractInputFieldWFeedbackAndCaption extends Panel implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
-    public AbstractInputFieldWFeedbackAndCaption(String id, IModel<?> model) {
+    private AbstractInputFieldWFeedbackAndCaption(String id, IModel<?> model) {
+        super(id, model);
+    }
+
+    public AbstractInputFieldWFeedbackAndCaption(String id, IModel<?> model, FieldType fieldType) {
         super(id, model);
     }
 
@@ -41,6 +45,10 @@ public abstract class AbstractInputFieldWFeedbackAndCaption extends Panel implem
     @Override
     public String getCacheKey(MarkupContainer mc, Class<?> type) {
         return null;
+    }
+
+    public static enum FieldType {
+        EMAIL, NUMBER, PASSWORD, TEXT
     }
 
 }
