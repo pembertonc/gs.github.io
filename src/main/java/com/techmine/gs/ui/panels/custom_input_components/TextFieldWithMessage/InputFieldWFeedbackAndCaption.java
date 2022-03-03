@@ -15,14 +15,18 @@
  */
 package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 
+import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.markup.IMarkupCacheKeyProvider;
+import org.apache.wicket.markup.IMarkupResourceStreamProvider;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.util.resource.IResourceStream;
+import org.apache.wicket.util.resource.StringResourceStream;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-@Deprecated(forRemoval = true, since = "2022-03-04")
-public class InputFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAndCaption /*  implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider */ {
+public class InputFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAndCaption implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
     public InputFieldWFeedbackAndCaption(String id, IModel<?> model, String captionValue, FieldType fieldType) {
         super(id, model, captionValue, fieldType);
@@ -34,26 +38,25 @@ public class InputFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAn
 
     }
 
-    /*
     @Override
     public IResourceStream getMarkupResourceStream(MarkupContainer mc, Class<?> type) {
-    //<input class="form-control" placeholder="User Name" type="text" wicket:id="inputComponent" />
+        //<input class="form-control" placeholder="User Name" type="text" wicket:id="inputComponent" />
 
-    String markup = new StringBuilder("<wicket:panel><wicket:extend>")
-    .append("<input class=\"form-control\" placeholder=\"User Name\" ")
-    .append(getInputType())
-    .append(" id=\"inputComponent\" />")
-    .append("</wicket:extend></wicket:panel>").toString();
+        String markup = new StringBuilder("<wicket:panel><wicket:extend>")
+                .append("<input class=\"form-control\" placeholder=\"User Name\" ")
+                .append(getInputType())
+                .append(" id=\"inputComponent\" />")
+                .append("</wicket:extend></wicket:panel>").toString();
 
-    StringResourceStream resourceStream = new StringResourceStream(markup);
-    return resourceStream;
-    }*/
- /*
+        StringResourceStream resourceStream = new StringResourceStream(markup);
+        return resourceStream;
+    }
+
     @Override
     public String getCacheKey(MarkupContainer mc, Class<?> type) {
         String className = type.isAnonymousClass() ? type.getSuperclass().getSimpleName() : type.getSimpleName();
         return className + fieldType;
 
     }
-     */
+
 }
