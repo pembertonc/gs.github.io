@@ -17,19 +17,14 @@ package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.testutils.TestObjects;
-import org.apache.wicket.Component;
-import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.util.tester.WicketTester;
-import org.apache.wicket.validation.IValidator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
