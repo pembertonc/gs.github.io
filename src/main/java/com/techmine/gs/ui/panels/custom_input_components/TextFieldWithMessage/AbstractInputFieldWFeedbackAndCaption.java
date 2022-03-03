@@ -18,12 +18,10 @@ package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
-import org.apache.wicket.markup.IMarkupCacheKeyProvider;
-import org.apache.wicket.markup.IMarkupResourceStreamProvider;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.FormComponent;
@@ -43,7 +41,7 @@ import org.apache.wicket.validation.IValidator;
  *
  * @author Cedric-Pemberton
  */
-public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponentPanel implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
+public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponentPanel {
 
     protected FormComponent formComponent;
     protected Label caption;
@@ -72,11 +70,6 @@ public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponen
         addAjaxUpdatingBehaviorToFormComponent();
         applyValidators();
         add(errorMessage = new FeedbackPanel("errorMessage", new ComponentFeedbackMessageFilter(formComponent)));
-    }
-
-    @Override
-    public String getCacheKey(MarkupContainer mc, Class<?> type) {
-        return null;
     }
 
     private void addAjaxUpdatingBehaviorToFormComponent() {
@@ -109,16 +102,16 @@ public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponen
         FormComponent result;
         switch (fieldType) {
             case TEXT:
-                result = initializeTextField(model, id);
+                result = initializeTextField(model);
                 break;
             case NUMBER:
-                result = initializeNumberTextField(model, id);
+                result = initializeNumberTextField(model);
                 break;
             case PASSWORD:
-                result = initializePasswordTextField(model, id);
+                result = initializePasswordTextField(model);
                 break;
             case EMAIL:
-                result = initializeEmailTextField(model, id);
+                result = initializeEmailTextField(model);
                 break;
             default:
                 throw new UnsupportedOperationException("InputFieldWFeedbackAndCaption does not support the specified field type");
@@ -126,48 +119,48 @@ public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponen
         return result;
     }
 
-    private FormComponent initializeTextField(IModel model, String id) {
-        return new TextField(id, model);
+    private FormComponent initializeTextField(IModel model) {
+        return new TextField("inputComponent", model);
     }
 
-    private FormComponent initializeNumberTextField(IModel model, String id) {
-        return new NumberTextField(id, model);
-    }
-
-    private FormComponent initializePasswordTextField(IModel model, String id) {
-        return new PasswordTextField(id, model);
+    private FormComponent initializeNumberTextField(IModel model) {
+        return new NumberTextField("inputComponent", model);
 
     }
 
-    private FormComponent initializeEmailTextField(IModel model, String id) {
-
-        return new EmailTextField(id, model);
+    private FormComponent initializePasswordTextField(IModel model) {
+        return (FormComponent) new PasswordTextField("inputComponent", model);
 
     }
 
+    private FormComponent initializeEmailTextField(IModel model) {
+
+        return new EmailTextField("inputComponent", model);
+
+    }
+
+    /*
     protected String getInputType() {
-        String inputType = null;
-        switch (this.fieldType) {
-            case TEXT:
-                inputType = "type=text";
-                break;
-            case NUMBER:
-                inputType = "type=number";
-                break;
-            case EMAIL:
-                inputType = "type=email";
-                break;
-            case PASSWORD:
-                inputType = "type=text";
-                break;
-            default:
-                throw new UnsupportedOperationException("Html Input type not supported");
-        }
-
-        return inputType;
-
+    String inputType = null;
+    switch (this.fieldType) {
+    case TEXT:
+    inputType = " type=\"text\" ";
+    break;
+    case NUMBER:
+    inputType = " type=\"number\" ";
+    break;
+    case EMAIL:
+    inputType = " type=\"email\" ";
+    break;
+    case PASSWORD:
+    inputType = " type=\"password\" ";
+    break;
+    default:
+    throw new UnsupportedOperationException("Html Input type not supported");
     }
-
+    return inputType ;
+}
+     */
     public static enum FieldType {
         EMAIL, NUMBER, PASSWORD, TEXT
     }
