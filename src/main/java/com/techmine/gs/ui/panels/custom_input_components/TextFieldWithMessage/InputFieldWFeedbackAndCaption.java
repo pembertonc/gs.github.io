@@ -15,31 +15,45 @@
  */
 package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.resource.IResourceStream;
-import org.apache.wicket.util.resource.StringResourceStream;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-public class InputFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAndCaption {
+@Deprecated(forRemoval = true, since = "2022-03-04")
+public class InputFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAndCaption /*  implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider */ {
 
     public InputFieldWFeedbackAndCaption(String id, IModel<?> model, String captionValue, FieldType fieldType) {
         super(id, model, captionValue, fieldType);
     }
 
     @Override
-    public IResourceStream getMarkupResourceStream(MarkupContainer mc, Class<?> type) {
-        //<input class="form-control" placeholder="User Name" type="text" wicket:id="inputComponent" />
-        StringBuilder markup = new StringBuilder("<wicket:extend>")
-                .append("<input class=\"form-control\" placeholder=\"User Name\" ")
-                .append(getInputType())
-                .append(" wicket:id=\"inputComponent\" />");
+    protected void onInitialize() {
+        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
 
-        StringResourceStream resourceStream = new StringResourceStream(markup.toString());
-        return resourceStream;
     }
 
+    /*
+    @Override
+    public IResourceStream getMarkupResourceStream(MarkupContainer mc, Class<?> type) {
+    //<input class="form-control" placeholder="User Name" type="text" wicket:id="inputComponent" />
+
+    String markup = new StringBuilder("<wicket:panel><wicket:extend>")
+    .append("<input class=\"form-control\" placeholder=\"User Name\" ")
+    .append(getInputType())
+    .append(" id=\"inputComponent\" />")
+    .append("</wicket:extend></wicket:panel>").toString();
+
+    StringResourceStream resourceStream = new StringResourceStream(markup);
+    return resourceStream;
+    }*/
+ /*
+    @Override
+    public String getCacheKey(MarkupContainer mc, Class<?> type) {
+        String className = type.isAnonymousClass() ? type.getSuperclass().getSimpleName() : type.getSimpleName();
+        return className + fieldType;
+
+    }
+     */
 }
