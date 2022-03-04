@@ -21,6 +21,7 @@ import org.apache.wicket.model.IModel;
  *
  * @author Cedric-Pemberton
  */
+@Deprecated(forRemoval = true, since = "2022-03-04")
 public class TextFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAndCaption {
 
     public TextFieldWFeedbackAndCaption(String id, IModel<?> model, String captionValue) {

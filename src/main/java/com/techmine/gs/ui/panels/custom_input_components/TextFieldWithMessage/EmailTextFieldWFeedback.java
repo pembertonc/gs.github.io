@@ -19,6 +19,7 @@ package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
  *
  * @author Cedric-Pemberton
  */
+@Deprecated(forRemoval = true, since = "2022-03-04")
 public class EmailTextFieldWFeedback {
 
 }

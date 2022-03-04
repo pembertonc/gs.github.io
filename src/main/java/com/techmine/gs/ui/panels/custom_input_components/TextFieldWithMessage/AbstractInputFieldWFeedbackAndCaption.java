@@ -45,6 +45,7 @@ import org.apache.wicket.validation.IValidator;
  *
  * @author Cedric-Pemberton
  */
+@Deprecated(forRemoval = true, since = "2022-03-04")
 public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponentPanel {
 
     protected FormComponent formComponent;

@@ -39,6 +39,7 @@ import org.apache.wicket.validation.IValidator;
  * @author Cedric-Pemberton
  * @param <T>
  */
+@Deprecated(forRemoval = true, since = "2022-03-04")
 public class TextFieldWFeedback extends FormComponentPanel {
 
     private FormComponent component;

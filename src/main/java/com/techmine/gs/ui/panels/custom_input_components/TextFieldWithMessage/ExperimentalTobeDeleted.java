@@ -25,6 +25,7 @@ import org.apache.wicket.util.resource.StringResourceStream;
  *
  * @author Cedric-Pemberton
  */
+@Deprecated(forRemoval = true, since = "2022-03-04")
 public class ExperimentalTobeDeleted extends Panel implements IMarkupResourceStreamProvider {
 
     public ExperimentalTobeDeleted(String id) {
