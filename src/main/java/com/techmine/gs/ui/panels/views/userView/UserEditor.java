@@ -24,6 +24,7 @@ import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.In
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption.FieldType;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.TextFieldWFeedback;
 import javax.inject.Inject;
+import javax.xml.registry.infomodel.TelephoneNumber;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -104,6 +105,7 @@ public class UserEditor extends Panel {
         editForm.add(new InputFieldWFeedbackAndCaption("telephone1", LambdaModel.of(cont::getTelephone1, cont::setTelephone1), "Telephone 1", FieldType.TEXT).setRequired(true));
         editForm.add(new InputFieldWFeedbackAndCaption("telephone2", LambdaModel.of(cont::getTelephone2, cont::setTelephone2), "Telephone 2", FieldType.TEXT).setRequired(false));
         editForm.add(new InputFieldWFeedbackAndCaption("email", LambdaModel.of(cont::getEmail, cont::setEmail), "Email", FieldType.EMAIL).setRequired(true));
+
     }
 
     private Form<Subject> initializeEditForm(String id, IModel<Subject> model) {
