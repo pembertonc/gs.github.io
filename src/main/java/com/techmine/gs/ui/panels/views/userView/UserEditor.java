@@ -22,9 +22,7 @@ import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.service.UserService;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption.FieldType;
-import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.TextFieldWFeedback;
 import javax.inject.Inject;
-import javax.xml.registry.infomodel.TelephoneNumber;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -112,15 +110,18 @@ public class UserEditor extends Panel {
         return new Form(id, model);
     }
 
+    @Deprecated
     private TextField initializeTextField(String id, IModel<String> model, boolean required) {
         return (TextField) new TextField(id, model).setRequired(required);
     }
 
+    @Deprecated
     private FormComponent initializePassword(String id, IModel<String> model, boolean required) {
         return new PasswordTextField(id, model).setResetPassword(false);
 
     }
 
+    @Deprecated
     private FormComponent initializeEmailField(String email, IModel<String> model, boolean required) {
         return new EmailTextField("email", model).setRequired(required);
     }
