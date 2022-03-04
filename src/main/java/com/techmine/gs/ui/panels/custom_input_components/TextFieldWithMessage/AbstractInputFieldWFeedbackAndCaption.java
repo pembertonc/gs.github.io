@@ -18,10 +18,13 @@ package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.FormComponent;
@@ -31,6 +34,7 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.validation.IValidator;
 
 /**
@@ -65,11 +69,15 @@ public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponen
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        setRenderBodyOnly(true);
         add(caption = new Label("fieldCaption", captionValue));
         add(formComponent = initializeInputField(fieldType, getDefaultModel(), captionValue));
+        formComponent.setOutputMarkupId(true)
+                .add(new AttributeModifier("class", "form-control"));
         addAjaxUpdatingBehaviorToFormComponent();
         applyValidators();
         add(errorMessage = new FeedbackPanel("errorMessage", new ComponentFeedbackMessageFilter(formComponent)));
+        errorMessage.setOutputMarkupPlaceholderTag(true);
     }
 
     private void addAjaxUpdatingBehaviorToFormComponent() {
@@ -139,28 +147,42 @@ public abstract class AbstractInputFieldWFeedbackAndCaption extends FormComponen
 
     }
 
-    /*
-    protected String getInputType() {
-    String inputType = null;
-    switch (this.fieldType) {
-    case TEXT:
-    inputType = " type=\"text\" ";
-    break;
-    case NUMBER:
-    inputType = " type=\"number\" ";
-    break;
-    case EMAIL:
-    inputType = " type=\"email\" ";
-    break;
-    case PASSWORD:
-    inputType = " type=\"password\" ";
-    break;
-    default:
-    throw new UnsupportedOperationException("Html Input type not supported");
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        PackageResourceReference cssFile = new PackageResourceReference(this.getClass(), "TextFieldWFeedback.css");
+        CssHeaderItem cssItem = CssHeaderItem.forReference(cssFile);
+        response.render(cssItem);
+
     }
-    return inputType ;
-}
-     */
+
+    @Override
+    protected void onBeforeRender() {
+        super.onBeforeRender();
+        formComponent.setRequired(this.isRequired());
+    }
+
+    protected String getInputType() {
+        String inputType = null;
+        switch (this.fieldType) {
+            case TEXT:
+                inputType = " type=\"text\" ";
+                break;
+            case NUMBER:
+                inputType = " type=\"number\" ";
+                break;
+            case EMAIL:
+                inputType = " type=\"email\" ";
+                break;
+            case PASSWORD:
+                inputType = " type=\"password\" ";
+                break;
+            default:
+                throw new UnsupportedOperationException("Html Input type not supported");
+        }
+        return inputType;
+    }
+
     public static enum FieldType {
         EMAIL, NUMBER, PASSWORD, TEXT
     }

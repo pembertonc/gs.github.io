@@ -86,7 +86,7 @@ public class TextFieldWFeedback extends FormComponentPanel {
 
         setOutputMarkupPlaceholderTag(true);
         this.fieldLabel = (Label) new Label("inputLabel", caption)
-                .setOutputMarkupPlaceholderTag(true);
+                .setOutputMarkupId(true);
         this.component = (FormComponent) initializeInputField();
 
         internalAdd(initializeUpdatingBehavior());

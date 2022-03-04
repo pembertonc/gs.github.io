@@ -20,6 +20,8 @@ import com.techmine.gs.domain.Person;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.service.UserService;
+import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption;
+import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption.FieldType;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.TextFieldWFeedback;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -78,25 +80,30 @@ public class UserEditor extends Panel {
         target.add(get("userNameFeedback"));
         }
         }));*/
-        editForm.add(initializePassword("password", LambdaModel.of(sub::getPassword, sub::setPassword), true));
+        //editForm.add(initializePassword("password", LambdaModel.of(sub::getPassword, sub::setPassword), true));
+
         Person person = sub.getPerson().get();
         // editForm.add(initializeTextField("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), true));
         // editForm.add(initializeTextField("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), true));
         // editForm.add(initializeTextField("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), true));
         Contact cont = person.getContact().get();
-        editForm.add(initializeEmailField("email", LambdaModel.of(cont::getEmail, cont::setEmail), true));
-        editForm.add(initializeTextField("telephone1", LambdaModel.of(cont::getTelephone1, cont::setTelephone1), true));
-        editForm.add(initializeTextField("telephone2", LambdaModel.of(cont::getTelephone2, cont::setTelephone2), true));
+        // editForm.add(initializeEmailField("email", LambdaModel.of(cont::getEmail, cont::setEmail), true));
+        //  editForm.add(initializeTextField("telephone1", LambdaModel.of(cont::getTelephone1, cont::setTelephone1), true));
+        //  editForm.add(initializeTextField("telephone2", LambdaModel.of(cont::getTelephone2, cont::setTelephone2), true));
         // Buttons
         editForm.add(initializeSave("save", null));
         editForm.add(initializeCancel("cancel", null));
         editForm.add(initializeNew("new", null));
 
-        editForm.add(new TextFieldWFeedback("userName", LambdaModel.of(sub::getUserName, sub::setUserName), "User Name").setRequired(true));
-        editForm.add(new TextFieldWFeedback("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), "firstName").setRequired(true));
-        editForm.add(new TextFieldWFeedback("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), "Family Name").setRequired(true));
-        editForm.add(new TextFieldWFeedback("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), "Other Name").setRequired(false));
+        editForm.add(new InputFieldWFeedbackAndCaption("userName", LambdaModel.of(sub::getUserName, sub::setUserName), "User Name", FieldType.TEXT).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("password", LambdaModel.of(sub::getPassword, sub::setPassword), "Password", FieldType.PASSWORD).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), "firstName", FieldType.TEXT).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), "Family Name", FieldType.TEXT).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), "Other Name", FieldType.TEXT).setRequired(false));
 
+        editForm.add(new InputFieldWFeedbackAndCaption("telephone1", LambdaModel.of(cont::getTelephone1, cont::setTelephone1), "Telephone 1", FieldType.TEXT).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("telephone2", LambdaModel.of(cont::getTelephone2, cont::setTelephone2), "Telephone 2", FieldType.TEXT).setRequired(false));
+        editForm.add(new InputFieldWFeedbackAndCaption("email", LambdaModel.of(cont::getEmail, cont::setEmail), "Email", FieldType.EMAIL).setRequired(true));
     }
 
     private Form<Subject> initializeEditForm(String id, IModel<Subject> model) {

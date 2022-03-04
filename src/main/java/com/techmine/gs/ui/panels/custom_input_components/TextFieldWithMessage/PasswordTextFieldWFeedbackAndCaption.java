@@ -21,10 +21,10 @@ import org.apache.wicket.model.IModel;
  *
  * @author Cedric-Pemberton
  */
-public class TextFieldWFeedbackAndMessage extends AbstractInputFieldWFeedbackAndCaption {
+public class PasswordTextFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAndCaption {
 
-    public TextFieldWFeedbackAndMessage(String id, IModel<?> model, String captionValue) {
-        super(id, model, captionValue, FieldType.TEXT);
+    public PasswordTextFieldWFeedbackAndCaption(String id, IModel<?> model, String captionValue) {
+        super(id, model, captionValue, FieldType.PASSWORD);
     }
 
 }

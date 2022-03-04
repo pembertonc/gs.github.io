@@ -73,7 +73,7 @@ public class TextFieldsWFeedbackAndMessageTest {
     @Test
     public void testPasswordTextFieldWFeedbackAndMessageHasCorrectUnderlyingTextField() {
 
-        PasswordTextFieldWFeedbackAndMessage component = new PasswordTextFieldWFeedbackAndMessage("input", model, "Model Data");
+        PasswordTextFieldWFeedbackAndCaption component = new PasswordTextFieldWFeedbackAndCaption("input", model, "Model Data");
         tester.startComponentInPage(component);
         Component inputComponent = tester.getComponentFromLastRenderedPage("input:inputComponent");
         tester.assertComponent("input:inputComponent", TextField.class);  // assert Component is sub-class of TextField.
@@ -84,7 +84,7 @@ public class TextFieldsWFeedbackAndMessageTest {
     @Test
     public void testTextFieldWFeedbackAndMessageHasCorrectUnderlyingTextField() {
 
-        Component component = new TextFieldWFeedbackAndMessage("input", model, "Model Data");
+        Component component = new TextFieldWFeedbackAndCaption("input", model, "Model Data");
         tester.startComponentInPage(component);
         Component inputComponent = tester.getComponentFromLastRenderedPage("input:inputComponent");
         assertNotNull(inputComponent, "Input component is null");
