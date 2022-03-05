@@ -15,12 +15,18 @@
  */
 package com.techmine.gs.ui.panels.views.userView;
 
+import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.kendo.ui.datatable.DataTable;
+import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
 import com.techmine.gs.domain.Subject;
+import com.techmine.gs.repository.SubjectRepository;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
+import javax.inject.Inject;
+
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
+import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.IModel;
 
 /**
@@ -31,6 +37,9 @@ import org.apache.wicket.model.IModel;
  * test field.
  */
 public class UserSearch extends Panel {
+
+    @Inject
+    private SubjectRepository subjectRepository;
 
     public UserSearch(String id) {
         super(id);
@@ -46,12 +55,27 @@ public class UserSearch extends Panel {
         super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
-    public DataTable<Subject, String> initializeDataTable() {
-        throw new UnsupportedOperationException("Initialize table not yet implmented");
+    private IDataProvider getSubjectDataProvider() {
+        return new ListDataProvider(this.subjectRepository.findAll());
     }
 
-    private IDataProvider getSubjectDataProvider() {
-        throw new UnsupportedOperationException("getSubjectDataProvider not yet implmented");
+    private IModel<List<IColumn>> getColumns() {
+        throw new UnsupportedOperationException("getColumns not implementd");
+    }
+
+    private Options getOptions() {
+        throw new UnsupportedOperationException("getOptions not yet implementd");
+    }
+
+    private DataTable getSearchResultsDisplay(String id) {
+        return new DataTable<Subject>(id, getColumns(), getSubjectDataProvider(), 25, getOptions()) {
+            private static final long serialVersionUID = 1L;
+
+        };
+    }
+
+    private DataTable initializeResultsDisplay() {
+        throw new UnsupportedOperationException("initializeResultsDesplay not yet implmented");
     }
 
 }
