@@ -16,6 +16,8 @@
 package com.techmine.gs.ui.panels.views.userView;
 
 import com.techmine.gs.domain.Subject;
+import java.util.Iterator;
+import java.util.List;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -50,6 +52,43 @@ public class UserSearch extends Panel {
 
     private IDataProvider getSubjectDataProvider() {
         throw new UnsupportedOperationException("getSubjectDataProvider not yet implmented");
+    }
+
+}
+
+class SubjectDataProvider implements IDataProvider<Subject> {
+
+    IModel<List<Subject>> listModel;
+
+    public SubjectDataProvider(IModel<List<Subject>> listModel) {
+        this.listModel = listModel;
+    }
+
+    public IModel<List<Subject>> getListModel() {
+        return listModel;
+    }
+
+    public void setListModel(IModel<List<Subject>> listModel) {
+        this.listModel = listModel;
+    }
+
+    public void invalidate() {
+        this.listModel = null;
+    }
+
+    @Override
+    public Iterator<? extends Subject> iterator(long l, long l1) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public long size() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public IModel<Subject> model(Subject t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
