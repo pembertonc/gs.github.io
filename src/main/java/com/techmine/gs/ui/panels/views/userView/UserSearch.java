@@ -18,6 +18,8 @@ package com.techmine.gs.ui.panels.views.userView;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.kendo.ui.datatable.DataTable;
 import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
+import com.googlecode.wicket.kendo.ui.datatable.column.IdPropertyColumn;
+import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.repository.SubjectRepository;
 import java.util.Iterator;
@@ -28,6 +30,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.util.lang.Generics;
 
 /**
  *
@@ -41,6 +44,8 @@ public class UserSearch extends Panel {
     @Inject
     private SubjectRepository subjectRepository;
 
+    private DataTable datatable;
+
     public UserSearch(String id) {
         super(id);
     }
@@ -52,19 +57,32 @@ public class UserSearch extends Panel {
 
     @Override
     protected void onInitialize() {
-        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.onInitialize();
+        add(datatable = getSearchResultsDisplay("dataTable"));
+
     }
 
     private IDataProvider getSubjectDataProvider() {
         return new ListDataProvider(this.subjectRepository.findAll());
     }
 
-    private IModel<List<IColumn>> getColumns() {
-        throw new UnsupportedOperationException("getColumns not implementd");
+    private List<IColumn> getColumns() {
+        List<IColumn> columns = Generics.newArrayList();
+        columns.add(new IdPropertyColumn("ID", "id", 36));
+        columns.add(new PropertyColumn("User Name", "userName"));
+        //columns.add(new PropertyColumn("First Name", "f"));
+        return columns;
     }
 
     private Options getOptions() {
-        throw new UnsupportedOperationException("getOptions not yet implementd");
+        return new Options()
+                .set("height", 430)
+                .set("pageable", "{ pageSizes: [25, 50, 100]}")
+                //.set("sortable") // already if providable is  a ISortStateLocator
+                .set("groupable", true)
+                .set("columnNemu", true)
+                .set("selectable", false);
+
     }
 
     private DataTable getSearchResultsDisplay(String id) {
