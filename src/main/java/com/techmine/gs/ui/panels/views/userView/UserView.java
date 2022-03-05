@@ -40,12 +40,12 @@ public class UserView extends Panel {
     protected void onInitialize() {
         super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         setOutputMarkupId(true);
-        add(editor = initializeUserEditor());
+        add(editor = initializeUserEditor("editor"));
         add(userSearch = new UserSearch("userSearch"));
     }
 
-    private Component initializeUserEditor() {
-        return new UserEditor("editor");
+    private Component initializeUserEditor(String id) {
+        return new UserEditor(id);
     }
 
 }
