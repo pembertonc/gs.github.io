@@ -26,6 +26,7 @@ import org.apache.wicket.model.IModel;
 public class UserView extends Panel {
 
     private Component editor;
+    private UserSearch userSearch;
 
     public UserView(String id, IModel<?> model) {
         super(id, model);
@@ -40,6 +41,7 @@ public class UserView extends Panel {
         super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         setOutputMarkupId(true);
         add(editor = initializeUserEditor());
+        add(userSearch = new UserSearch("userSearch"));
     }
 
     private Component initializeUserEditor() {
