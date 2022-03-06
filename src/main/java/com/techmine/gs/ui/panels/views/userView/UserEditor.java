@@ -46,11 +46,11 @@ import org.apache.wicket.validation.IValidator;
  */
 public class UserEditor extends Panel {
 
-    private AuthenticationService authenticatedService;
+    private UserService userService;
 
     @Inject
-    void setAuthenticatedService(AuthenticationService authenticatedService) {
-        this.authenticatedService = authenticatedService;
+    void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     private Form<Subject> editForm;
@@ -199,8 +199,8 @@ public class UserEditor extends Panel {
         };
     }
 
-    private Subject save(Subject subject) {
-        return this.authenticatedService.save(subject);
+    private void save(Subject subject) {
+        this.userService.createUser(subject);
     }
 
     private IValidator getUserNameValidator() {
