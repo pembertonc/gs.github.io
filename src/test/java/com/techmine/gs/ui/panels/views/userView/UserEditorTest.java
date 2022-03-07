@@ -16,7 +16,7 @@
 package com.techmine.gs.ui.panels.views.userView;
 
 import com.techmine.gs.domain.Subject;
-import com.techmine.gs.service.AuthenticationService;
+import com.techmine.gs.service.UserService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.wicket.model.Model;
@@ -47,7 +47,7 @@ public class UserEditorTest {
     WicketTester tester;
 
     @Mock
-    AuthenticationService authenticationService;
+    UserService userService;
 
     UserEditor instance;
 
@@ -116,10 +116,10 @@ public class UserEditorTest {
         populateSubject(formTester);
         // click the save button.
 
-        assertNotNull(this.authenticationService);
-        instance.setAuthenticatedService(authenticationService);
+        assertNotNull(this.userService);
+        instance.setUserService(userService);
         tester.executeAjaxEvent("editor:editForm:save", "click");
-        verify(authenticationService, times(1)).save(subject);
+        verify(userService, times(1)).createUser(subject);
     }
 
     private void populateSubject(FormTester formTester) {
