@@ -16,12 +16,18 @@
 package com.techmine.gs.ui.panels.views.userView;
 
 import com.techmine.gs.domain.Subject;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
 
 /**
  *
@@ -31,6 +37,8 @@ import org.apache.wicket.model.IModel;
  * test field.
  */
 public class UserSearch extends Panel {
+
+    private DataTable<Subject, String> resultTable;
 
     public UserSearch(String id) {
         super(id);
@@ -43,15 +51,24 @@ public class UserSearch extends Panel {
 
     @Override
     protected void onInitialize() {
-        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.onInitialize();
+        resultTable = initializeDataTable("resultTable");
+        add(resultTable);
     }
 
-    public DataTable<Subject, String> initializeDataTable() {
-        throw new UnsupportedOperationException("Initialize table not yet implmented");
+    private List<IColumn<Subject, String>> getColumns() {
+        List<IColumn<Subject, String>> columns = new ArrayList<>();
+        columns.add(new LambdaColumn<>(Model.of("User Name"), Subject::getUserName));
+        return columns;
     }
 
-    private IDataProvider getSubjectDataProvider() {
-        throw new UnsupportedOperationException("getSubjectDataProvider not yet implmented");
+    private SortableSubjectProvider getSubjectDataProvider() {
+        return new SortableSubjectProvider();
+    }
+
+    private DataTable<Subject, String> initializeDataTable(String id) {
+        return new DefaultDataTable<>(id, getColumns(), getSubjectDataProvider(), 8);
+
     }
 
 }
