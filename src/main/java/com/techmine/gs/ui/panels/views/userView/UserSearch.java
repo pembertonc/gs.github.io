@@ -28,6 +28,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -102,6 +103,7 @@ public class UserSearch extends Panel {
     private List<IColumn<Subject, String>> getColumns() {
         List<IColumn<Subject, String>> columns = new ArrayList<>();
         columns.add(new LambdaColumn<>(Model.of("User Name"), Subject::getUserName));
+        columns.add(new PropertyColumn<>(Model.of("First Name"), "person.firstName"));
         return columns;
     }
 
