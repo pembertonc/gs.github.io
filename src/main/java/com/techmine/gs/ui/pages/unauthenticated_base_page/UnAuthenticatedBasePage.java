@@ -15,8 +15,7 @@
  */
 package com.techmine.gs.ui.pages.unauthenticated_base_page;
 
-import com.techmine.gs.ui.panels.Menu.MenuPanel;
-import com.techmine.gs.ui.panels.SignIn.SignInPanel;
+import java.io.Serializable;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
@@ -28,7 +27,7 @@ import org.apache.wicket.request.resource.ContextRelativeResourceReference;
  * @author Work
  */
 @RequireHttps
-public abstract class UnAuthenticatedBasePage extends WebPage {
+public abstract class UnAuthenticatedBasePage extends WebPage implements Serializable {
 
     public UnAuthenticatedBasePage() {
     }
