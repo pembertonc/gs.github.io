@@ -18,21 +18,33 @@ package com.techmine.gs.ui.panels.views.userView;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.UserService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.event.Broadcast;
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
+import org.apache.wicket.markup.IMarkupCacheKeyProvider;
+import org.apache.wicket.markup.IMarkupResourceStreamProvider;
+import org.apache.wicket.markup.Markup;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.Model;
@@ -105,6 +117,38 @@ public class UserSearch extends Panel {
         columns.add(new LambdaColumn<>(Model.of("User Name"), Subject::getUserName));
         columns.add(new PropertyColumn<>(Model.of("First Name"), "person.firstName"));
         columns.add(new PropertyColumn<>(Model.of("Family Name"), "person.familyName"));
+        columns.add(new PropertyColumn<Subject, String>(Model.of("Select"), "id") {
+            @Override
+            public void populateItem(Item<ICellPopulator<Subject>> item, String componentId, IModel<Subject> rowModel) {
+                // super.populateItem(item, componentId, rowModel); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                Subject subject = rowModel.getObject();
+                item.add(new AjaxLink(componentId, Model.of(subject.getId())) {
+                    @Override
+                    protected void onInitialize() {
+                        super.onInitialize();
+                        setBody(Model.of("Click To Select"));
+                        add(new AttributeAppender("class", "w3-hover-theme"));
+                    }
+
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        processSelection(target, (IModel<Subject>) getDefaultModel());
+                    }
+
+                    private void processSelection(AjaxRequestTarget target, IModel<Subject> subject) {
+                        Map<String, Object> payload = new HashMap<>();
+                        payload.put("AjaxRequestTarget", target);
+                        payload.put("Subject", subject);
+
+                        send(getPage(), Broadcast.BUBBLE, payload);
+
+                    }
+
+                });
+
+            }
+
+        });
         return columns;
     }
 
