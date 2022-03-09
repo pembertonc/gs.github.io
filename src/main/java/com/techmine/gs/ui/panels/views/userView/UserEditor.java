@@ -81,7 +81,7 @@ public class UserEditor extends Panel {
         }));*/
         //editForm.add(initializePassword("password", LambdaModel.of(sub::getPassword, sub::setPassword), true));
 
-        Person person = sub.getPerson().get();
+        Person person = sub.getPerson();
         // editForm.add(initializeTextField("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), true));
         // editForm.add(initializeTextField("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), true));
         // editForm.add(initializeTextField("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), true));
