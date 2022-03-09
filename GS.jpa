@@ -263,7 +263,7 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="12"/>
             </basic>
-            <one-to-one own="true" orp="false" optional="false" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" dv="new Person()" ft="true" id="_163908734901372">
+            <one-to-one own="true" orp="false" optional="false" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" dv="new Person()" ft="false" id="_163908734901372">
                 <xwm/>
                 <xm/>
                 <bv>

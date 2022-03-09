@@ -104,6 +104,7 @@ public class UserSearch extends Panel {
         List<IColumn<Subject, String>> columns = new ArrayList<>();
         columns.add(new LambdaColumn<>(Model.of("User Name"), Subject::getUserName));
         columns.add(new PropertyColumn<>(Model.of("First Name"), "person.firstName"));
+        columns.add(new PropertyColumn<>(Model.of("Family Name"), "person.familyName"));
         return columns;
     }
 
