@@ -22,10 +22,13 @@ import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.service.UserService;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption.FieldType;
+import java.util.HashMap;
+import java.util.Map;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.event.IEvent;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.EmailTextField;
@@ -47,6 +50,8 @@ import org.apache.wicket.validation.IValidator;
 public class UserEditor extends Panel {
 
     private AuthenticationService authenticatedService;
+
+    private IModel<Subject> selected;
 
     @Inject
     void setAuthenticatedService(AuthenticationService authenticatedService) {
@@ -215,6 +220,22 @@ public class UserEditor extends Panel {
             }
 
         };
+    }
+
+    @Override
+    public void onEvent(IEvent<?> event) {
+        super.onEvent(event);
+        if (event.getPayload() instanceof HashMap) {
+            Map<String, Object> payload = (Map) event.getPayload();
+            if (payload.containsKey("Subject")) {
+                this.selected = (IModel<Subject>) payload.get("Subject");
+            }
+            if (payload.containsKey("AjaxRequestTarget")) {
+                AjaxRequestTarget target = (AjaxRequestTarget) payload.get("AjaxRequestTarget");
+                target.add(this);
+            }
+        }
+
     }
 
 }
