@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @NamedQuery(name = "Subject.findByUserName", query = "Select a from Subject a where a.userName=:userName")
+@NamedQuery(name = "Subject.findLikeUserName", query = "Select a from Subject a where a.userName like :userName")
 public class Subject extends BaseEntity {
 
     @Basic(optional = false)

@@ -16,9 +16,11 @@
 package com.techmine.gs.ui.panels.views.userView;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.resource.PackageResourceReference;
 
 /**
  *
@@ -50,6 +52,14 @@ public class UserView extends Panel {
 
     private UserSearch initiaizeUserSearch(String id) {
         return new UserSearch(id);
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        PackageResourceReference cssFile = new PackageResourceReference(this.getClass(), "UserView.css");
+        CssHeaderItem cssItem = CssHeaderItem.forReference(cssFile);
+        response.render(cssItem);
     }
 
 }

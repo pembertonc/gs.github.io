@@ -16,18 +16,25 @@
 package com.techmine.gs.ui.panels.views.userView;
 
 import com.techmine.gs.domain.Subject;
+import com.techmine.gs.service.UserService;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import javax.inject.Inject;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
+import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
+import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.ResourceModel;
 
 /**
  *
@@ -38,20 +45,56 @@ import org.apache.wicket.model.ResourceModel;
  */
 public class UserSearch extends Panel {
 
+    @Inject
+    private UserService userService;
+
+    private IModel<List<Subject>> results;
+    private String criteria = "";
+
+    public String getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
+    }
+
     private DataTable<Subject, String> resultTable;
+    private Form<String> searchForm;
 
     public UserSearch(String id) {
         super(id);
-    }
-
-    public UserSearch(String id, IModel<?> model) {
-        super(id, model);
-
+        // need to initilize the model and model object at startup.
+        results = Model.ofList(userService.findLikeUserName(criteria));
+        setDefaultModel(results);
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        processSearchCriteria(criteria);
+        add(searchForm = new Form<String>("searchForm", LambdaModel.of(this::getCriteria, this::setCriteria)) {
+            @Override
+            protected void onSubmit() {
+                super.onSubmit();
+            }
+        });
+        searchForm.add(new TextField("criteria", LambdaModel.of(this::getCriteria, this::setCriteria)));
+        searchForm.add(new AjaxFallbackButton("search", searchForm) {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                add(new AjaxFormSubmitBehavior(searchForm, "click") {
+                });
+            }
+
+            @Override
+            protected void onSubmit(Optional<AjaxRequestTarget> target) {
+                super.onSubmit(target);
+                processSearchCriteria(criteria);
+                target.ifPresent((t) -> t.add(resultTable));
+            }
+        });
         resultTable = initializeDataTable("resultTable");
         add(resultTable);
     }
@@ -62,50 +105,20 @@ public class UserSearch extends Panel {
         return columns;
     }
 
-    private SortableSubjectProvider getSubjectDataProvider() {
-        return new SortableSubjectProvider();
+    private SortableSubjectProvider getSubjectDataProvider(IModel<List<Subject>> resultDataModel) {
+
+        return new SortableSubjectProvider(resultDataModel);
+
     }
 
     private DataTable<Subject, String> initializeDataTable(String id) {
-        return new DefaultDataTable<>(id, getColumns(), getSubjectDataProvider(), 8);
+        DataTable dataTable = (DataTable) new DefaultDataTable<>(id, getColumns(), getSubjectDataProvider(results), 8)
+                .setOutputMarkupId(true);
+        return dataTable;
 
     }
 
-}
-
-class SubjectDataProvider implements IDataProvider<Subject> {
-
-    IModel<List<Subject>> listModel;
-
-    public SubjectDataProvider(IModel<List<Subject>> listModel) {
-        this.listModel = listModel;
+    private void processSearchCriteria(String criteria) {
+        this.results.setObject(this.userService.findLikeUserName(criteria));
     }
-
-    public IModel<List<Subject>> getListModel() {
-        return listModel;
-    }
-
-    public void setListModel(IModel<List<Subject>> listModel) {
-        this.listModel = listModel;
-    }
-
-    public void invalidate() {
-        this.listModel = null;
-    }
-
-    @Override
-    public Iterator<? extends Subject> iterator(long l, long l1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public long size() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public IModel<Subject> model(Subject t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 }

@@ -41,16 +41,17 @@ public abstract class UnAuthenticatedBasePage extends WebPage {
 
     @Override
     public void renderHead(IHeaderResponse response) {
-        ContextRelativeResourceReference cssFile = new ContextRelativeResourceReference("resources/css/w3.css", false);
+        String cssResourcePath = "resources/css/";
+        ContextRelativeResourceReference cssFile = new ContextRelativeResourceReference(cssResourcePath + "w3.css", false);
         CssHeaderItem cssItem = CssHeaderItem.forReference(cssFile);
         response.render(cssItem);
 
-        cssFile = new ContextRelativeResourceReference("resources/css/style.css", false);
+        cssFile = new ContextRelativeResourceReference(cssResourcePath + "style.css", false);
         cssItem = CssHeaderItem.forReference(cssFile);
         response.render(cssItem);
 
         // by renaming the theme to w3-theme.css we can swap themes by simply replacing the file and giving it that name.
-        cssFile = new ContextRelativeResourceReference("resources/css/w3-theme.css", false);
+        cssFile = new ContextRelativeResourceReference(cssResourcePath + "w3-theme.css", false);
         cssItem = CssHeaderItem.forReference(cssFile);
         response.render(cssItem);
 

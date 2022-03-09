@@ -18,6 +18,7 @@ package com.techmine.gs.service;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.repository.SubjectRepository;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
@@ -50,6 +51,14 @@ public class UserService {
 
         properties.put("userName", userName);
         return subjectRepository.findSingleByNamedQuery("Subject.findByUserName", properties);
+
+    }
+
+    public List<Subject> findLikeUserName(String userName) {
+        Map<String, Object> properties = new HashMap<>();
+
+        properties.put("userName", "%" + userName + "%");
+        return subjectRepository.findByNamedQuery("Subject.findLikeUserName", properties);
 
     }
 }
