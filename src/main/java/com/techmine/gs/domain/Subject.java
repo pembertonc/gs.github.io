@@ -64,8 +64,8 @@ public class Subject extends BaseEntity {
         return this;
     }
 
-    public Optional<Person> getPerson() {
-        return Optional.ofNullable(person);
+    public Person getPerson() {
+        return person;
     }
 
     public void setPerson(Person person) {
