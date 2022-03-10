@@ -22,8 +22,8 @@
  */
 package com.techmine.gs.ui.panels.SignIn;
 
-import com.techmine.gs.Route;
-import com.techmine.gs.Route.Actions;
+import com.techmine.gs.ui.event_payload.Route;
+import com.techmine.gs.ui.event_payload.Route.Actions;
 import com.techmine.gs.domain.Subject;
 import java.io.Serializable;
 import java.util.Optional;

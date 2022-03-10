@@ -17,6 +17,7 @@ package com.techmine.gs.service;
 
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.repository.SubjectRepository;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ import javax.inject.Inject;
  *
  * @author Cedric-Pemberton
  */
-public class UserService {
+public class UserService implements Serializable {
 
     @Inject
     SubjectRepository subjectRepository;
@@ -60,5 +61,9 @@ public class UserService {
         properties.put("userName", "%" + userName + "%");
         return subjectRepository.findByNamedQuery("Subject.findLikeUserName", properties);
 
+    }
+
+    public Subject findById(String subjectId) {
+        return subjectRepository.find(subjectId);
     }
 }

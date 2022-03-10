@@ -15,7 +15,7 @@
  */
 package com.techmine.gs.ui.pages.IndexPage;
 
-import com.techmine.gs.Route;
+import com.techmine.gs.ui.event_payload.Route;
 import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
 import com.techmine.gs.ui.panels.Dashboard.Dashboard;
 import com.techmine.gs.ui.panels.Menu.MenuPanel;

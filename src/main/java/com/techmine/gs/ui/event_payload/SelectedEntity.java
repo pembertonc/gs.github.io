@@ -23,10 +23,12 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  *
  * @author Cedric-Pemberton
  */
-public class SelectedEntity {
+public class SelectedEntity<T> {
 
     private AjaxRequestTarget target;
     private Action action;
+    private String entityId;
+    private Class<T> clazz;
     /**
      * accepts only sub-classes of the base entity. holds the selected entity.
      */
@@ -56,6 +58,22 @@ public class SelectedEntity {
         this.entity = entity;
     }
 
+    public String getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(String entityId) {
+        this.entityId = entityId;
+    }
+
+    public Class<T> getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(Class<T> clazz) {
+        this.clazz = clazz;
+    }
+
     public SelectedEntity action(Action action) {
         this.action = action;
         return this;
@@ -68,6 +86,16 @@ public class SelectedEntity {
 
     public SelectedEntity entity(BaseEntity entity) {
         this.entity = entity;
+        return this;
+    }
+
+    public SelectedEntity clazz(String entityId) {
+        this.entityId = entityId;
+        return this;
+    }
+
+    public SelectedEntity clazz(Class<T> clazz) {
+        this.clazz = clazz;
         return this;
     }
 

@@ -20,10 +20,14 @@ import com.techmine.gs.domain.Person;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.service.UserService;
+import com.techmine.gs.ui.event_payload.SelectedEntity;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption.FieldType;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
@@ -40,6 +44,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 
@@ -49,19 +54,20 @@ import org.apache.wicket.validation.IValidator;
  */
 public class UserEditor extends Panel {
 
-    private AuthenticationService authenticatedService;
+    private UserService userService;
 
-    private IModel<Subject> selected;
-
+    /*  private IModel<Subject> selected = IModel.of(() -> {
+    return null;
+    });*/
     @Inject
-    void setAuthenticatedService(AuthenticationService authenticatedService) {
-        this.authenticatedService = authenticatedService;
+    void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     private Form<Subject> editForm;
 
     public UserEditor(String id) {
-        this(id, Model.of(new Subject()));
+        this(id, new Model<Subject>());
 
     }
 
@@ -74,7 +80,13 @@ public class UserEditor extends Panel {
         super.onInitialize();
         setRenderBodyOnly(true);
         setOutputMarkupId(true); // needed for ajax support.
-        Subject sub = (Subject) getDefaultModelObject();
+        Supplier<Subject> subjectSupplier = () -> {
+            setDefaultModelObject(new Subject());
+            return (Subject) getDefaultModelObject();
+        };
+
+        Subject sub = (Subject) Objects.requireNonNullElseGet(getDefaultModel().getObject(), subjectSupplier);
+        //Subject sub = (Subject) getDefaultModelObject();
         add(editForm = initializeEditForm("editForm", (IModel<Subject>) getDefaultModel()));
         /*
         editForm.add(initializeTextField("userName", LambdaModel.of(sub::getUserName, sub::setUserName), true)
@@ -86,11 +98,9 @@ public class UserEditor extends Panel {
         }));*/
         //editForm.add(initializePassword("password", LambdaModel.of(sub::getPassword, sub::setPassword), true));
 
-        Person person = sub.getPerson();
         // editForm.add(initializeTextField("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), true));
         // editForm.add(initializeTextField("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), true));
         // editForm.add(initializeTextField("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), true));
-        Contact cont = person.getContact().get();
         // editForm.add(initializeEmailField("email", LambdaModel.of(cont::getEmail, cont::setEmail), true));
         //  editForm.add(initializeTextField("telephone1", LambdaModel.of(cont::getTelephone1, cont::setTelephone1), true));
         //  editForm.add(initializeTextField("telephone2", LambdaModel.of(cont::getTelephone2, cont::setTelephone2), true));
@@ -99,20 +109,38 @@ public class UserEditor extends Panel {
         editForm.add(initializeCancel("cancel", null));
         editForm.add(initializeNew("new", null));
 
-        editForm.add(new InputFieldWFeedbackAndCaption("userName", LambdaModel.of(sub::getUserName, sub::setUserName), "User Name", FieldType.TEXT).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("password", LambdaModel.of(sub::getPassword, sub::setPassword), "Password", FieldType.PASSWORD).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("firstName", LambdaModel.of(person::getFirstName, person::setFirstName), "firstName", FieldType.TEXT).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("familyName", LambdaModel.of(person::getFamilyName, person::setFamilyName), "Family Name", FieldType.TEXT).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("otherName", LambdaModel.of(person::getOtherName, person::setOtherName), "Other Name", FieldType.TEXT).setRequired(false));
+        editForm.add(new InputFieldWFeedbackAndCaption("userName", PropertyModel.of(getDefaultModel(), "userName"), "User Name", FieldType.TEXT).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("password", PropertyModel.of(getDefaultModel(), "password"), "Password", FieldType.PASSWORD).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("firstName", PropertyModel.of(getDefaultModel(), "person.firstName"), "First Name", FieldType.TEXT).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("familyName", PropertyModel.of(getDefaultModel(), "person.familyName"), "Family Name", FieldType.TEXT).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("otherName", PropertyModel.of(getDefaultModel(), "person.otherName"), "Other Name", FieldType.TEXT).setRequired(false));
 
-        editForm.add(new InputFieldWFeedbackAndCaption("telephone1", LambdaModel.of(cont::getTelephone1, cont::setTelephone1), "Telephone 1", FieldType.TEXT).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("telephone2", LambdaModel.of(cont::getTelephone2, cont::setTelephone2), "Telephone 2", FieldType.TEXT).setRequired(false));
-        editForm.add(new InputFieldWFeedbackAndCaption("email", LambdaModel.of(cont::getEmail, cont::setEmail), "Email", FieldType.EMAIL).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("telephone1", PropertyModel.of(getDefaultModel(), "person.contact.telephone1"), "Telephone 1", FieldType.TEXT).setRequired(true));
+        editForm.add(new InputFieldWFeedbackAndCaption("telephone2", PropertyModel.of(getDefaultModel(), "person.contact.telephone2"), "Telephone 2", FieldType.TEXT).setRequired(false));
+        editForm.add(new InputFieldWFeedbackAndCaption("email", PropertyModel.of(getDefaultModel(), "person.contact.email"), "Email", FieldType.EMAIL).setRequired(true));
 
     }
 
     private Form<Subject> initializeEditForm(String id, IModel<Subject> model) {
-        return new Form(id, model);
+        return new Form(id, model) {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                setOutputMarkupId(true);
+            }
+
+            @Override
+            protected void onSubmit() {
+                super.onSubmit();
+            }
+
+            @Override
+            protected void onError() {
+                super.onError();
+
+            }
+
+        };
     }
 
     @Deprecated
@@ -204,8 +232,8 @@ public class UserEditor extends Panel {
         };
     }
 
-    private Subject save(Subject subject) {
-        return this.authenticatedService.save(subject);
+    private void save(Subject subject) {
+        this.userService.createUser(subject);
     }
 
     private IValidator getUserNameValidator() {
@@ -225,15 +253,15 @@ public class UserEditor extends Panel {
     @Override
     public void onEvent(IEvent<?> event) {
         super.onEvent(event);
-        if (event.getPayload() instanceof HashMap) {
-            Map<String, Object> payload = (Map) event.getPayload();
-            if (payload.containsKey("Subject")) {
-                this.selected = (IModel<Subject>) payload.get("Subject");
+        Object payload = event.getPayload();
+        if (payload instanceof SelectedEntity) {
+            SelectedEntity selectedPayload = ((SelectedEntity) payload);
+            if (selectedPayload.getEntity() instanceof Subject) {
+                this.setDefaultModelObject(selectedPayload.getEntity());
             }
-            if (payload.containsKey("AjaxRequestTarget")) {
-                AjaxRequestTarget target = (AjaxRequestTarget) payload.get("AjaxRequestTarget");
-                target.add(this);
-            }
+
+            Optional<AjaxRequestTarget> target = selectedPayload.getTarget();
+            target.ifPresent((t) -> t.add(editForm));
         }
 
     }

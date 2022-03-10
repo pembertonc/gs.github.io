@@ -1,7 +1,6 @@
 package com.techmine.gs.domain;
 
 import java.util.Objects;
-import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -75,8 +74,8 @@ public class Person extends BaseEntity {
         return this;
     }
 
-    public Optional<Contact> getContact() {
-        return Optional.ofNullable(contact);
+    public Contact getContact() {
+        return contact;
     }
 
     public void setContact(Contact contact) {

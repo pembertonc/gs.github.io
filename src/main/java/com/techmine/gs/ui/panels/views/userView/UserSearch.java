@@ -15,12 +15,13 @@
  */
 package com.techmine.gs.ui.panels.views.userView;
 
+import com.techmine.gs.domain.BaseEntity;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.UserService;
+import com.techmine.gs.ui.event_payload.SelectedEntity;
+import com.techmine.gs.ui.event_payload.SelectedEntity.Action;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -30,17 +31,11 @@ import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
-import org.apache.wicket.markup.IMarkupCacheKeyProvider;
-import org.apache.wicket.markup.IMarkupResourceStreamProvider;
-import org.apache.wicket.markup.Markup;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -132,15 +127,20 @@ public class UserSearch extends Panel {
 
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        processSelection(target, (IModel<Subject>) getDefaultModel());
+                        processSelection(target, (String) getDefaultModelObject());
                     }
 
-                    private void processSelection(AjaxRequestTarget target, IModel<Subject> subject) {
-                        Map<String, Object> payload = new HashMap<>();
+                    private void processSelection(AjaxRequestTarget target, String subjectId) {
+                        /* Map<String, Object> payload = new HashMap<>();
                         payload.put("AjaxRequestTarget", target);
-                        payload.put("Subject", subject);
+                        payload.put("Subject", subject);*/
+                        Subject subject = userService.findById(subjectId);
+                        SelectedEntity payload1 = new SelectedEntity()
+                                .action(Action.EDIT)
+                                .target(target)
+                                .entity(subject);  // subjec contains the id of the object not the object itself
 
-                        send(getPage(), Broadcast.BUBBLE, payload);
+                        send(getPage(), Broadcast.DEPTH, payload1);
 
                     }
 

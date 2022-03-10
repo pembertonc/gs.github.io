@@ -15,8 +15,8 @@
  */
 package com.techmine.gs.ui.panels.Menu;
 
-import com.techmine.gs.Route;
-import com.techmine.gs.Route.Actions;
+import com.techmine.gs.ui.event_payload.Route;
+import com.techmine.gs.ui.event_payload.Route.Actions;
 import com.techmine.gs.ui.pages.IndexPage.IndexPage;
 import java.util.Optional;
 import java.util.logging.Logger;

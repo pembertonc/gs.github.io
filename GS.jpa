@@ -164,7 +164,7 @@
             <query>Select g from GasType g where g.symbol=:symbol</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
+    <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
         <ts e="true">
             <a>_163908674093457</a>
             <a>_163908674218158</a>
@@ -210,7 +210,7 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true"/>
             </basic>
-            <one-to-one own="true" orp="true" optional="false" primaryKey="false" connected-entity-id="_163908596303719" v="true" xvt="" name="contact" dv="new Contact()" id="_164607145269019">
+            <one-to-one own="true" orp="true" optional="false" primaryKey="false" connected-entity-id="_163908596303719" v="true" xvt="" name="contact" dv="new Contact()" ft="false" id="_164607145269019">
                 <xwm/>
                 <xm/>
                 <cascade>
