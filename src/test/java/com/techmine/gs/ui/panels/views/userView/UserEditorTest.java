@@ -16,7 +16,6 @@
 package com.techmine.gs.ui.panels.views.userView;
 
 import com.techmine.gs.domain.Subject;
-import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.service.UserService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
