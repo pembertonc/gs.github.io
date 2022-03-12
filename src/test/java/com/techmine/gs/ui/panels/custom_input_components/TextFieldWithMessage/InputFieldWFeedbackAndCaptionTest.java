@@ -15,13 +15,20 @@
  */
 package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 
+import com.techmine.gs.testutils.TestPage;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
+import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -122,6 +129,47 @@ public class InputFieldWFeedbackAndCaptionTest {
 
         tester.assertComponent("input:inputComponent", PasswordTextField.class);
         Assertions.assertEquals(comp.getClass().getName(), PasswordTextField.class.getName());
+    }
+
+    @Test
+    public void assertThatComponentReturnsValue() {
+        WicketTester lovalTester = new WicketTester();
+        InputFieldWFeedbackACaptionTestingComponent localInstance = new InputFieldWFeedbackACaptionTestingComponent("testComponent", model);
+        lovalTester.startComponentInPage(localInstance);
+        FormTester ft = lovalTester.newFormTester("testComponent:testForm");
+        ft.setValue("inputComponent", "J. Johana Jammerson");
+
+        Assertions.assertTrue(modelData.equals(model.getObject()));
+        Assertions.assertFalse("J. Johana Jammerson".equalsIgnoreCase(model.getObject()));
+
+        lovalTester.executeAjaxEvent("testComponent:testForm:submit", "click");
+
+        Assertions.assertTrue("J. Johana Jammerson".equalsIgnoreCase(model.getObject()));
+
+    }
+// Class to used as containing component for InpuFiedlWXXX
+
+    class InputFieldWFeedbackACaptionTestingComponent extends Panel {
+
+        public InputFieldWFeedbackACaptionTestingComponent(String id, IModel<?> model) {
+            super(id, model);
+        }
+
+        @Override
+        protected void onInitialize() {
+            super.onInitialize();
+            Form<String> testForm = new Form<>("testForm", (IModel<String>) getDefaultModel());
+            add(testForm);
+            testForm.setOutputMarkupId(true);
+            InputFieldWFeedbackAndCaption inputComponent = new InputFieldWFeedbackAndCaption("inputComponent", getDefaultModel(), "Input Component", InputFieldWFeedbackAndCaption.FieldType.TEXT);
+            testForm.add(inputComponent);
+            AjaxFallbackButton submitButton = new AjaxFallbackButton("submit", testForm) {
+            };
+            submitButton.add(new AjaxFormSubmitBehavior("click") {
+            });
+            testForm.add(submitButton);
+        }
+
     }
 
 }

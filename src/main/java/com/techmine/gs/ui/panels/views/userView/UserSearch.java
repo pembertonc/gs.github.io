@@ -15,11 +15,11 @@
  */
 package com.techmine.gs.ui.panels.views.userView;
 
-import com.techmine.gs.domain.BaseEntity;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.UserService;
+import com.techmine.gs.ui.event_payload.CRUDEventActions;
 import com.techmine.gs.ui.event_payload.SelectedEntity;
-import com.techmine.gs.ui.event_payload.SelectedEntity.Action;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -136,7 +136,7 @@ public class UserSearch extends Panel {
                         payload.put("Subject", subject);*/
                         Subject subject = userService.findById(subjectId);
                         SelectedEntity payload1 = new SelectedEntity()
-                                .action(Action.EDIT)
+                                .action(CRUDEventActions.UPDATE)
                                 .target(target)
                                 .entity(subject);  // subjec contains the id of the object not the object itself
 

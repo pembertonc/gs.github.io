@@ -15,18 +15,15 @@
  */
 package com.techmine.gs.ui.panels.views.userView;
 
-import com.techmine.gs.domain.Contact;
-import com.techmine.gs.domain.Person;
 import com.techmine.gs.domain.Subject;
-import com.techmine.gs.service.AuthenticationService;
 import com.techmine.gs.service.UserService;
+import com.techmine.gs.ui.event_payload.CRUDEventActions;
 import com.techmine.gs.ui.event_payload.SelectedEntity;
+
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption.FieldType;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -35,14 +32,10 @@ import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.event.IEvent;
 
 import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LambdaModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.IValidatable;
@@ -55,6 +48,10 @@ import org.apache.wicket.validation.IValidator;
 public class UserEditor extends Panel {
 
     private UserService userService;
+
+    private FeedbackPanel formErrors;
+    private CRUDEventActions mode;
+
 
     /*  private IModel<Subject> selected = IModel.of(() -> {
     return null;
@@ -78,7 +75,7 @@ public class UserEditor extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        setRenderBodyOnly(true);
+        //setRenderBodyOnly(true);
         setOutputMarkupId(true); // needed for ajax support.
         Supplier<Subject> subjectSupplier = () -> {
             setDefaultModelObject(new Subject());
@@ -119,6 +116,9 @@ public class UserEditor extends Panel {
         editForm.add(new InputFieldWFeedbackAndCaption("telephone2", PropertyModel.of(getDefaultModel(), "person.contact.telephone2"), "Telephone 2", FieldType.TEXT).setRequired(false));
         editForm.add(new InputFieldWFeedbackAndCaption("email", PropertyModel.of(getDefaultModel(), "person.contact.email"), "Email", FieldType.EMAIL).setRequired(true));
 
+        add(formErrors = new FeedbackPanel("formErrors"));
+        formErrors.setOutputMarkupId(true);
+
     }
 
     private Form<Subject> initializeEditForm(String id, IModel<Subject> model) {
@@ -137,28 +137,26 @@ public class UserEditor extends Panel {
             @Override
             protected void onError() {
                 super.onError();
-
             }
-
         };
     }
 
+    /*
     @Deprecated
     private TextField initializeTextField(String id, IModel<String> model, boolean required) {
-        return (TextField) new TextField(id, model).setRequired(required);
+    return (TextField) new TextField(id, model).setRequired(required);
     }
 
     @Deprecated
     private FormComponent initializePassword(String id, IModel<String> model, boolean required) {
-        return new PasswordTextField(id, model).setResetPassword(false);
+    return new PasswordTextField(id, model).setResetPassword(false);
 
     }
 
     @Deprecated
     private FormComponent initializeEmailField(String email, IModel<String> model, boolean required) {
-        return new EmailTextField("email", model).setRequired(required);
-    }
-
+    return new EmailTextField("email", model).setRequired(required);
+    }*/
     private Button initializeSave(String id, Form<Void> form) {
         return new AjaxButton(id, form) {
             @Override
@@ -170,19 +168,17 @@ public class UserEditor extends Panel {
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
 
-                        save((Subject) getParent().getDefaultModel().getObject());
+                        persist((Subject) getParent().getDefaultModel().getObject());
                         target.add(UserEditor.this);
                     }
 
                     @Override
                     protected void onError(AjaxRequestTarget target) {
                         super.onError(target);
-
+                        target.add(formErrors);
                     }
-
                 });
             }
-
         };
     }
 
@@ -232,8 +228,13 @@ public class UserEditor extends Panel {
         };
     }
 
-    private void save(Subject subject) {
-        this.userService.createUser(subject);
+    private void persist(Subject subject) {
+        if (mode.equals(CRUDEventActions.UPDATE)) {
+            this.userService.updateUser(subject);
+        } else {
+            this.userService.createUser(subject);
+        }
+
     }
 
     private IValidator getUserNameValidator() {
@@ -258,12 +259,12 @@ public class UserEditor extends Panel {
             SelectedEntity selectedPayload = ((SelectedEntity) payload);
             if (selectedPayload.getEntity() instanceof Subject) {
                 this.setDefaultModelObject(selectedPayload.getEntity());
+                this.mode = ((SelectedEntity) payload).getAction();
             }
 
             Optional<AjaxRequestTarget> target = selectedPayload.getTarget();
             target.ifPresent((t) -> t.add(editForm));
         }
-
     }
 
 }

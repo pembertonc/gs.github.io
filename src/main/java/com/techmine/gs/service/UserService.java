@@ -66,4 +66,8 @@ public class UserService implements Serializable {
     public Subject findById(String subjectId) {
         return subjectRepository.find(subjectId);
     }
+
+    public void updateUser(Subject subject) {
+        subjectRepository.edit(subject);
+    }
 }
