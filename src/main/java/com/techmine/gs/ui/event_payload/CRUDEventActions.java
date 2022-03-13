@@ -20,5 +20,5 @@ package com.techmine.gs.ui.event_payload;
  * @author Cedric-Pemberton
  */
 public enum CRUDEventActions {
-    DELETE, UPDATE, CREATE, RETRIEVE
+    DELETE, UPDATE, CREATE, RETRIEVE, NONE
 }

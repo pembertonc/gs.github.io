@@ -98,14 +98,15 @@ public class UserServiceTest {
     public void testcreateSubject() {
         System.out.println("createUser");
         Subject sub = createTestSubject();
-        //this.em.getTransaction().begin();
+        //this.entityManager.getTransaction().begin();
         //assertTrue(this.instance.checkUserExistxByUserName("Administrator"));
 
         // this.em.getTransaction().begin();
-        this.entityManager.persist(sub);
-        instance.createUser(sub);
-        //this.em.getTransaction().commit();
-        Subject result = this.entityManager.find(Subject.class, sub.getId());
+        //this.entityManager.persist(sub);
+        instance.persisteUser(sub);
+        //this.entityManager.getTransaction().commit();
+        // Subject result = this.entityManager.find(Subject.class, sub.getId());
+        Subject result = instance.findById(sub.getId());  // may aactually be testing two things the find and the persist.
         assertNotNull(result);
 
         //this.em.

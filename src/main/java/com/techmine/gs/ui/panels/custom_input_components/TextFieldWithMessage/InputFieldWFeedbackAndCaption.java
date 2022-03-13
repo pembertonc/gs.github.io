@@ -52,6 +52,7 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
     protected FieldType fieldType;
     protected List<IValidator> validators;
     protected String captionValue;
+    @Deprecated
     protected boolean inputRequired;
 
     protected FormComponent formComponent;
@@ -189,10 +190,12 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
         return new EmailTextField("inputComponent", model);
     }
 
+    @Deprecated
     public boolean isInputRequired() {
         return inputRequired;
     }
 
+    @Deprecated
     public void setInputRequired(boolean inputRequired) {
         this.inputRequired = inputRequired;
     }
@@ -243,12 +246,10 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
     protected void onConfigure() {
         super.onConfigure();
         this.formComponent.setLabel(Model.of(captionValue));
-        /*formComponent.setRequired(this.isRequired());
-        if (isRequired()) {
+        formComponent.setRequired(this.isRequired());
+        /* if (isRequired()) {
         formComponent.add(AttributeModifier.append("required", true));
         }*/
-
-        this.formComponent.setRequired(this.isInputRequired());
 
     }
 
@@ -259,7 +260,7 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
      */
     @Override
     public void convertInput() {
-        // super.convertInput();
+        super.convertInput();
 
         setConvertedInput(formComponent.getConvertedInput());
     }

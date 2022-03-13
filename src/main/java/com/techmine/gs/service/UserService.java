@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import javax.inject.Inject;
 
@@ -38,7 +39,17 @@ public class UserService implements Serializable {
         return subjectRepository;
     }
 
-    public void createUser(Subject subject) {
+    public void persisteUser(Subject subject) {
+        Subject result = subjectRepository.find(subject.getId());
+        if (Objects.isNull(result)) {
+            createUser(subject);
+        } else {
+            updateUser(subject);
+        }
+
+    }
+
+    private void createUser(Subject subject) {
         subjectRepository.create(subject);
     }
 
@@ -67,7 +78,7 @@ public class UserService implements Serializable {
         return subjectRepository.find(subjectId);
     }
 
-    public void updateUser(Subject subject) {
+    private void updateUser(Subject subject) {
         subjectRepository.edit(subject);
     }
 }

@@ -70,6 +70,7 @@ public class UserEditor extends Panel {
 
     public UserEditor(String id, IModel<Subject> model) {
         super(id, model);
+        mode = CRUDEventActions.NONE;
     }
 
     @Override
@@ -229,11 +230,7 @@ public class UserEditor extends Panel {
     }
 
     private void persist(Subject subject) {
-        if (mode.equals(CRUDEventActions.UPDATE)) {
-            this.userService.updateUser(subject);
-        } else {
-            this.userService.createUser(subject);
-        }
+        this.userService.persisteUser(subject);
 
     }
 
