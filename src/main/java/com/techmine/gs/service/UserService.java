@@ -17,8 +17,11 @@ package com.techmine.gs.service;
 
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.repository.SubjectRepository;
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import javax.inject.Inject;
 
@@ -27,7 +30,7 @@ import javax.inject.Inject;
  *
  * @author Cedric-Pemberton
  */
-public class UserService {
+public class UserService implements Serializable {
 
     @Inject
     SubjectRepository subjectRepository;
@@ -36,7 +39,17 @@ public class UserService {
         return subjectRepository;
     }
 
-    public void createUser(Subject subject) {
+    public void persisteUser(Subject subject) {
+        Subject result = subjectRepository.find(subject.getId());
+        if (Objects.isNull(result)) {
+            createUser(subject);
+        } else {
+            updateUser(subject);
+        }
+
+    }
+
+    private void createUser(Subject subject) {
         subjectRepository.create(subject);
     }
 
@@ -51,5 +64,21 @@ public class UserService {
         properties.put("userName", userName);
         return subjectRepository.findSingleByNamedQuery("Subject.findByUserName", properties);
 
+    }
+
+    public List<Subject> findLikeUserName(String userName) {
+        Map<String, Object> properties = new HashMap<>();
+
+        properties.put("userName", "%" + userName + "%");
+        return subjectRepository.findByNamedQuery("Subject.findLikeUserName", properties);
+
+    }
+
+    public Subject findById(String subjectId) {
+        return subjectRepository.find(subjectId);
+    }
+
+    private void updateUser(Subject subject) {
+        subjectRepository.edit(subject);
     }
 }

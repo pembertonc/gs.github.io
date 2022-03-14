@@ -22,7 +22,22 @@ limitations under the License.
     </head>
     <body>
         <wicket:panel>
-            <div wicket:id="dataTable">[Data Table]</div>
+            <form wicket:id="searchForm">
+                <fieldset>
+                    <legend>Search Criteria</legend>
+                    <div class="">
+                        <div class=" w3-mobile">
+                            <input class="search-criteria" wicket:id="criteria"/>
+                        </div>
+                        <div class=" w3-mobile">
+                            <button wicket:id="search" class="w3-hover-theme w3-button w3-block">Search</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <table class="w3-table w3-striped" wicket:id="resultTable"></table>
+
+
         </wicket:panel>
     </body>
 </html>

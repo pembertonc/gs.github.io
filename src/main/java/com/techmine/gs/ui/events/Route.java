@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs;
+package com.techmine.gs.ui.events;
 
 import java.util.Optional;
 import org.apache.wicket.ajax.AjaxRequestTarget;

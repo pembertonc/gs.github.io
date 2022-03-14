@@ -15,22 +15,36 @@
  */
 package com.techmine.gs.ui.panels.views.userView;
 
-import com.googlecode.wicket.jquery.core.Options;
-import com.googlecode.wicket.kendo.ui.datatable.DataTable;
-import com.googlecode.wicket.kendo.ui.datatable.column.IColumn;
-import com.googlecode.wicket.kendo.ui.datatable.column.IdPropertyColumn;
-import com.googlecode.wicket.kendo.ui.datatable.column.PropertyColumn;
 import com.techmine.gs.domain.Subject;
-import com.techmine.gs.repository.SubjectRepository;
-import java.util.Iterator;
-import java.util.List;
-import javax.inject.Inject;
+import com.techmine.gs.service.UserService;
+import com.techmine.gs.ui.events.CRUDEventActions;
+import com.techmine.gs.ui.events.NotificationEvent;
+import com.techmine.gs.ui.events.SelectedEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import javax.inject.Inject;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.event.Broadcast;
+import org.apache.wicket.event.IEvent;
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.LambdaColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.markup.repeater.data.IDataProvider;
-import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.lang.Generics;
+import org.apache.wicket.model.LambdaModel;
+import org.apache.wicket.model.Model;
 
 /**
  *
@@ -42,95 +56,133 @@ import org.apache.wicket.util.lang.Generics;
 public class UserSearch extends Panel {
 
     @Inject
-    private SubjectRepository subjectRepository;
+    private UserService userService;
 
-    private DataTable datatable;
+    private IModel<List<Subject>> results;
+    private String criteria = "";
+
+    public String getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
+    }
+
+    private DataTable<Subject, String> resultTable;
+    private Form<String> searchForm;
 
     public UserSearch(String id) {
         super(id);
-    }
-
-    public UserSearch(String id, IModel<?> model) {
-        super(id, model);
-
+        // need to initilize the model and model object at startup.
+        results = Model.ofList(userService.findLikeUserName(criteria));
+        setDefaultModel(results);
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(datatable = getSearchResultsDisplay("dataTable"));
+        processSearchCriteria(criteria);
+        add(searchForm = new Form<String>("searchForm", LambdaModel.of(this::getCriteria, this::setCriteria)) {
+            @Override
+            protected void onSubmit() {
+                super.onSubmit();
+            }
+        });
+        searchForm.add(new TextField("criteria", LambdaModel.of(this::getCriteria, this::setCriteria)));
+        searchForm.add(new AjaxFallbackButton("search", searchForm) {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                add(new AjaxFormSubmitBehavior(searchForm, "click") {
+                });
+            }
 
+            @Override
+            protected void onSubmit(Optional<AjaxRequestTarget> target) {
+                super.onSubmit(target);
+                processSearchCriteria(criteria);
+                target.ifPresent((t) -> t.add(resultTable));
+            }
+        });
+        resultTable = initializeDataTable("resultTable");
+        add(resultTable);
     }
 
-    private IDataProvider getSubjectDataProvider() {
-        return new ListDataProvider(this.subjectRepository.findAll());
+    @Override
+    public void onEvent(IEvent<?> event) {
+        super.onEvent(event);
+        Object payload = event.getPayload();
+
+        if (payload instanceof NotificationEvent) {
+
+            if (((NotificationEvent) payload).getEntityType().equals(Subject.class) && ((NotificationEvent) (payload)).getAction().equals(CRUDEventActions.UPDATE)) {
+                processSearchCriteria(criteria);
+                Optional<AjaxRequestTarget> target = ((NotificationEvent) payload).getTarget();
+                target.ifPresent((t) -> t.add(resultTable));
+            }
+        }
     }
 
-    private List<IColumn> getColumns() {
-        List<IColumn> columns = Generics.newArrayList();
-        columns.add(new IdPropertyColumn("ID", "id", 36));
-        columns.add(new PropertyColumn("User Name", "userName"));
-        //columns.add(new PropertyColumn("First Name", "f"));
+    private List<IColumn<Subject, String>> getColumns() {
+        List<IColumn<Subject, String>> columns = new ArrayList<>();
+        columns.add(new LambdaColumn<>(Model.of("User Name"), Subject::getUserName));
+        columns.add(new PropertyColumn<>(Model.of("First Name"), "person.firstName"));
+        columns.add(new PropertyColumn<>(Model.of("Family Name"), "person.familyName"));
+        columns.add(new PropertyColumn<Subject, String>(Model.of("Select"), "id") {
+            @Override
+            public void populateItem(Item<ICellPopulator<Subject>> item, String componentId, IModel<Subject> rowModel) {
+                // super.populateItem(item, componentId, rowModel); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                Subject subject = rowModel.getObject();
+                item.add(new AjaxLink(componentId, Model.of(subject.getId())) {
+                    @Override
+                    protected void onInitialize() {
+                        super.onInitialize();
+                        setBody(Model.of("Click To Select"));
+                        add(new AttributeAppender("class", "w3-hover-theme"));
+                    }
+
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        processSelection(target, (String) getDefaultModelObject());
+                    }
+
+                    private void processSelection(AjaxRequestTarget target, String subjectId) {
+                        /* Map<String, Object> payload = new HashMap<>();
+                        payload.put("AjaxRequestTarget", target);
+                        payload.put("Subject", subject);*/
+                        Subject subject = userService.findById(subjectId);
+                        SelectedEntity payload1 = new SelectedEntity()
+                                .action(CRUDEventActions.UPDATE)
+                                .target(target)
+                                .entity(subject);  // subjec contains the id of the object not the object itself
+
+                        send(getPage(), Broadcast.DEPTH, payload1);
+
+                    }
+
+                });
+
+            }
+
+        });
         return columns;
     }
 
-    private Options getOptions() {
-        return new Options()
-                .set("height", 430)
-                .set("pageable", "{ pageSizes: [25, 50, 100]}")
-                //.set("sortable") // already if providable is  a ISortStateLocator
-                .set("groupable", true)
-                .set("columnNemu", true)
-                .set("selectable", false);
+    private SortableSubjectProvider getSubjectDataProvider(IModel<List<Subject>> resultDataModel) {
+
+        return new SortableSubjectProvider(resultDataModel);
 
     }
 
-    private DataTable getSearchResultsDisplay(String id) {
-        return new DataTable<Subject>(id, getColumns(), getSubjectDataProvider(), 25, getOptions()) {
-            private static final long serialVersionUID = 1L;
+    private DataTable<Subject, String> initializeDataTable(String id) {
+        DataTable dataTable = (DataTable) new DefaultDataTable<>(id, getColumns(), getSubjectDataProvider(results), 8)
+                .setOutputMarkupId(true);
+        return dataTable;
 
-        };
     }
 
-    private DataTable initializeResultsDisplay() {
-        throw new UnsupportedOperationException("initializeResultsDesplay not yet implmented");
+    private void processSearchCriteria(String criteria) {
+        this.results.setObject(this.userService.findLikeUserName(criteria));
     }
-
-}
-
-class SubjectDataProvider implements IDataProvider<Subject> {
-
-    IModel<List<Subject>> listModel;
-
-    public SubjectDataProvider(IModel<List<Subject>> listModel) {
-        this.listModel = listModel;
-    }
-
-    public IModel<List<Subject>> getListModel() {
-        return listModel;
-    }
-
-    public void setListModel(IModel<List<Subject>> listModel) {
-        this.listModel = listModel;
-    }
-
-    public void invalidate() {
-        this.listModel = null;
-    }
-
-    @Override
-    public Iterator<? extends Subject> iterator(long l, long l1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public long size() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public IModel<Subject> model(Subject t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 }

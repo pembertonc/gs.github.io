@@ -15,9 +15,14 @@
  */
 package com.techmine.gs.ui.panels.views.userView;
 
+import com.techmine.gs.ui.panels.views.userView.UserSearch;
+import com.techmine.gs.ui.panels.views.userView.UserEditor;
 import org.apache.wicket.Component;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.resource.PackageResourceReference;
 
 /**
  *
@@ -38,14 +43,26 @@ public class UserView extends Panel {
 
     @Override
     protected void onInitialize() {
-        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.onInitialize();
         setOutputMarkupId(true);
         add(editor = initializeUserEditor("editor"));
-        add(userSearch = new UserSearch("userSearch"));
+        add(initiaizeUserSearch("searcher"));
     }
 
     private Component initializeUserEditor(String id) {
         return new UserEditor(id);
+    }
+
+    private UserSearch initiaizeUserSearch(String id) {
+        return new UserSearch(id);
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        PackageResourceReference cssFile = new PackageResourceReference(this.getClass(), "UserView.css");
+        CssHeaderItem cssItem = CssHeaderItem.forReference(cssFile);
+        response.render(cssItem);
     }
 
 }

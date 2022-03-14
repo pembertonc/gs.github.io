@@ -52,6 +52,8 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
     protected FieldType fieldType;
     protected List<IValidator> validators;
     protected String captionValue;
+    @Deprecated
+    protected boolean inputRequired;
 
     protected FormComponent formComponent;
     protected Label caption;
@@ -62,12 +64,13 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
         this.fieldType = fieldType;
         this.captionValue = captionValue;
         this.validators = new ArrayList<>();
+
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        setRenderBodyOnly(true);
+        //setRenderBodyOnly(true);
         this.caption = (Label) new Label("caption", captionValue).setOutputMarkupId(true);
         this.formComponent = initializeInputField(fieldType, getDefaultModel(), captionValue);
         formComponent.setOutputMarkupId(true)
@@ -184,8 +187,22 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
     }
 
     private FormComponent initializeEmailTextField(IModel model, String captionValue) {
-
         return new EmailTextField("inputComponent", model);
+    }
+
+    @Deprecated
+    public boolean isInputRequired() {
+        return inputRequired;
+    }
+
+    @Deprecated
+    public void setInputRequired(boolean inputRequired) {
+        this.inputRequired = inputRequired;
+    }
+
+    public InputFieldWFeedbackAndCaption inputRequired(boolean inputRequired) {
+        setInputRequired(inputRequired);
+        return this;
 
     }
 
@@ -230,12 +247,26 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
         super.onConfigure();
         this.formComponent.setLabel(Model.of(captionValue));
         formComponent.setRequired(this.isRequired());
-        if (isRequired()) {
-            formComponent.add(AttributeModifier.append("required", true));
-        }
+        /* if (isRequired()) {
+        formComponent.add(AttributeModifier.append("required", true));
+        }*/
+
+    }
+
+    /**
+     * The FormComonent does not receive the input so it reports Required
+     * Violation. the convert input is overriden to pass the value received by
+     * the fromComponent to the SetConvertedInput of the FormComponentPane.
+     */
+    @Override
+    public void convertInput() {
+        super.convertInput();
+
+        setConvertedInput(formComponent.getConvertedInput());
     }
 
     public static enum FieldType {
         EMAIL, NUMBER, PASSWORD, TEXT
     }
+
 }

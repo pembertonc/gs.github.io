@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @NamedQuery(name = "Subject.findByUserName", query = "Select a from Subject a where a.userName=:userName")
+@NamedQuery(name = "Subject.findLikeUserName", query = "Select a from Subject a where a.userName like :userName")
 public class Subject extends BaseEntity {
 
     @Basic(optional = false)
@@ -63,8 +64,8 @@ public class Subject extends BaseEntity {
         return this;
     }
 
-    public Optional<Person> getPerson() {
-        return Optional.ofNullable(person);
+    public Person getPerson() {
+        return person;
     }
 
     public void setPerson(Person person) {

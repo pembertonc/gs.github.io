@@ -15,8 +15,7 @@
  */
 package com.techmine.gs.ui.pages.unauthenticated_base_page;
 
-import com.techmine.gs.ui.panels.Menu.MenuPanel;
-import com.techmine.gs.ui.panels.SignIn.SignInPanel;
+import java.io.Serializable;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
@@ -28,7 +27,7 @@ import org.apache.wicket.request.resource.ContextRelativeResourceReference;
  * @author Work
  */
 @RequireHttps
-public abstract class UnAuthenticatedBasePage extends WebPage {
+public abstract class UnAuthenticatedBasePage extends WebPage implements Serializable {
 
     public UnAuthenticatedBasePage() {
     }
@@ -41,16 +40,17 @@ public abstract class UnAuthenticatedBasePage extends WebPage {
 
     @Override
     public void renderHead(IHeaderResponse response) {
-        ContextRelativeResourceReference cssFile = new ContextRelativeResourceReference("resources/css/w3.css", false);
+        String cssResourcePath = "resources/css/";
+        ContextRelativeResourceReference cssFile = new ContextRelativeResourceReference(cssResourcePath + "w3.css", false);
         CssHeaderItem cssItem = CssHeaderItem.forReference(cssFile);
         response.render(cssItem);
 
-        cssFile = new ContextRelativeResourceReference("resources/css/style.css", false);
+        cssFile = new ContextRelativeResourceReference(cssResourcePath + "style.css", false);
         cssItem = CssHeaderItem.forReference(cssFile);
         response.render(cssItem);
 
         // by renaming the theme to w3-theme.css we can swap themes by simply replacing the file and giving it that name.
-        cssFile = new ContextRelativeResourceReference("resources/css/w3-theme.css", false);
+        cssFile = new ContextRelativeResourceReference(cssResourcePath + "w3-theme.css", false);
         cssItem = CssHeaderItem.forReference(cssFile);
         response.render(cssItem);
 

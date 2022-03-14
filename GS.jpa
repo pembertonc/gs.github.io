@@ -210,7 +210,7 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true"/>
             </basic>
-            <one-to-one own="true" orp="true" optional="false" primaryKey="false" connected-entity-id="_163908596303719" v="true" xvt="" name="contact" dv="new Contact()" id="_164607145269019">
+            <one-to-one own="true" orp="true" optional="false" primaryKey="false" connected-entity-id="_163908596303719" v="true" xvt="" name="contact" dv="new Contact()" ft="false" id="_164607145269019">
                 <xwm/>
                 <xm/>
                 <cascade>
@@ -231,7 +231,7 @@
             <query>Select p from Person p where p.familyName=:familyName</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
+    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
         <ts e="true">
             <a>_163908735716373</a>
             <a>_163908735774074</a>
@@ -263,7 +263,7 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="12"/>
             </basic>
-            <one-to-one own="true" orp="false" optional="false" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" dv="new Person()" ft="true" id="_163908734901372">
+            <one-to-one own="true" orp="false" optional="false" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" dv="new Person()" ft="false" id="_163908734901372">
                 <xwm/>
                 <xm/>
                 <bv>
@@ -286,6 +286,9 @@
         </nq>
         <nq e="false" name="Subject.findByPassword">
             <query>Select a from Subject a where a.password=:password</query>
+        </nq>
+        <nq e="true" name="Subject.findLikeUserName">
+            <query>Select a from Subject a where a.userName like :userName</query>
         </nq>
     </entity>
     <entity compositePrimaryKeyClass="CylinderPK" abs="false" class="Cylinder" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088335659142">

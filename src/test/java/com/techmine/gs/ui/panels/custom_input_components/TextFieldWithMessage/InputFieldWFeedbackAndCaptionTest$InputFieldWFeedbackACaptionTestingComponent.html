@@ -14,28 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-
     </head>
     <body>
         <wicket:panel>
-
-            <header class="w3-theme-d1 w3-stretch w3-center w3-text-light-grey ">User Manager</header>
-            <div class="w3-container w3-row">
-                <div class="w3-third w3-mobile">
-                    <div wicket:id="editor">Editor</div>
-                </div>
-                <div class="w3-twothird w3-mobile">
-                    <div wicket:id="searcher"></div>
-                </div>
-            </div>
-
+            <form wicket:id="testForm" id="testForm">
+                <span wicket:id="inputComponent"></span>
+                <button wicket:id="submit"></button>
+            </form>
         </wicket:panel>
     </body>
 </html>

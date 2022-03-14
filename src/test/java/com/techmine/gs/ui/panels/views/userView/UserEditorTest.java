@@ -25,6 +25,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -68,7 +69,6 @@ public class UserEditorTest {
     @BeforeEach
     public void setUp() {
         this.tester = new WicketTester();
-
         instance = new UserEditor("editor", Model.of(new Subject()));
         instance = tester.startComponentInPage(instance);
         closure = MockitoAnnotations.openMocks(instance);
@@ -82,7 +82,6 @@ public class UserEditorTest {
             Logger.getLogger(UserEditorTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         tester.destroy();
-
     }
 
     /**
@@ -104,22 +103,24 @@ public class UserEditorTest {
     public void testComponentsRender(String wicketId) {
         String path = "editor:editForm:" + wicketId;
         tester.assertExists(path);
-
     }
 
     @Test
     public void testSaveCalled() {
         FormTester formTester = tester.newFormTester("editor:editForm");
+
         UserEditor editor = (UserEditor) tester.getComponentFromLastRenderedPage("editor");
         Subject subject = (Subject) editor.getDefaultModelObject();
 
         populateSubject(formTester);
-        // click the save button.
 
         assertNotNull(this.userService);
         instance.setUserService(userService);
+        // click the save button.
         tester.executeAjaxEvent("editor:editForm:save", "click");
-        verify(userService, times(1)).createUser(subject);
+        //Method cant be called as there is not mode
+//        assertTrue("Administrator".equals(subject.getUserName()));
+        verify(userService, times(1)).persisteUser(subject);
     }
 
     private void populateSubject(FormTester formTester) {
@@ -132,5 +133,4 @@ public class UserEditorTest {
         formTester.setValue("telephone1", "128-265-5698");
         formTester.setValue("telephone2", "128-265-8965");
     }
-
 }
