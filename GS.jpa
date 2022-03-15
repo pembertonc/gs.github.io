@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<entity-mappings ptype="MONOLITH" ppkg="com.techmine.gs" epkg="domain" v="5.4.4" rws="_16238885089942" Pws="_164550291943336" cws="_164550291943336" persistenceUnitName="GS_PU" pp="E" sm="false" xs="false" id="_16238885089941" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<entity-mappings ptype="MONOLITH" ppkg="com.techmine.gs" epkg="domain" v="5.4.4" rws="_16238885089942" Pws="_16238885089942" cws="_16238885089942" persistenceUnitName="GS_PU" pp="E" sm="false" xs="false" id="_16238885089941" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <mapped-superclass compositePrimaryKeyClass="BaseEntityPK" abs="false" class="BaseEntity" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908616129139">
         <inf e="true" n="java.io.Serializable"/>
         <snp loc="IMPORT" e="true">java.util.UUID</snp>
@@ -112,7 +112,7 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="64"/>
             </basic>
-            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_16238885459983" v="true" xvt="" name="address" id="_163908610434838">
+            <one-to-one own="true" orp="false" optional="false" primaryKey="false" connected-entity-id="_16238885459983" v="true" xvt="" name="address" id="_163908610434838">
                 <xwm/>
                 <xm/>
             </one-to-one>
@@ -376,17 +376,17 @@
     </c>
     <wsl>
         <ws n="Main" id="_16238885089942">
-            <i ref="_163908596733225"/>
-            <i ref="_1639088335659142"/>
-            <i ref="_163908596303719"/>
-            <i ref="_163908597108431"/>
-            <i ref="_164550302254398"/>
-            <i ref="_1639088466730176"/>
-            <i ref="_1639088473362211"/>
-            <i ref="_16238885459983"/>
-            <i ref="_163908596520722"/>
-            <i ref="_163908726308665"/>
-            <i ref="_163908616129139"/>
+            <i ref="_163908596733225" x="766" y="553"/>
+            <i ref="_1639088335659142" x="538" y="692"/>
+            <i ref="_163908596303719" x="1029" y="692"/>
+            <i ref="_163908597108431" x="32" y="692"/>
+            <i ref="_164550302254398" x="258" y="553"/>
+            <i ref="_1639088466730176" x="766" y="183"/>
+            <i ref="_1639088473362211" x="538" y="32"/>
+            <i ref="_16238885459983" x="258" y="183"/>
+            <i ref="_163908596520722" x="32" y="362"/>
+            <i ref="_163908726308665" x="1029" y="362"/>
+            <i ref="_163908616129139" x="538" y="362"/>
         </ws>
         <ws n="User" id="_164550291943336">
             <i ref="_163908596303719" x="553" y="408"/>

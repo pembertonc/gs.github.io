@@ -84,16 +84,16 @@
             <artifactId>wicket-auth-roles</artifactId>
             <version>${wicket.version}</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>com.googlecode.wicket-jquery-ui</groupId>
             <artifactId>wicket-jquery-ui</artifactId>
             <version>${wicket.version}</version>
-        </dependency>
-        <dependency>
+        </dependency-->
+        <!--dependency>
             <groupId>com.googlecode.wicket-jquery-ui</groupId>
             <artifactId>wicket-kendo-ui</artifactId>
             <version>${wicket.version}</version>
-        </dependency>
+        </dependency-->
 
         <!-- LOGGING DEPENDENCIES - SLF4J-SIMPLE -->
         <dependency>
@@ -354,8 +354,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                     <encoding>UTF-8</encoding>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
