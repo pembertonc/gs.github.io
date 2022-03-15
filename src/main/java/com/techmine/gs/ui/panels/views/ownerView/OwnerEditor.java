@@ -86,10 +86,10 @@ public class OwnerEditor extends Panel {
        form.add(initializeStreet2("street2", LambdaModel.of(addr::getStreet2, addr::setStreet2)));
        
        //city
-       form.add(initializeCity("city", LambdaModel.of(addr::getCity, addr::setCity)));
+       form.add(city = initializeCity("city", LambdaModel.of(addr::getCity, addr::setCity)));
 
         //country
-        List<String> country = Arrays.asList("Antigua and Barbuda", "The Bahamas", "Barbados", "Belize", "Dominica", 
+        List<String> countries = Arrays.asList("Antigua and Barbuda", "The Bahamas", "Barbados", "Belize", "Dominica", 
                             "Grenada","Guyana","Haiti","Jamaica","Monsterrat","Saint Kitts and Nevis","Saint Lucia",
                             "Saint Vincent and the Grenadines","Suriname", "Trinidad and Tobago","Other");
         form.add(initializeCountry("country", LambdaModel.of(addr::getCountry, addr::setCountry), true));

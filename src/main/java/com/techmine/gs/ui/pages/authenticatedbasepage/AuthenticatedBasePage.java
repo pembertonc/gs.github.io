@@ -13,17 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.pages.authenticated_base_page;
+package com.techmine.gs.ui.pages.authenticatedbasepage;
 
-import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
+import com.techmine.gs.ui.pages.BasePage;
+
+
 
 /**
  *
- * @author Work
+ * @author bethy
  */
-public class AuthenticatedBasePage extends UnAuthenticatedBasePage {
+public class AuthenticatedBasePage extends BasePage {
 
-    public AuthenticatedBasePage() {
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
     }
-
 }
