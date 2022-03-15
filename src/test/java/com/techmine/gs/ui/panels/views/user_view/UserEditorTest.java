@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.panels.views.userView;
+package com.techmine.gs.ui.panels.views.user_view;
 
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.UserService;
@@ -22,12 +22,11 @@ import java.util.logging.Logger;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -119,10 +118,27 @@ public class UserEditorTest {
         // click the save button.
         tester.executeAjaxEvent("editor:editForm:save", "click");
         //Method cant be called as there is not mode
-//        assertTrue("Administrator".equals(subject.getUserName()));
+//      assertTrue("Administrator".equals(subject.getUserName()));
         verify(userService, times(1)).persisteUser(subject);
     }
 
+    @Test
+    public void testDeleteMethodCalled() {
+        FormTester formTester = tester.newFormTester("editor:editForm");
+        UserEditor editor = (UserEditor) tester.getComponentFromLastRenderedPage("editor");
+        Subject subject = (Subject) editor.getDefaultModelObject();
+        populateSubject(formTester);
+
+        tester.executeAjaxEvent("editor:editForm:delete", "click");
+
+        verify(userService, times(1)).deleteUser(subject);
+    }
+    /**
+     * Populating the form tester is setting the value to the FormComponentPanel
+     * not the Inner form.
+     *
+     * @param formTester
+     */
     private void populateSubject(FormTester formTester) {
         formTester.setValue("userName", "Administrator");
         formTester.setValue("password", "Password");

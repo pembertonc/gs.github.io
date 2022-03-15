@@ -81,4 +81,8 @@ public class UserService implements Serializable {
     private void updateUser(Subject subject) {
         subjectRepository.edit(subject);
     }
+
+    public void deleteUser(Subject subject) {
+        subjectRepository.remove(subject);
+    }
 }

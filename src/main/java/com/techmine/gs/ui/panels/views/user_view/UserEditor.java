@@ -17,7 +17,7 @@ package com.techmine.gs.ui.panels.views.user_view;
 
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.UserService;
-import com.techmine.gs.ui.events.CRUDEventActions;
+import com.techmine.gs.ui.events.CRUDEventAction;
 import com.techmine.gs.ui.events.NotificationEvent;
 import com.techmine.gs.ui.events.SelectedEntity;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption;
@@ -48,8 +48,9 @@ public class UserEditor extends Panel {
     private UserService userService;
 
     private FeedbackPanel formErrors;
-    private CRUDEventActions mode;
+    private CRUDEventAction mode;
 
+    private static final String cLICK = "click";
 
     @Inject
     void setUserService(UserService userService) {
@@ -59,13 +60,13 @@ public class UserEditor extends Panel {
     private Form<Subject> editForm;
 
     public UserEditor(String id) {
-        this(id, new Model<Subject>());
+        this(id, new Model<>());
 
     }
 
     public UserEditor(String id, IModel<Subject> model) {
         super(id, model);
-        mode = CRUDEventActions.NONE;
+        mode = CRUDEventAction.NONE;
     }
 
     @Override
@@ -75,12 +76,13 @@ public class UserEditor extends Panel {
         setOutputMarkupId(true); // needed for ajax support.
 
 
-        add(editForm = initializeEditForm("editForm", (IModel<Subject>) getDefaultModel()));
+        editForm = initializeEditForm("editForm", (IModel<Subject>) getDefaultModel());
+        add(editForm);
 
-        editForm.add(initializeSave("save", null));
-        editForm.add(initializeCancel("cancel", null));
-        editForm.add(initializeNew("new", null));
-
+        editForm.add(initializeSave("save", editForm));
+        editForm.add(initializeCancel("cancel", editForm));
+        editForm.add(initializeNew("new", editForm));
+        editForm.add(initializeDelete("delete", editForm));
         editForm.add(new InputFieldWFeedbackAndCaption("userName", PropertyModel.of(getDefaultModel(), "userName"), "User Name", FieldType.TEXT).setRequired(true));
         editForm.add(new InputFieldWFeedbackAndCaption("password", PropertyModel.of(getDefaultModel(), "password"), "Password", FieldType.PASSWORD).setRequired(true));
         editForm.add(new InputFieldWFeedbackAndCaption("firstName", PropertyModel.of(getDefaultModel(), "person.firstName"), "First Name", FieldType.TEXT).setRequired(true));
@@ -133,13 +135,13 @@ public class UserEditor extends Panel {
     private FormComponent initializeEmailField(String email, IModel<String> model, boolean required) {
     return new EmailTextField("email", model).setRequired(required);
     }*/
-    private Button initializeSave(String id, Form<Void> form) {
+    private Button initializeSave(String id, Form<Subject> form) {
         return new AjaxButton(id, form) {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
                 setDefaultFormProcessing(true);
-                add(new AjaxFormSubmitBehavior("click") {
+                add(new AjaxFormSubmitBehavior(cLICK) {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
@@ -159,12 +161,12 @@ public class UserEditor extends Panel {
         };
     }
 
-    private Button initializeCancel(String id, Form<Void> form) {
+    private Button initializeCancel(String id, Form<Subject> form) {
         return new AjaxButton(id, form) {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
-                add(new AjaxFormSubmitBehavior("click") {
+                add(new AjaxFormSubmitBehavior(cLICK) {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
@@ -184,12 +186,12 @@ public class UserEditor extends Panel {
         };
     }
 
-    private Button initializeNew(String id, Form<Void> form) {
+    private Button initializeNew(String id, Form<Subject> form) {
         return new AjaxButton(id, form) {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
-                add(new AjaxFormSubmitBehavior("click") {
+                add(new AjaxFormSubmitBehavior(cLICK) {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
@@ -236,17 +238,38 @@ public class UserEditor extends Panel {
             }
 
             Optional<AjaxRequestTarget> target = selectedPayload.getTarget();
-            target.ifPresent((t) -> t.add(editForm));
+            target.ifPresent(t -> t.add(editForm));
         }
     }
-
+    // Replace call to method emitUpdateEvent with call to emmitEvent
     private void emitUpdateEvent(AjaxRequestTarget target) {
         NotificationEvent<Subject> event = new NotificationEvent<>();
-        event.setAction(CRUDEventActions.UPDATE);
+        event.setAction(CRUDEventAction.UPDATE);
         event.setEntityType(Subject.class);
         event.setTarget(target);
         send(this.getPage(), Broadcast.DEPTH, event);
 
+    }
+
+    private Button initializeDelete(String delete, Form<Subject> form) {
+        return new AjaxButton(delete, form) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
+                super.onSubmit(target);
+                userService.deleteUser((Subject) getDefaultModel().getObject());
+                emmitEvent(target, CRUDEventAction.DELETE);
+
+            }
+
+        };
+    }
+
+    private void emmitEvent(AjaxRequestTarget target, CRUDEventAction action) {
+        NotificationEvent<Subject> event = new NotificationEvent<>();
+        event.setAction(action);
+        event.setEntityType(Subject.class);
+        event.setTarget(target);
+        send(this.getPage(), Broadcast.DEPTH, event);
     }
 
 }

@@ -25,24 +25,24 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  */
 public class NotificationEvent<T extends BaseEntity> {
 
-    private CRUDEventActions action;
+    private CRUDEventAction action;
     private Class<T> entityType;
-    private AjaxRequestTarget target;
+    private Optional<AjaxRequestTarget> target;
 
-    public CRUDEventActions getAction() {
+    public CRUDEventAction getAction() {
         return action;
     }
 
-    public void setAction(CRUDEventActions action) {
+    public void setAction(CRUDEventAction action) {
         this.action = action;
     }
 
     public Optional<AjaxRequestTarget> getTarget() {
-        return Optional.ofNullable(target);
+        return target;
     }
 
     public void setTarget(AjaxRequestTarget target) {
-        this.target = target;
+        this.target = Optional.ofNullable(target);
     }
 
     public Class<T> getEntityType() {

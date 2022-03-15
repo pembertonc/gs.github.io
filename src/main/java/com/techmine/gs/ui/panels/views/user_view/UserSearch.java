@@ -17,13 +17,13 @@ package com.techmine.gs.ui.panels.views.user_view;
 
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.UserService;
-import com.techmine.gs.ui.events.CRUDEventActions;
+import com.techmine.gs.ui.events.CRUDEventAction;
 import com.techmine.gs.ui.events.NotificationEvent;
 import com.techmine.gs.ui.events.SelectedEntity;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
@@ -114,15 +114,21 @@ public class UserSearch extends Panel {
         super.onEvent(event);
         Object payload = event.getPayload();
 
-        if (payload instanceof NotificationEvent) {
 
-            if (((NotificationEvent) payload).getEntityType().equals(Subject.class) && ((NotificationEvent) (payload)).getAction().equals(CRUDEventActions.UPDATE)) {
+        if (payload instanceof NotificationEvent) {
+            Function<CRUDEventAction, Boolean> isDeleteOrUpdate = (CRUDEventAction t) -> {
+                return (CRUDEventAction.UPDATE == t || CRUDEventAction.DELETE == t);
+            };
+            NotificationEvent notificationEvent = (NotificationEvent) payload;
+            if (notificationEvent.getEntityType().equals(Subject.class) && isDeleteOrUpdate.apply(notificationEvent.getAction())) {
                 processSearchCriteria(criteria);
                 Optional<AjaxRequestTarget> target = ((NotificationEvent) payload).getTarget();
                 target.ifPresent((t) -> t.add(resultTable));
             }
         }
     }
+
+
 
     private List<IColumn<Subject, String>> getColumns() {
         List<IColumn<Subject, String>> columns = new ArrayList<>();
@@ -153,7 +159,7 @@ public class UserSearch extends Panel {
                         payload.put("Subject", subject);*/
                         Subject subject = userService.findById(subjectId);
                         SelectedEntity payload1 = new SelectedEntity()
-                                .action(CRUDEventActions.UPDATE)
+                                .action(CRUDEventAction.UPDATE)
                                 .target(target)
                                 .entity(subject);  // subjec contains the id of the object not the object itself
 

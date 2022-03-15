@@ -26,7 +26,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 public class SelectedEntity<T> {
 
     private AjaxRequestTarget target;
-    private CRUDEventActions action;
+    private CRUDEventAction action;
     private String entityId;
     private Class<T> clazz;
     /**
@@ -42,11 +42,11 @@ public class SelectedEntity<T> {
         this.target = target;
     }
 
-    public CRUDEventActions getAction() {
+    public CRUDEventAction getAction() {
         return action;
     }
 
-    public void setAction(CRUDEventActions action) {
+    public void setAction(CRUDEventAction action) {
         this.action = action;
     }
 
@@ -74,7 +74,7 @@ public class SelectedEntity<T> {
         this.clazz = clazz;
     }
 
-    public SelectedEntity action(CRUDEventActions action) {
+    public SelectedEntity action(CRUDEventAction action) {
         this.action = action;
         return this;
     }
