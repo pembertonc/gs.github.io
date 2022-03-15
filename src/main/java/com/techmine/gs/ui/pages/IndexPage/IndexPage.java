@@ -20,7 +20,7 @@ import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePag
 import com.techmine.gs.ui.panels.Dashboard.Dashboard;
 import com.techmine.gs.ui.panels.Menu.MenuPanel;
 import com.techmine.gs.ui.panels.SignIn.SignInPanel;
-import com.techmine.gs.ui.panels.views.userView.UserView;
+import com.techmine.gs.ui.panels.views.user_view.UserView;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;

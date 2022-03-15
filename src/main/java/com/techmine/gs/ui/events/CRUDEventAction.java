@@ -19,6 +19,6 @@ package com.techmine.gs.ui.events;
  *
  * @author Cedric-Pemberton
  */
-public enum CRUDEventActions {
+public enum CRUDEventAction {
     DELETE, UPDATE, CREATE, RETRIEVE, NONE
 }

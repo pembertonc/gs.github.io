@@ -54,8 +54,8 @@ public class ExperimentalTobeDeleted extends Panel implements IMarkupResourceStr
                 .append("</div>")
                 .append("</wicket:panel>").toString();
 
-        StringResourceStream resourceStream = new StringResourceStream(markup);
-        return resourceStream;
+        return new StringResourceStream(markup);
+
     }
 
 }
