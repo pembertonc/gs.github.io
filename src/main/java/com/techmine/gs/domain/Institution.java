@@ -20,7 +20,7 @@ public class Institution extends BaseEntity {
     @Size(min = 1, max = 64, message = "Institutino name must not exceed 64 characters")
     private String name;
     @OneToOne
-    private Address address;
+    private Address address = new Address();
     @OneToOne
     private Contact contact;
     @OneToOne(mappedBy = "institution")
