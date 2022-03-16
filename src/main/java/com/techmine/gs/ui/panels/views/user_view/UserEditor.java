@@ -15,6 +15,7 @@
  */
 package com.techmine.gs.ui.panels.views.user_view;
 
+import com.techmine.gs.domain.BaseEntity;
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.UserService;
 import com.techmine.gs.ui.events.CRUDEventAction;
@@ -22,13 +23,17 @@ import com.techmine.gs.ui.events.NotificationEvent;
 import com.techmine.gs.ui.events.SelectedEntity;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption;
 import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption.FieldType;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.event.IEvent;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -51,6 +56,12 @@ public class UserEditor extends Panel {
     private CRUDEventAction mode;
 
     private static final String cLICK = "click";
+    private Button save;
+    private Button cancel;
+    private Button addNew;
+    private Button delete;
+    private WebMarkupContainer sectionContainer;
+    private static final Logger LOG = Logger.getLogger(UserEditor.class.getName());
 
     @Inject
     void setUserService(UserService userService) {
@@ -72,31 +83,33 @@ public class UserEditor extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
         setOutputMarkupId(true); // needed for ajax support.
-
 
         editForm = initializeEditForm("editForm", (IModel<Subject>) getDefaultModel());
         add(editForm);
+        sectionContainer = initializeSectionContainer();
+        editForm.add(sectionContainer);
+        save = initializeSave("save", editForm);
+        editForm.add(save);
+        cancel = initializeCancel("cancel", editForm);
+        editForm.add(cancel);
+        addNew = initializeNew("new", editForm);
+        editForm.add(addNew);
+        delete = initializeDelete("delete", editForm);
+        editForm.add(delete);
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("userName", PropertyModel.of(getDefaultModel(), "userName"), "User Name", FieldType.TEXT).setRequired(true));
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("password", PropertyModel.of(getDefaultModel(), "password"), "Password", FieldType.PASSWORD).setRequired(true));
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("firstName", PropertyModel.of(getDefaultModel(), "person.firstName"), "First Name", FieldType.TEXT).setRequired(true));
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("familyName", PropertyModel.of(getDefaultModel(), "person.familyName"), "Family Name", FieldType.TEXT).setRequired(true));
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("otherName", PropertyModel.of(getDefaultModel(), "person.otherName"), "Other Name", FieldType.TEXT).setRequired(false));
 
-        editForm.add(initializeSave("save", editForm));
-        editForm.add(initializeCancel("cancel", editForm));
-        editForm.add(initializeNew("new", editForm));
-        editForm.add(initializeDelete("delete", editForm));
-        editForm.add(new InputFieldWFeedbackAndCaption("userName", PropertyModel.of(getDefaultModel(), "userName"), "User Name", FieldType.TEXT).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("password", PropertyModel.of(getDefaultModel(), "password"), "Password", FieldType.PASSWORD).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("firstName", PropertyModel.of(getDefaultModel(), "person.firstName"), "First Name", FieldType.TEXT).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("familyName", PropertyModel.of(getDefaultModel(), "person.familyName"), "Family Name", FieldType.TEXT).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("otherName", PropertyModel.of(getDefaultModel(), "person.otherName"), "Other Name", FieldType.TEXT).setRequired(false));
-
-        editForm.add(new InputFieldWFeedbackAndCaption("telephone1", PropertyModel.of(getDefaultModel(), "person.contact.telephone1"), "Telephone 1", FieldType.TEXT).setRequired(true));
-        editForm.add(new InputFieldWFeedbackAndCaption("telephone2", PropertyModel.of(getDefaultModel(), "person.contact.telephone2"), "Telephone 2", FieldType.TEXT).setRequired(false));
-        editForm.add(new InputFieldWFeedbackAndCaption("email", PropertyModel.of(getDefaultModel(), "person.contact.email"), "Email", FieldType.EMAIL).setRequired(true));
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("telephone1", PropertyModel.of(getDefaultModel(), "person.contact.telephone1"), "Telephone 1", FieldType.TEXT).setRequired(true));
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("telephone2", PropertyModel.of(getDefaultModel(), "person.contact.telephone2"), "Telephone 2", FieldType.TEXT).setRequired(false));
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("email", PropertyModel.of(getDefaultModel(), "person.contact.email"), "Email", FieldType.EMAIL).setRequired(true));
 
         formErrors = new FeedbackPanel("formErrors");
         add(formErrors);
         formErrors.setOutputMarkupId(true);
-
     }
 
     private Form<Subject> initializeEditForm(String id, IModel<Subject> model) {
@@ -119,22 +132,6 @@ public class UserEditor extends Panel {
         };
     }
 
-    /*
-    @Deprecated
-    private TextField initializeTextField(String id, IModel<String> model, boolean required) {
-    return (TextField) new TextField(id, model).setRequired(required);
-    }
-
-    @Deprecated
-    private FormComponent initializePassword(String id, IModel<String> model, boolean required) {
-    return new PasswordTextField(id, model).setResetPassword(false);
-
-    }
-
-    @Deprecated
-    private FormComponent initializeEmailField(String email, IModel<String> model, boolean required) {
-    return new EmailTextField("email", model).setRequired(required);
-    }*/
     private Button initializeSave(String id, Form<Subject> form) {
         return new AjaxButton(id, form) {
             @Override
@@ -159,6 +156,13 @@ public class UserEditor extends Panel {
                 });
             }
         };
+    }
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        LOG.log(Level.ALL, "onConfig on UserEditor");
+
     }
 
     private Button initializeCancel(String id, Form<Subject> form) {
@@ -195,6 +199,9 @@ public class UserEditor extends Panel {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
+                        UserEditor.this.setDefaultModelObject(new Subject());
+
+                        target.add(editForm);
 
                     }
 
@@ -233,13 +240,18 @@ public class UserEditor extends Panel {
         if (payload instanceof SelectedEntity) {
             SelectedEntity selectedPayload = ((SelectedEntity) payload);
             if (selectedPayload.getEntity() instanceof Subject) {
-                this.setDefaultModelObject(selectedPayload.getEntity());
+
+                setModelObject(selectedPayload.getEntity());
                 this.mode = ((SelectedEntity) payload).getAction();
             }
 
             Optional<AjaxRequestTarget> target = selectedPayload.getTarget();
             target.ifPresent(t -> t.add(editForm));
         }
+    }
+
+    private void setModelObject(BaseEntity entity) {
+        this.setDefaultModelObject(entity);
     }
     // Replace call to method emitUpdateEvent with call to emmitEvent
     private void emitUpdateEvent(AjaxRequestTarget target) {
@@ -270,6 +282,39 @@ public class UserEditor extends Panel {
         event.setEntityType(Subject.class);
         event.setTarget(target);
         send(this.getPage(), Broadcast.DEPTH, event);
+    }
+
+    private WebMarkupContainer initializeSectionContainer() {
+        return new WebMarkupContainer("sectionContainer") {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                setOutputMarkupId(true);
+            }
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                LOG.log(Level.ALL, "SectionContainer#OnConfig");
+            }
+
+
+            @Override
+            protected void onBeforeRender() {
+                super.onBeforeRender();
+                LOG.log(Level.ALL, "SectionContainer#onBefore Render");
+                boolean isModelObjectNull = Objects.isNull(UserEditor.this.getDefaultModelObject());
+                //sectionContainer.setEnabled(!isModelObjectNull);
+                /*  if (isModelObjectNull) {
+                sectionContainer.forEach(p -> p.add(new AttributeAppender("class", Model.of("w3-disabled"))));
+                } else {
+                sectionContainer.forEach(p -> p.add(AttributeModifier.remove("w3-disabled")));
+                }*/
+            }
+
+
+        };
+
     }
 
 }
