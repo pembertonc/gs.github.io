@@ -35,7 +35,6 @@ import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.PackageResourceReference;
@@ -87,7 +86,7 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
         //<input class="form-control" placeholder="User Name" type="text" wicket:id="inputComponent" />
 
         String markup = new StringBuilder("<wicket:panel>")
-                .append("<input class=\"form-control\" placeholder=\"User Name\" ")
+                .append("<input class=\"form-control\" placeholder=\"Place Holder\" ")
                 .append(getInputType())
                 .append(" wicket:id=\"inputComponent\" />")
                 .append("<label class=\"control-label\" for=\"inputComponent\" wicket:id=\"caption\">User Name</label>")
@@ -255,7 +254,7 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
 
     /**
      * The FormComonent does not receive the input so it reports Required
-     * Violation. the convert input is overriden to pass the value received by
+     * Violation. the convert input is over ridden to pass the value received by
      * the fromComponent to the SetConvertedInput of the FormComponentPane.
      */
     @Override
