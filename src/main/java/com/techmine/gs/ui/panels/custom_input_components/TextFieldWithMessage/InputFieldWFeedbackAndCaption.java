@@ -93,8 +93,8 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
                 .append(" <div  wicket:id=\"errorMessage\"></div>")
                 .append("</wicket:panel>").toString();
 
-        StringResourceStream resourceStream = new StringResourceStream(markup);
-        return resourceStream;
+        return new StringResourceStream(markup);
+
     }
 
     @Override
