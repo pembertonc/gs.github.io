@@ -3,7 +3,6 @@ package com.techmine.gs.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,9 +33,16 @@ public class Subject extends BaseEntity {
     private String password;
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @NotNull
-    private Person person = new Person();
+    private Person person;
     @ManyToMany
-    private List<AuthorizationRole> authorizationRoles = new ArrayList<AuthorizationRole>();
+    private List<AuthorizationRole> authorizationRoles;
+
+    public Subject() {
+        person = new Person();
+        authorizationRoles = new ArrayList<>();
+        userName = "";
+        password = "";
+    }
 
     public String getUserName() {
         return userName;
