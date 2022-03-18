@@ -152,7 +152,7 @@ public class UserEditor extends Panel {
 
                         target.add(UserEditor.this);
                         emitUpdateEvent(target);
-                        UserEditor.this.setDefaultModelObject(null);
+                        nullDefaultModelObject();
                     }
 
                     @Override
@@ -186,6 +186,10 @@ public class UserEditor extends Panel {
 
     }
 
+    private void nullDefaultModelObject() {
+        setDefaultModelObject(null);
+    }
+
     private Button initializeCancel(String id, Form<Subject> form) {
         return new AjaxButton(id, form) {
             @Override
@@ -195,6 +199,8 @@ public class UserEditor extends Panel {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
+                        nullDefaultModelObject();
+
                         target.add(editForm);
                     }
 
