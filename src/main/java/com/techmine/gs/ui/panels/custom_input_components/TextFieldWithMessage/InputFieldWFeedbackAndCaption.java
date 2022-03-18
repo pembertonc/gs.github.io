@@ -15,6 +15,7 @@
  */
 package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +47,9 @@ import org.apache.wicket.validation.IValidator;
  *
  * @author Cedric-Pemberton
  */
-public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
+public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider, Serializable {
 
+    private static final String INPUT_WICKET_ID = "inputComponent";
     protected FieldType fieldType;
     protected List<IValidator> validators;
     protected String captionValue;
@@ -92,13 +94,13 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
                 .append("<label class=\"control-label\" for=\"inputComponent\" wicket:id=\"caption\">User Name</label>")
                 .append(" <div  wicket:id=\"errorMessage\"></div>")
                 .append("</wicket:panel>").toString();
-
         return new StringResourceStream(markup);
 
     }
 
     @Override
     public String getCacheKey(MarkupContainer mc, Class<?> type) {
+
         String className = type.isAnonymousClass() ? type.getSuperclass().getSimpleName() : type.getSimpleName();
         /*
         if we return null then evertime the markup is required it will be rendered. if we
@@ -110,7 +112,7 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
         Configure gets called on each rendering so we should not have an issue
 
          */
-        return className + fieldType;
+        return className + fieldType + captionValue;
 
     }
 
@@ -172,21 +174,48 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
     }
 
     private FormComponent initializeTextField(IModel model, String captionValue) {
-        return new TextField("inputComponent", model);
+        return new TextField(INPUT_WICKET_ID, model) {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                setOutputMarkupId(true);
+                add(new AttributeModifier("class", "form-control"));
+                setLabel(Model.of(captionValue));
+            }
+
+        }.setLabel(Model.of(captionValue));
     }
 
     private FormComponent initializeNumberTextField(IModel model, String captionValue) {
-        return new NumberTextField("inputComponent", model);
+        return new NumberTextField(INPUT_WICKET_ID, model).setLabel(Model.of(captionValue));
 
     }
 
     private FormComponent initializePasswordTextField(IModel model, String captionValue) {
-        return (FormComponent) new PasswordTextField("inputComponent", model);
+        return new PasswordTextField(INPUT_WICKET_ID, model) {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                setOutputMarkupId(true);
+                add(new AttributeModifier("class", "form-control"));
+                setLabel(Model.of(captionValue));
+                /*  Need to trace down why setting resetPassword to true
+                casues a Attempted to set property value on a null object. Property
+                express: password ... 
+                 */
+                setResetPassword(false);
+            }
 
+            @Override
+            public void convertInput() {
+                super.convertInput();
+                InputFieldWFeedbackAndCaption.this.setConvertedInput(getConvertedInput());
+            }
+        };
     }
 
     private FormComponent initializeEmailTextField(IModel model, String captionValue) {
-        return new EmailTextField("inputComponent", model);
+        return new EmailTextField(INPUT_WICKET_ID, model).setLabel(Model.of(captionValue));
     }
 
     @Deprecated
@@ -264,7 +293,7 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
         setConvertedInput(formComponent.getConvertedInput());
     }
 
-    public static enum FieldType {
+    public enum FieldType {
         EMAIL, NUMBER, PASSWORD, TEXT
     }
 
