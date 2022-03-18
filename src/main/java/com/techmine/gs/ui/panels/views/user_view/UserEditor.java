@@ -167,6 +167,13 @@ public class UserEditor extends Panel {
             protected void onConfigure() {
                 super.onConfigure();
                 setEnabled(!Objects.isNull(UserEditor.this.getDefaultModelObject()));
+                LOG.log(Level.ALL, "on Config Save");
+            }
+
+            @Override
+            protected void onBeforeRender() {
+                super.onBeforeRender();
+                LOG.log(Level.ALL, "on Before Render Save");
             }
 
         };
@@ -188,9 +195,7 @@ public class UserEditor extends Panel {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
-
-                        target.add(getParent());
-
+                        target.add(editForm);
                     }
 
                     @Override
@@ -262,7 +267,7 @@ public class UserEditor extends Panel {
 
             Optional<AjaxRequestTarget> target = selectedPayload.getTarget();
             //target.ifPresent(t -> t.add(editForm));
-            target.ifPresent(t -> t.add(sectionContainer));
+            target.ifPresent(t -> t.add(editForm));
         }
     }
 
