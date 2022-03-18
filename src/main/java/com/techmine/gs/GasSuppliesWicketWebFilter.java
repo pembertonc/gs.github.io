@@ -23,7 +23,7 @@ import org.apache.wicket.protocol.http.WicketFilter;
  *
  * @author Cedric Pemberton
  */
-@WebFilter(value = {"/*", "/gs/"}, filterName = "com.techmine.gs.GasSuppliesWicketWebFilter", displayName = "Gas Suplies", initParams = {
+@WebFilter(urlPatterns = {"/*"}, filterName = "wicket.gs", displayName = "Gas Suplies", initParams = {
     @WebInitParam(name = "applicationClassName", value = "com.techmine.gs.WicketApplication"),
     @WebInitParam(name = "configuration", value = "development")})
 public class GasSuppliesWicketWebFilter extends WicketFilter {
