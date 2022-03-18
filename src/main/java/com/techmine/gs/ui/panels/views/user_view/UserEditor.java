@@ -200,7 +200,6 @@ public class UserEditor extends Panel {
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
                         nullDefaultModelObject();
-
                         target.add(editForm);
                     }
 
@@ -208,8 +207,13 @@ public class UserEditor extends Panel {
                     protected void onError(AjaxRequestTarget target) {
                         super.onError(target);
                     }
-
                 });
+            }
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                setEnabled(!Objects.isNull(UserEditor.this.getDefaultModelObject()));
             }
 
         };
@@ -237,6 +241,11 @@ public class UserEditor extends Panel {
                 super.onError(target);
             }
 
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                setEnabled(Objects.isNull(UserEditor.this.getDefaultModelObject()));
+            }
         };
     }
 
@@ -296,8 +305,16 @@ public class UserEditor extends Panel {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 super.onSubmit(target);
-                userService.deleteUser((Subject) getDefaultModel().getObject());
+                target.add(editForm);
+                userService.deleteUser((Subject) UserEditor.this.getDefaultModel().getObject());
                 emmitEvent(target, CRUDEventAction.DELETE);
+                nullDefaultModelObject();
+            }
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                setEnabled(!Objects.isNull(UserEditor.this.getDefaultModelObject()));
 
             }
 
