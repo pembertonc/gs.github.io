@@ -49,9 +49,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
     @Override
     protected void onConfigure() {
         super.onConfigure();
-
         mainMenu.setVisible(AuthenticatedWebSession.get().isSignedIn());
-
     }
 
     @Override
@@ -83,19 +81,17 @@ public class IndexPage extends UnAuthenticatedBasePage {
     }
 
     private void routeOnLogin(Route route) {
-        Dashboard comp = (Dashboard) new Dashboard("body").setMarkupId("dashboard");
+        Dashboard comp = (Dashboard) new Dashboard("body").setMarkupId("body");
         //currentView.replaceWith(comp);
-
         this.replace(comp);
         route.getTarget().ifPresent((target) -> {
             target.add(mainMenu);
             target.add(comp);
         });
-
     }
 
     private void routeOnLogout(Route route) {
-        SignInPanel comp = (SignInPanel) new SignInPanel("body");
+        SignInPanel comp = (SignInPanel) new SignInPanel("body").setMarkupId("body");
         currentView.replaceWith(comp);
         currentView = comp;
         route.getTarget().ifPresent((AjaxRequestTarget target) -> {
@@ -105,7 +101,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
     }
 
     private void routeOnUser(Route route) {
-        Component userView = new UserView("body");
+        Component userView = new UserView("body").setMarkupId("body");
         replace(userView);
         route.getTarget().ifPresent((AjaxRequestTarget target) -> {
             target.add(userView);
