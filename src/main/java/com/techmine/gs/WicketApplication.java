@@ -1,7 +1,6 @@
 package com.techmine.gs;
 
 import com.techmine.gs.ui.pages.IndexPage.IndexPage;
-import com.techmine.gs.ui.pages.unauthenticated_base_page.UnAuthenticatedBasePage;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.CDI;
@@ -53,8 +52,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
     @Override
     public void init() {
         super.init();
-        // strip out wicket specific tags
-        // getMarkupSettings().setStripWicketTags(true);
+
 
 // set the error page for expired page
         getApplicationSettings().setPageExpiredErrorPage(IndexPage.class);
