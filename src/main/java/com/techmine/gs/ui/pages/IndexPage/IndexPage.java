@@ -32,6 +32,8 @@ import org.apache.wicket.event.IEvent;
  */
 public class IndexPage extends UnAuthenticatedBasePage {
 
+    private static final String BODY_MARKUP_ID = "body";
+    private static final String WICKET_BODY_ID = "body";
     private MenuPanel mainMenu;
     private Component currentView;
 
@@ -43,7 +45,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
         super.onInitialize();
 
         add(mainMenu = (MenuPanel) new MenuPanel("menubar"));
-        add(currentView = new SignInPanel("body").setMarkupId("body"));
+        add(currentView = new SignInPanel(WICKET_BODY_ID).setMarkupId(BODY_MARKUP_ID));
     }
 
     @Override
@@ -81,7 +83,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
     }
 
     private void routeOnLogin(Route route) {
-        Dashboard comp = (Dashboard) new Dashboard("body").setMarkupId("body");
+        Dashboard comp = (Dashboard) new Dashboard(WICKET_BODY_ID).setMarkupId(BODY_MARKUP_ID);
         //currentView.replaceWith(comp);
         this.replace(comp);
         route.getTarget().ifPresent((target) -> {
@@ -91,7 +93,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
     }
 
     private void routeOnLogout(Route route) {
-        SignInPanel comp = (SignInPanel) new SignInPanel("body").setMarkupId("body");
+        SignInPanel comp = (SignInPanel) new SignInPanel(WICKET_BODY_ID).setMarkupId(BODY_MARKUP_ID);
         currentView.replaceWith(comp);
         currentView = comp;
         route.getTarget().ifPresent((AjaxRequestTarget target) -> {
@@ -101,7 +103,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
     }
 
     private void routeOnUser(Route route) {
-        Component userView = new UserView("body").setMarkupId("body");
+        Component userView = new UserView(WICKET_BODY_ID).setMarkupId(BODY_MARKUP_ID);
         replace(userView);
         route.getTarget().ifPresent((AjaxRequestTarget target) -> {
             target.add(userView);
