@@ -116,10 +116,7 @@ public class Subject extends BaseEntity {
             return false;
         }
         final Subject other = (Subject) obj;
-        if (!java.util.Objects.equals(this.getId(), other.getId())) {
-            return false;
-        }
-        return true;
+        return java.util.Objects.equals(this.getId(), other.getId());
     }
 
     @Override

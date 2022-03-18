@@ -231,7 +231,7 @@
             <query>Select p from Person p where p.familyName=:familyName</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
+    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" pclass="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
         <ts e="true">
             <a>_163908735716373</a>
             <a>_163908735774074</a>
@@ -244,6 +244,12 @@
         <eq e="true">
             <a>_163908625849641</a>
         </eq>
+        <con am="PUBLIC" e="true">
+            <post> person = new Person();
+        authorizationRoles = new ArrayList&lt;&gt;();
+        userName = "";
+        password = "";</post>
+        </con>
         <ath>Cedric Pemberton</ath>
         <attributes>
             <basic optional="false" attribute-type="String" v="true" xvt="" name="userName" ft="false" id="_163908735716373">
@@ -263,7 +269,7 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="12"/>
             </basic>
-            <one-to-one own="true" orp="false" optional="false" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" dv="new Person()" ft="false" id="_163908734901372">
+            <one-to-one own="true" orp="true" optional="false" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" ft="false" id="_163908734901372">
                 <xwm/>
                 <xm/>
                 <bv>
@@ -273,7 +279,7 @@
                     <cascade-all/>
                 </cascade>
             </one-to-one>
-            <many-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_164550302254398" v="true" xvt="" name="authorizationRoles" dv="new ArrayList&lt;AuthorizationRole&gt;()" id="_1645503104978107">
+            <many-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_164550302254398" v="true" xvt="" name="authorizationRoles" id="_1645503104978107">
                 <xwm/>
                 <xm/>
             </many-to-many>
@@ -385,7 +391,7 @@
             <i ref="_1639088473362211" x="538" y="32"/>
             <i ref="_16238885459983" x="258" y="183"/>
             <i ref="_163908596520722" x="32" y="362"/>
-            <i ref="_163908726308665" x="1029" y="362"/>
+            <i ref="_163908726308665" x="878" y="345"/>
             <i ref="_163908616129139" x="538" y="362"/>
         </ws>
         <ws n="User" id="_164550291943336">

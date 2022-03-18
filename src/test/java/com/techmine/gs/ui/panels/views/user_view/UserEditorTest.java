@@ -98,11 +98,12 @@ public class UserEditorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"userName", "firstName", "otherName", "password", "email", "telephone1", "telephone2", "save", "cancel", "new"})
-    public void testComponentsRender(String wicketId) {
+    @ValueSource(strings = {"userName", "firstName", "otherName", "password", "email", "telephone1", "telephone2", "save", "cancel", "new", "delete"})
+    public void testInputComponentsRender(String wicketId) {
         String path = "editor:editForm:" + wicketId;
         tester.assertExists(path);
     }
+
 
     @Test
     public void testSaveCalled() {
