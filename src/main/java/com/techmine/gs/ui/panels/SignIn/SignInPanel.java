@@ -81,14 +81,14 @@ public class SignInPanel extends Panel implements Serializable {
     protected void onInitialize() {
         super.onInitialize();
 
-        setMarkupId("signInPanel");
+        //setMarkupId("signInPanel");
         user = new Subject();
         this.signInForm
                 = (StatelessForm) new StatelessForm("signInForm") {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
-                setMarkupId("signInForm");
+
             }
         };
         add(signInForm);
