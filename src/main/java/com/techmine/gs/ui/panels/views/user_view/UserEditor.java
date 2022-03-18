@@ -28,6 +28,8 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -41,6 +43,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 
@@ -55,7 +59,7 @@ public class UserEditor extends Panel {
     private FeedbackPanel formErrors;
     private CRUDEventAction mode;
 
-    private static final String cLICK = "click";
+    private static final String BUTTON_CLICK = "click";
     private Button save;
     private Button cancel;
     private Button addNew;
@@ -78,6 +82,7 @@ public class UserEditor extends Panel {
     public UserEditor(String id, IModel<Subject> model) {
         super(id, model);
         mode = CRUDEventAction.NONE;
+        //model.setObject(new Subject());
     }
 
     @Override
@@ -138,14 +143,16 @@ public class UserEditor extends Panel {
             protected void onInitialize() {
                 super.onInitialize();
                 setDefaultFormProcessing(true);
-                add(new AjaxFormSubmitBehavior(cLICK) {
+                add(new AjaxFormSubmitBehavior(BUTTON_CLICK) {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
 
                         persist((Subject) getParent().getDefaultModel().getObject());
+
                         target.add(UserEditor.this);
                         emitUpdateEvent(target);
+                        UserEditor.this.setDefaultModelObject(null);
                     }
 
                     @Override
@@ -155,6 +162,13 @@ public class UserEditor extends Panel {
                     }
                 });
             }
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                setEnabled(!Objects.isNull(UserEditor.this.getDefaultModelObject()));
+            }
+
         };
     }
 
@@ -170,7 +184,7 @@ public class UserEditor extends Panel {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
-                add(new AjaxFormSubmitBehavior(cLICK) {
+                add(new AjaxFormSubmitBehavior(BUTTON_CLICK) {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
@@ -195,22 +209,23 @@ public class UserEditor extends Panel {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
-                add(new AjaxFormSubmitBehavior(cLICK) {
-                    @Override
-                    protected void onSubmit(AjaxRequestTarget target) {
-                        super.onSubmit(target);
-                        UserEditor.this.setDefaultModelObject(new Subject());
 
-                        target.add(editForm);
-
-                    }
-
-                    @Override
-                    protected void onError(AjaxRequestTarget target) {
-                        super.onError(target);
-                    }
-                });
             }
+
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
+                super.onSubmit(target);
+                UserEditor.this.setModelObject(new Subject());
+
+                target.add(editForm);
+
+            }
+
+            @Override
+            protected void onError(AjaxRequestTarget target) {
+                super.onError(target);
+            }
+
         };
     }
 
@@ -246,13 +261,15 @@ public class UserEditor extends Panel {
             }
 
             Optional<AjaxRequestTarget> target = selectedPayload.getTarget();
-            target.ifPresent(t -> t.add(editForm));
+            //target.ifPresent(t -> t.add(editForm));
+            target.ifPresent(t -> t.add(sectionContainer));
         }
     }
 
     private void setModelObject(BaseEntity entity) {
         this.setDefaultModelObject(entity);
     }
+
     // Replace call to method emitUpdateEvent with call to emmitEvent
     private void emitUpdateEvent(AjaxRequestTarget target) {
         NotificationEvent<Subject> event = new NotificationEvent<>();
@@ -296,22 +313,26 @@ public class UserEditor extends Panel {
             protected void onConfigure() {
                 super.onConfigure();
                 LOG.log(Level.ALL, "SectionContainer#OnConfig");
-            }
+                this.setEnabled(!Objects.isNull(UserEditor.this.getDefaultModelObject()));
 
+            }
 
             @Override
             protected void onBeforeRender() {
                 super.onBeforeRender();
                 LOG.log(Level.ALL, "SectionContainer#onBefore Render");
-                boolean isModelObjectNull = Objects.isNull(UserEditor.this.getDefaultModelObject());
-                //sectionContainer.setEnabled(!isModelObjectNull);
-                /*  if (isModelObjectNull) {
-                sectionContainer.forEach(p -> p.add(new AttributeAppender("class", Model.of("w3-disabled"))));
-                } else {
-                sectionContainer.forEach(p -> p.add(AttributeModifier.remove("w3-disabled")));
-                }*/
-            }
+                visitChildren(InputFieldWFeedbackAndCaption.class, new IVisitor<Component, String>() {
+                    @Override
+                    public void component(Component t, IVisit<String> ivisit) {
+                        if (isEnabled()) {
+                            t.add(AttributeModifier.remove("class"));
+                        } else {
+                            t.add(AttributeModifier.append("class", "w3-disabled"));
+                        }
+                    }
 
+                });
+            }
 
         };
 
