@@ -27,16 +27,18 @@ limitations under the License.
 
                 <div class="w3-container w3-card">
                     <header class="w3-theme-d1 w3-stretch w3-center w3-text-light-grey ">Editor</header>
-                    <section class="w3-container w3-padding-top-24">
-                        <div wicket:id="userName" ></div>
-                        <div wicket:id="password"  ></div>
-                        <div wicket:id="firstName" ></div>
-                        <div wicket:id="familyName"></div>
-                        <div wicket:id="otherName" ></div>
-                        <div wicket:id="telephone1"></div>
-                        <div wicket:id="telephone2"></div>
-                        <div wicket:id="email"></div>
-                    </section>
+                    <div wicket:id="sectionContainer">
+                        <section class="w3-container w3-padding-top-24">
+                            <div wicket:id="userName" ></div>
+                            <div wicket:id="firstName" ></div>
+                            <div wicket:id="familyName"></div>
+                            <div wicket:id="otherName" ></div>
+                            <div wicket:id="telephone1"></div>
+                            <div wicket:id="telephone2"></div>
+                            <div wicket:id="email"></div>
+                            <div wicket:id="password"  ></div>
+                        </section>
+                    </div>
                     <footer class="w3-panel w3-stretch w3-center">
                         <div>
                             <button wicket:id="save" class="w3-button  w3-mobile w3-hover-orange">Save</button>
