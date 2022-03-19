@@ -121,7 +121,7 @@ public class AddCylinder extends BasePage {
     }
 
     private void initializeAdd() {
- intializeCylinderCapacity
+
         add = new AjaxFallbackButton("add", form){};
 
        
