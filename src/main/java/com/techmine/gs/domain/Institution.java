@@ -22,7 +22,7 @@ public class Institution extends BaseEntity {
     @OneToOne
     private Address address = new Address();
     @OneToOne
-    private Contact contact;
+    private Contact contact = new Contact();
     @OneToOne(mappedBy = "institution")
     private Cylinder cylinder;
 
