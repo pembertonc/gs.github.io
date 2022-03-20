@@ -50,7 +50,7 @@ public class OwnerEditor extends Panel {
     private TextField institutionName;
     private TextField street1;
     private TextField street2;
-    private TextField country;
+    private DropDownChoice country;
     private TextField city;
     private TextField email;
     private TextField telephone1;
@@ -86,7 +86,7 @@ public class OwnerEditor extends Panel {
        form.add(initializeStreet2("street2", LambdaModel.of(addr::getStreet2, addr::setStreet2)));
        
        //city
-       form.add(city = initializeCity("city", LambdaModel.of(addr::getCity, addr::setCity)));
+       form.add(initializeCity("city", LambdaModel.of(addr::getCity, addr::setCity)));
 
         //country
         List<String> countries = Arrays.asList("Antigua and Barbuda", "The Bahamas", "Barbados", "Belize", "Dominica", 
