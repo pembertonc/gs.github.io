@@ -26,6 +26,11 @@ public class Contact extends BaseEntity {
     @OneToOne
     private Person person;
 
+    public Contact() {
+        this.person = new Person();
+    }
+    
+
     public String getEmail() {
         return email;
     }
