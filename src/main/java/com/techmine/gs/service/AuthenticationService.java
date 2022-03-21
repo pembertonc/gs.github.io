@@ -30,18 +30,25 @@ public class AuthenticationService {
 
     @Inject
     SubjectRepository subjectRepository;
+    @Inject
+    UserService subjectService;
 
     public boolean login(String userName, String password) {
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.clear();
         parameters.put("userName", userName);
-        Optional<Subject> subject = this.subjectRepository.findSingleByNamedQuery("Subject.findByUserName", parameters);
+        // Optional<Subject> subject = this.subjectRepository.findSingleByNamedQuery("Subject.findByUserName", parameters);
+        Optional<Subject> subject = subjectService.findByUserName(userName);
         if (subject.isEmpty()) {
             return false;
         }
         return subject.get().getPassword().equals(password);
 
+    }
+
+    public Subject save(Subject subject) {
+        throw new UnsupportedOperationException("Not yet implmented");
     }
 
 }

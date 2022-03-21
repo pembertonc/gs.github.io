@@ -13,23 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.panels.views.userView;
+package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-public class UserSearch extends Panel {
+@Deprecated(forRemoval = true, since = "2022-03-04")
+public class PasswordTextFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAndCaption {
 
-    public UserSearch(String id) {
-        super(id);
-    }
-
-    public UserSearch(String id, IModel<?> model) {
-        super(id, model);
+    public PasswordTextFieldWFeedbackAndCaption(String id, IModel<?> model, String captionValue) {
+        super(id, model, captionValue, FieldType.PASSWORD);
     }
 
 }

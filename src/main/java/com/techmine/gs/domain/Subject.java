@@ -1,13 +1,17 @@
 package com.techmine.gs.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -15,6 +19,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @NamedQuery(name = "Subject.findByUserName", query = "Select a from Subject a where a.userName=:userName")
+@NamedQuery(name = "Subject.findLikeUserName", query = "Select a from Subject a where a.userName like :userName")
 public class Subject extends BaseEntity {
 
     @Basic(optional = false)
@@ -26,10 +31,18 @@ public class Subject extends BaseEntity {
     @NotBlank(message = "Password is required")
     @Size(min = 4, max = 12, message = "Password must be from 4 to 12 characters long.")
     private String password;
-    @Basic
-    private String role;
-    @OneToOne
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @NotNull
     private Person person;
+    @ManyToMany
+    private List<AuthorizationRole> authorizationRoles;
+
+    public Subject() {
+        person = new Person();
+        authorizationRoles = new ArrayList<>();
+        userName = "";
+        password = "";
+    }
 
     public String getUserName() {
         return userName;
@@ -57,21 +70,8 @@ public class Subject extends BaseEntity {
         return this;
     }
 
-    public Optional<String> getRole() {
-        return Optional.ofNullable(role);
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Subject role(String role) {
-        this.role = role;
-        return this;
-    }
-
-    public Optional<Person> getPerson() {
-        return Optional.ofNullable(person);
+    public Person getPerson() {
+        return person;
     }
 
     public void setPerson(Person person) {
@@ -83,6 +83,30 @@ public class Subject extends BaseEntity {
         return this;
     }
 
+    public List<AuthorizationRole> getAuthorizationRoles() {
+        if (authorizationRoles == null) {
+            authorizationRoles = new ArrayList<>();
+        }
+        return authorizationRoles;
+    }
+
+    public void setAuthorizationRoles(List<AuthorizationRole> authorizationRoles) {
+        this.authorizationRoles = authorizationRoles;
+    }
+
+    public Subject authorizationRoles(List<AuthorizationRole> authorizationRoles) {
+        this.authorizationRoles = authorizationRoles;
+        return this;
+    }
+
+    public void addAuthorizationRole(AuthorizationRole authorizationRole) {
+        getAuthorizationRoles().add(authorizationRole);
+    }
+
+    public void removeAuthorizationRole(AuthorizationRole authorizationRole) {
+        getAuthorizationRoles().remove(authorizationRole);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -92,10 +116,7 @@ public class Subject extends BaseEntity {
             return false;
         }
         final Subject other = (Subject) obj;
-        if (!java.util.Objects.equals(this.getId(), other.getId())) {
-            return false;
-        }
-        return true;
+        return java.util.Objects.equals(this.getId(), other.getId());
     }
 
     @Override
@@ -104,13 +125,12 @@ public class Subject extends BaseEntity {
         hash = 31 * hash + Objects.hashCode(this.getId());
         hash = 31 * hash + Objects.hashCode(this.getUserName());
         hash = 31 * hash + Objects.hashCode(this.getPassword());
-        hash = 31 * hash + Objects.hashCode(this.getRole().orElse(null));
         return hash;
     }
 
     @Override
     public String toString() {
-        return "Subject{" + " userName=" + userName + ", password=" + password + ", role=" + role + '}';
+        return "Subject{" + " userName=" + userName + ", password=" + password + '}';
     }
 
 }

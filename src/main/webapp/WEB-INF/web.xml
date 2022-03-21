@@ -3,17 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+   
+
+
     <data-source>
         <!--  environment-specific properties applied using maven-war-plugin Webapp resource filtering -->
         <name>java:global/jdbc/gsDataSource</name>
         <class-name>org.postgresql.xa.PGXADataSource</class-name>
         <server-name>${db.svc}</server-name>
-        <port-number>${db.port}</port-number>
+        <port-number>5432</port-number>
         <database-name>${db.name}</database-name>
         <user>${db.user}</user>
         <password>${db.password}</password>
-        
-        
-
     </data-source>
 </web-app>
+
+<!--filter>
+    <filter-name>wicket.gs</filter-name>
+    <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+    <init-param>
+        <param-name>applicationClassName</param-name>
+        <param-value>com.techmine.gs.WicketApplication</param-value>
+    </init-param>
+</filter>
+
+<filter-mapping>
+    <filter-name>wicket.gs</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping-->

@@ -13,23 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.panels.views.userView;
-
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
+package com.techmine.gs.ui.events;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-public class UserEditor extends Panel {
-
-    public UserEditor(String id) {
-        super(id);
-    }
-
-    public UserEditor(String id, IModel<?> model) {
-        super(id, model);
-    }
-
+public enum CRUDEventAction {
+    DELETE, UPDATE, CREATE, RETRIEVE, NONE
 }

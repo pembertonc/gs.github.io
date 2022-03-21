@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs;
+package com.techmine.gs.ui.events;
 
+import com.techmine.gs.domain.BaseEntity;
 import java.util.Optional;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
@@ -22,27 +23,34 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  *
  * @author Cedric-Pemberton
  */
-public class Route {
+public class NotificationEvent<T extends BaseEntity> {
 
-    private final Actions action;
+    private CRUDEventAction action;
+    private Class<T> entityType;
+    private Optional<AjaxRequestTarget> target;
 
-    private final Optional<AjaxRequestTarget> target;
-
-    public Route(Actions action, Optional<AjaxRequestTarget> target) {
-        this.action = action;
-        this.target = target;
+    public CRUDEventAction getAction() {
+        return action;
     }
 
-    public Actions getAction() {
-        return this.action;
+    public void setAction(CRUDEventAction action) {
+        this.action = action;
     }
 
     public Optional<AjaxRequestTarget> getTarget() {
         return target;
     }
 
-    public enum Actions {
-        LOGIN, LOGOUT, USER
+    public void setTarget(AjaxRequestTarget target) {
+        this.target = Optional.ofNullable(target);
+    }
+
+    public Class<T> getEntityType() {
+        return entityType;
+    }
+
+    public void setEntityType(Class<T> entityType) {
+        this.entityType = entityType;
     }
 
 }

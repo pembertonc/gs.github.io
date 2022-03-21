@@ -55,14 +55,14 @@
     <entity compositePrimaryKeyClass="ContactPK" abs="false" class="Contact" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596303719">
         <ath>Cedric Pemberton</ath>
         <attributes>
-            <basic attribute-type="String" v="true" xvt="" name="email" id="_163908635323244">
+            <basic attribute-type="String" v="true" xvt="" name="email" ft="false" id="_163908635323244">
                 <xwm/>
                 <xm/>
                 <bv>
                     <em m="Not a valid Email "/>
                 </bv>
             </basic>
-            <basic attribute-type="String" v="true" xvt="" name="telephone1" ft="false" id="_163908635375145">
+            <basic optional="false" attribute-type="String" v="true" xvt="" name="telephone1" ft="false" id="_163908635375145">
                 <xwm/>
                 <xm/>
                 <bv>
@@ -70,15 +70,11 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="14"/>
             </basic>
-            <basic attribute-type="String" v="true" xvt="" name="telephone2" id="_163908635539146">
+            <basic optional="true" attribute-type="String" v="true" xvt="" name="telephone2" ft="false" id="_163908635539146">
                 <xwm/>
                 <xm/>
                 <column unique="false" nullable="true" insertable="true" updatable="true" length="14"/>
             </basic>
-            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" id="_163908658853455">
-                <xwm/>
-                <xm/>
-            </one-to-one>
         </attributes>
         <nq e="false" name="Contact.findAll">
             <query>Select e from Contact e</query>
@@ -116,7 +112,7 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="64"/>
             </basic>
-            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_16238885459983" v="true" xvt="" name="address" id="_163908610434838">
+            <one-to-one own="true" orp="false" optional="false" primaryKey="false" connected-entity-id="_16238885459983" v="true" xvt="" name="address" id="_163908610434838">
                 <xwm/>
                 <xm/>
             </one-to-one>
@@ -168,7 +164,25 @@
             <query>Select g from GasType g where g.symbol=:symbol</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
+    <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
+        <ts e="true">
+            <a>_163908674093457</a>
+            <a>_163908674218158</a>
+            <a>_163908674281459</a>
+            <a>_164607145269019</a>
+        </ts>
+        <hc e="true">
+            <a>_163908625849641</a>
+            <a>_163908674093457</a>
+            <a>_163908674218158</a>
+            <a>_163908674281459</a>
+        </hc>
+        <eq e="true">
+            <a>_163908625849641</a>
+        </eq>
+        <con am="PUBLIC" e="true">
+            <post></post>
+        </con>
         <ath>Cedric Pemberton</ath>
         <attributes>
             <basic optional="false" attribute-type="String" v="true" xvt="" name="firstName" ft="false" id="_163908674093457">
@@ -180,7 +194,7 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="64"/>
             </basic>
-            <basic attribute-type="String" v="true" xvt="" name="otherName" id="_163908674218158">
+            <basic attribute-type="String" v="true" xvt="" name="otherName" ft="false" id="_163908674218158">
                 <xwm/>
                 <xm/>
                 <bv>
@@ -196,6 +210,13 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true"/>
             </basic>
+            <one-to-one own="true" orp="true" optional="false" primaryKey="false" connected-entity-id="_163908596303719" v="true" xvt="" name="contact" dv="new Contact()" ft="false" id="_164607145269019">
+                <xwm/>
+                <xm/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
         </attributes>
         <nq e="false" name="Person.findAll">
             <query>Select e from Person e</query>
@@ -210,21 +231,25 @@
             <query>Select p from Person p where p.familyName=:familyName</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
+    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" pclass="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
         <ts e="true">
             <a>_163908735716373</a>
             <a>_163908735774074</a>
-            <a>_163908735849175</a>
         </ts>
         <hc e="true">
             <a>_163908625849641</a>
             <a>_163908735716373</a>
             <a>_163908735774074</a>
-            <a>_163908735849175</a>
         </hc>
         <eq e="true">
             <a>_163908625849641</a>
         </eq>
+        <con am="PUBLIC" e="true">
+            <post> person = new Person();
+        authorizationRoles = new ArrayList&lt;&gt;();
+        userName = "";
+        password = "";</post>
+        </con>
         <ath>Cedric Pemberton</ath>
         <attributes>
             <basic optional="false" attribute-type="String" v="true" xvt="" name="userName" ft="false" id="_163908735716373">
@@ -244,14 +269,20 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="12"/>
             </basic>
-            <basic attribute-type="String" v="true" xvt="" name="role" id="_163908735849175">
+            <one-to-one own="true" orp="true" optional="false" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" ft="false" id="_163908734901372">
                 <xwm/>
                 <xm/>
-            </basic>
-            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908597108431" v="true" xvt="" name="person" id="_163908734901372">
-                <xwm/>
-                <xm/>
+                <bv>
+                    <nn/>
+                </bv>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
             </one-to-one>
+            <many-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_164550302254398" v="true" xvt="" name="authorizationRoles" id="_1645503104978107">
+                <xwm/>
+                <xm/>
+            </many-to-many>
         </attributes>
         <nq e="false" name="Subject.findAll">
             <query>Select e from Subject e</query>
@@ -262,8 +293,8 @@
         <nq e="false" name="Subject.findByPassword">
             <query>Select a from Subject a where a.password=:password</query>
         </nq>
-        <nq e="false" name="Subject.findByRole">
-            <query>Select a from Subject a where a.role=:role</query>
+        <nq e="true" name="Subject.findLikeUserName">
+            <query>Select a from Subject a where a.userName like :userName</query>
         </nq>
     </entity>
     <entity compositePrimaryKeyClass="CylinderPK" abs="false" class="Cylinder" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088335659142">
@@ -303,6 +334,28 @@
             </basic>
         </attributes>
     </entity>
+    <entity compositePrimaryKeyClass="AuthorizationRolePK" abs="false" class="AuthorizationRole" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_164550302254398">
+        <ath>Cedric-Pemberton</ath>
+        <attributes>
+            <basic attribute-type="String" v="true" xvt="" name="roleName" dv="&quot;&quot;" id="_1645503052170102">
+                <xwm/>
+                <xm/>
+            </basic>
+            <basic attribute-type="String" v="true" xvt="" name="description" dv="&quot;&quot;" id="_1645503059049103">
+                <xwm/>
+                <xm/>
+            </basic>
+        </attributes>
+        <nq e="false" name="AuthorizationRole.findAll">
+            <query>Select e from AuthorizationRole e</query>
+        </nq>
+        <nq e="false" name="Role.findByRoleName">
+            <query>Select r from AuthorizationRole r where r.roleName=:roleName</query>
+        </nq>
+        <nq e="false" name="AuthorizationRole.findByDescription">
+            <query>Select r from AuthorizationRole r where r.description=:description</query>
+        </nq>
+    </entity>
     <embeddable abs="false" class="Measure" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088473362211">
         <attributes>
             <basic attribute-type="String" v="true" xvt="" am="PRIVATE" name="value" jbt="false" id="_1639088473362212">
@@ -316,19 +369,37 @@
             </many-to-one>
         </attributes>
     </embeddable>
-    <c/>
+    <c>
+        <ct>java.util.List</ct>
+        <ct>java.util.Set</ct>
+        <ct>java.util.Map</ct>
+        <ct>java.util.Collection</ct>
+        <cit>java.util.ArrayList</cit>
+        <cit>java.util.LinkedList</cit>
+        <cit>java.util.HashSet</cit>
+        <cit>java.util.TreeSet</cit>
+        <cit>java.util.HashMap</cit>
+    </c>
     <wsl>
         <ws n="Main" id="_16238885089942">
-            <i ref="_163908596733225" x="240" y="28"/>
-            <i ref="_1639088335659142" x="956" y="216"/>
-            <i ref="_163908596303719" x="580" y="564"/>
-            <i ref="_163908597108431" x="913" y="562"/>
-            <i ref="_1639088466730176" x="714" y="362"/>
-            <i ref="_1639088473362211" x="1156" y="362"/>
-            <i ref="_16238885459983" x="714" y="28"/>
-            <i ref="_163908596520722" x="214" y="564"/>
-            <i ref="_163908726308665" x="214" y="362"/>
-            <i ref="_163908616129139" x="500" y="216"/>
+            <i ref="_163908596733225" x="766" y="553"/>
+            <i ref="_1639088335659142" x="538" y="692"/>
+            <i ref="_163908596303719" x="1029" y="692"/>
+            <i ref="_163908597108431" x="32" y="692"/>
+            <i ref="_164550302254398" x="258" y="553"/>
+            <i ref="_1639088466730176" x="766" y="183"/>
+            <i ref="_1639088473362211" x="538" y="32"/>
+            <i ref="_16238885459983" x="258" y="183"/>
+            <i ref="_163908596520722" x="32" y="362"/>
+            <i ref="_163908726308665" x="878" y="345"/>
+            <i ref="_163908616129139" x="538" y="362"/>
+        </ws>
+        <ws n="User" id="_164550291943336">
+            <i ref="_163908596303719" x="553" y="408"/>
+            <i ref="_163908597108431" x="894" y="408"/>
+            <i ref="_164550302254398" x="57" y="261"/>
+            <i ref="_163908616129139" x="646" y="51"/>
+            <i ref="_163908726308665" x="350" y="261"/>
         </ws>
     </wsl>
 </entity-mappings>

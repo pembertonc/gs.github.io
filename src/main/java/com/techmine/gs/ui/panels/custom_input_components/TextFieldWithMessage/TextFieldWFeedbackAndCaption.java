@@ -13,30 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.panels.views.userView;
+package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-public class UserView extends Panel {
+@Deprecated(forRemoval = true, since = "2022-03-04")
+public class TextFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAndCaption {
 
-    public UserView(String id, IModel<?> model) {
-        super(id, model);
-    }
-
-    public UserView(String id) {
-        super(id);
-    }
-
-    @Override
-    protected void onInitialize() {
-        super.onInitialize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-        setOutputMarkupId(true);
+    public TextFieldWFeedbackAndCaption(String id, IModel<?> model, String captionValue) {
+        super(id, model, captionValue, FieldType.TEXT);
     }
 
 }

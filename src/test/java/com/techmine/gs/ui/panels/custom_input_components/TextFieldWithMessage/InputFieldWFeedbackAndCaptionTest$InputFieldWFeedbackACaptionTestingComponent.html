@@ -14,7 +14,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
     <head>
         <title>TODO supply a title</title>
@@ -23,7 +22,10 @@ limitations under the License.
     </head>
     <body>
         <wicket:panel>
-            <div>User View works</div>
+            <form wicket:id="testForm" id="testForm">
+                <span wicket:id="inputComponent"></span>
+                <button wicket:id="submit"></button>
+            </form>
         </wicket:panel>
     </body>
 </html>

@@ -22,8 +22,8 @@
  */
 package com.techmine.gs.ui.panels.SignIn;
 
-import com.techmine.gs.Route;
-import com.techmine.gs.Route.Actions;
+import com.techmine.gs.ui.events.Route;
+import com.techmine.gs.ui.events.Route.Actions;
 import com.techmine.gs.domain.Subject;
 import java.io.Serializable;
 import java.util.Optional;
@@ -81,14 +81,14 @@ public class SignInPanel extends Panel implements Serializable {
     protected void onInitialize() {
         super.onInitialize();
 
-        setMarkupId("signInPanel");
+        //setMarkupId("signInPanel");
         user = new Subject();
         this.signInForm
                 = (StatelessForm) new StatelessForm("signInForm") {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
-                setMarkupId("signInForm");
+
             }
         };
         add(signInForm);
@@ -124,7 +124,6 @@ public class SignInPanel extends Panel implements Serializable {
                 super.onSubmit(target);
 
                 if (SignInPanel.this.signIn(user.getUserName(), user.getPassword())) {
-                    System.out.println("onSubmit Stop 1");
                     Route r = new Route(Actions.LOGIN, Optional.of(target));
                     send(this.getComponent().getPage(), Broadcast.EXACT, r);
                 }

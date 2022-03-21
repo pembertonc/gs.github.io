@@ -1,8 +1,8 @@
 package com.techmine.gs.repository;
 
 import javax.persistence.EntityManager;
-import javax.inject.Inject;
 import com.techmine.gs.domain.Subject;
+import javax.inject.Inject;
 
 public class SubjectRepository extends AbstractRepository<Subject, String> {
 

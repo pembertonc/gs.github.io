@@ -57,6 +57,10 @@
         <!--version.payara.micro>5.2021.4</version.payara.micro-->
         <version.postgresql>9.1-901.jdbc4</version.postgresql>
     </properties>
+    
+    <!-- DEPENDENCY MANAGEMENT -->
+   
+
     <dependencies>
         <!--  WICKET DEPENDENCIES -->
         <dependency>
@@ -80,12 +84,16 @@
             <artifactId>wicket-auth-roles</artifactId>
             <version>${wicket.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-devutils</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
         <!-- LOGGING DEPENDENCIES - SLF4J-SIMPLE -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.8.0-beta4</version>
+            <version>2.0.0-alpha6</version>
         </dependency>
 
         <!--  JUNIT DEPENDENCY FOR TESTING -->
@@ -193,21 +201,29 @@
             <scope>test</scope>
         </dependency-->
         <!--dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>2.0.SP1</version>
+            <scope>test</scope>
+        </dependency-->
+
+        
+        <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <version>2.0.2</version>
             <type>jar</type>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
             <scope>provided</scope>
-            <version>${version.jakartaee}</version>
+            <version>8.0.0</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.weld.se</groupId>
+            <groupId>org.jboss.weld</groupId>
             <!-- or weld-se -->
-            <artifactId>weld-se-core</artifactId>
+            <artifactId>weld-core-impl</artifactId>
             <!-- Your preferred Weld version: -->
             <version>3.1.9.Final</version>
             <scope>test</scope>
@@ -218,6 +234,7 @@
             <version>3.1.9.Final</version>
             <scope>test</scope>
         </dependency>
+      
         <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-junit5</artifactId>
@@ -225,6 +242,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.7.8</version>
+        </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -234,13 +256,13 @@
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
-            <version>3.0.0</version>
+            <version>2.2.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>javax.el</artifactId>
-            <version>2.2.6</version>
+            <version>2.2.5</version>
             <scope>test</scope>
         </dependency>
 
@@ -284,6 +306,7 @@
             <version>1.9.5</version>
             <scope>test</scope>
         </dependency-->
+        
     </dependencies>
     <build>
         <resources>
@@ -462,4 +485,15 @@
             </snapshots>
         </repository>
     </repositories>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>config/sun_checks.xml</configLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
