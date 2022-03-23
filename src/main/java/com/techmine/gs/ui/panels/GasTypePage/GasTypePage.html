@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+Copyright 2021 User.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->  
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+    <head>
+        <title>Layout gas type</title>
+        <meta charset="UTF-8">
+
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+                    <style> 
+                        input { 
+                            max-width: 300px; 
+                        } 
+
+                    </style>
+                    </head>
+                    <body> 
+                        <Wicket: panel>
+                            <div wicket: id="editor"> User View Works</div>
+                            </wicket: panel>
+                            
+                        
+                            <form class="w3-display-topmiddle">
+                                <header>
+
+                                    <h2>Gas Layout</h2>
+                                </header>
+                                
+
+                                    <label>Gas name</label>
+                                    <input class="w3-input" type="text"/>
+                                </div>    
+
+                                <div>
+                                    <label>Symbol</label> 
+                                    <input class="w3-input" type="text"/>
+                                </div>
+
+
+                                <footer class="w3-panel w3-blue-gray w3-center">
+                                    <button class="w3-button">Save</button>
+                                    <button class="w3-button">Cancel</button>
+                                </footer>
+
+                                <table>
+                                    <tr> 
+                                        <th> </th>
+                                        <th>Gas name</th>
+                                        <th>Symbol</th>
+
+                                    </tr>
+                                    <tr>
+                                        <td> <input type="checkbox"/></td>
+                                        <td> Oxygen</td>
+                                        <td> O</td>
+
+                                    </tr>
+                                    <tr>   
+                                        <td><input type="checkbox"/></td>
+                                        <td> Argon</td>
+                                        <td> Ar</td>
+
+                                    </tr>
+
+                                    <tr>   
+                                        <td><input type="checkbox"/></td>
+                                        <td> Carbon Dioxide</td>
+                                        <td> CO2</td>
+
+                                    </tr>
+                                </table>
+
+                                <footer class="w3-panel w3-blue-gray w3-center">
+                                    <button class="w3-button">Edit</button>
+                                    <button class="w3-button">Delete</button>
+                                </footer>
+
+                            </form> 
+
+                    </body>
+                    </html>
