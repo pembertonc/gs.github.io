@@ -15,10 +15,27 @@
  */
 package com.techmine.gs.ui.panels.views.ownerView;
 
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
+
 /**
  *
  * @author bethy
  */
-public class OwnerView {
-    
+public class OwnerView extends Panel {
+
+    public OwnerView(String id) {
+        super(id);
+    }
+
+    public OwnerView(String id, IModel<?> model) {
+        super(id, model);
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        setOutputMarkupId(true);
+    }
+
 }
