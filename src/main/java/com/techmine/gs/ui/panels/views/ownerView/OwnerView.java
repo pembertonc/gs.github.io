@@ -15,6 +15,7 @@
  */
 package com.techmine.gs.ui.panels.views.ownerView;
 
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
@@ -36,6 +37,16 @@ public class OwnerView extends Panel {
     protected void onInitialize() {
         super.onInitialize();
         setOutputMarkupId(true);
+        add(initializeOwnerEditor());
+        add(initializeOwerSearch());
+    }
+
+    private OwnerEditor initializeOwnerEditor() {
+        return new OwnerEditor("editor");
+    }
+
+    private OwnerSearch initializeOwerSearch() {
+        return new OwnerSearch("searcher");
     }
 
 }
