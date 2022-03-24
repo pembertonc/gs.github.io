@@ -21,8 +21,6 @@ import com.techmine.gs.ui.panels.views.user_view.UserView;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -60,7 +58,7 @@ public class Route {
     }
 
     public static enum RouteName {
-        LOGIN, LOGOUT, USER, OWNER
+        LOGIN, LOGOUT, USER, OWNER, CHECKIN_CYLINDER, CHECK_OUT_CYLINDER, CYLINDER
     }
 
     public static Class<? extends Panel> getDisplayViewClass(RouteName action) {
