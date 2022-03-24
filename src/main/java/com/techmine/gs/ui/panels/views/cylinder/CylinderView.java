@@ -23,13 +23,13 @@ import org.apache.wicket.model.IModel;
  *
  * @author Cedric-Pemberton
  */
-public class cylinder_view extends Panel {
+public class CylinderView extends Panel {
 
-    public cylinder_view(String id) {
+    public CylinderView(String id) {
         super(id);
     }
 
-    public cylinder_view(String id, IModel<?> model) {
+    public CylinderView(String id, IModel<?> model) {
         super(id, model);
     }
 
