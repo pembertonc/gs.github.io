@@ -42,7 +42,7 @@ public class Route {
     }
 
     public enum Actions {
-        LOGIN, LOGOUT, USER
+        LOGIN, LOGOUT, USER, OWNER
     }
 
 }
