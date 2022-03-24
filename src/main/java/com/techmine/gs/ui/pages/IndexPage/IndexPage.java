@@ -68,7 +68,6 @@ public class IndexPage extends UnAuthenticatedBasePage {
 
         if (event.getPayload() instanceof Route) {
             Route route = (Route) event.getPayload();
-            //routeTo(route);
             routeToView(route);
 
         }
