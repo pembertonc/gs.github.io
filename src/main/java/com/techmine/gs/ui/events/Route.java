@@ -15,8 +15,14 @@
  */
 package com.techmine.gs.ui.events;
 
+import com.techmine.gs.ui.panels.Dashboard.Dashboard;
+import com.techmine.gs.ui.panels.SignIn.SignInPanel;
+import com.techmine.gs.ui.panels.views.user_view.UserView;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.panel.Panel;
 
 /**
  *
@@ -24,16 +30,26 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  */
 public class Route {
 
-    private final Actions action;
+    private final RouteName action;
+
+    private static final Map<RouteName, Class<? extends Panel>> routes = new HashMap<>();
+
+    static {
+        routes.put(RouteName.LOGIN, Dashboard.class);
+        routes.put(RouteName.LOGOUT, SignInPanel.class);
+        routes.put(RouteName.USER, UserView.class);
+        // routes.put(RouteName.OWNER, OwnerView.class);
+
+    }
 
     private final Optional<AjaxRequestTarget> target;
 
-    public Route(Actions action, Optional<AjaxRequestTarget> target) {
+    public Route(RouteName action, Optional<AjaxRequestTarget> target) {
         this.action = action;
         this.target = target;
     }
 
-    public Actions getAction() {
+    public RouteName getAction() {
         return this.action;
     }
 
@@ -41,8 +57,13 @@ public class Route {
         return target;
     }
 
-    public enum Actions {
-        LOGIN, LOGOUT, USER
+    public static enum RouteName {
+        LOGIN, LOGOUT, USER, OWNER, CHECKIN_CYLINDER, CHECK_OUT_CYLINDER, CYLINDER
     }
 
+    public static Class<? extends Panel> getDisplayViewClass(RouteName action) {
+
+        return routes.get(action);
+
+    }
 }

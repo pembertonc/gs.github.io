@@ -23,7 +23,7 @@
 package com.techmine.gs.ui.panels.SignIn;
 
 import com.techmine.gs.ui.events.Route;
-import com.techmine.gs.ui.events.Route.Actions;
+import com.techmine.gs.ui.events.Route.RouteName;
 import com.techmine.gs.domain.Subject;
 import java.io.Serializable;
 import java.util.Optional;
@@ -110,8 +110,7 @@ public class SignInPanel extends Panel implements Serializable {
             }
         });
 
-        submit.add(
-                new AjaxFormSubmitBehavior(signInForm, "click") {
+        submit.add(new AjaxFormSubmitBehavior(signInForm, "click") {
 
             @Override
             protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
@@ -124,7 +123,7 @@ public class SignInPanel extends Panel implements Serializable {
                 super.onSubmit(target);
 
                 if (SignInPanel.this.signIn(user.getUserName(), user.getPassword())) {
-                    Route r = new Route(Actions.LOGIN, Optional.of(target));
+                    Route r = new Route(RouteName.LOGIN, Optional.of(target));
                     send(this.getComponent().getPage(), Broadcast.EXACT, r);
                 }
             }
