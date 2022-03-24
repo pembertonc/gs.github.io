@@ -41,6 +41,7 @@ public class IndexPage extends UnAuthenticatedBasePage {
     private static final String BODY_MARKUP_ID = "body";
     private static final String WICKET_BODY_ID = "body";
     private MenuPanel mainMenu;
+    @Deprecated(forRemoval = true, since = "2022-03-24")
     private Component currentView;
 
     public IndexPage() {

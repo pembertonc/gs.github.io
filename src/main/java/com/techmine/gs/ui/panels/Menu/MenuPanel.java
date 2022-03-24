@@ -16,7 +16,7 @@
 package com.techmine.gs.ui.panels.Menu;
 
 import com.techmine.gs.ui.events.Route;
-import com.techmine.gs.ui.events.Route.Actions;
+import com.techmine.gs.ui.events.Route.RouteName;
 import com.techmine.gs.ui.pages.IndexPage.IndexPage;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -51,7 +51,7 @@ public class MenuPanel extends Panel {
         super.onInitialize();
         setOutputMarkupPlaceholderTag(true);
         setMarkupId("menubar");
-        add(this.initializeNavLink(Actions.USER, "users"));
+        add(this.initializeNavLink(RouteName.USER, "users"));
 
         add(logout = new AjaxFallbackLink("logout") {
 
@@ -69,7 +69,7 @@ public class MenuPanel extends Panel {
             @Override
             public void onClick(Optional optnl) {
                 AuthenticatedWebSession.get().signOut();
-                Route route = new Route(Actions.LOGOUT, optnl);
+                Route route = new Route(RouteName.LOGOUT, optnl);
                 send(this.getPage(), Broadcast.EXACT, route);
             }
 
@@ -81,7 +81,7 @@ public class MenuPanel extends Panel {
         return AuthenticatedWebSession.get().isSignedIn();
     }
 
-    private AjaxFallbackLink initializeNavLink(Actions action, String wicketId) {
+    private AjaxFallbackLink initializeNavLink(RouteName action, String wicketId) {
         return new AjaxFallbackLink("users") {
             @Override
             public void onClick(Optional optnl) {
