@@ -132,7 +132,26 @@
             <query>Select i from Institution i where i.name=:name</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="GasTypePK" abs="false" class="GasType" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596733225">
+    <entity compositePrimaryKeyClass="GasTypePK" abs="false" class="GasType" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596733225">
+        <ts e="true">
+            <a>_163908702015763</a>
+            <a>_163908702083664</a>
+        </ts>
+        <hc e="true">
+            <a>_163908625849641</a>
+            <a>_163908702015763</a>
+            <a>_163908702083664</a>
+        </hc>
+        <eq e="true">
+            <a>_163908625849641</a>
+            <a>_163908702015763</a>
+            <a>_163908702083664</a>
+        </eq>
+        <con am="PUBLIC" e="true">
+            <a>_163908702015763</a>
+            <a>_163908702083664</a>
+        </con>
+        <con am="PUBLIC" e="true"/>
         <ath>Cedric Pemberton</ath>
         <attributes>
             <basic optional="false" attribute-type="String" v="true" xvt="" name="name" ft="false" id="_163908702015763">
@@ -402,7 +421,7 @@
     </c>
     <wsl>
         <ws n="Main" id="_16238885089942">
-            <i ref="_163908596733225" x="766" y="553"/>
+            <i ref="_163908596733225" x="766" y="569"/>
             <i ref="_1639088335659142" x="547" y="628"/>
             <i ref="_163908596303719" x="1029" y="692"/>
             <i ref="_163908597108431" x="32" y="692"/>
