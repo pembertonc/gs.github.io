@@ -1,5 +1,6 @@
 package com.techmine.gs.domain;
 
+import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -13,8 +14,16 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class Cylinder extends BaseEntity {
 
+    @Basic(optional = false)
+    @Column(nullable = false, length = 16)
+    @NotBlank(message = "Serial Number can not be blank")
+    private String serialNumber;
+    @Embedded
+    private Measure cylinderSize;
     @OneToOne
     private GasType gasType;
+    @OneToOne
+    private Institution institution;
 
     public String getSerialNumber() {
         return serialNumber;
@@ -24,27 +33,26 @@ public class Cylinder extends BaseEntity {
         this.serialNumber = serialNumber;
     }
 
-    public Measure getCapacitity() {
-        return capacitity;
+    public Cylinder serialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+        return this;
     }
 
-    public void setCapacitity(Measure capacitity) {
-        this.capacitity = capacitity;
+    public Optional<Measure> getCylinderSize() {
+        return Optional.ofNullable(cylinderSize);
     }
 
-    @Basic(optional = false)
-    @Column(updatable = false, length = 32)
-    @NotBlank
-    private String serialNumber;
+    public void setCylinderSize(Measure cylinderSize) {
+        this.cylinderSize = cylinderSize;
+    }
 
-    @Embedded
-    private Measure capacitity;
+    public Cylinder cylinderSize(Measure cylinderSize) {
+        this.cylinderSize = cylinderSize;
+        return this;
+    }
 
-    @OneToOne
-    private Institution institution;
-
-    public GasType getGasType() {
-        return gasType;
+    public Optional<GasType> getGasType() {
+        return Optional.ofNullable(gasType);
     }
 
     public void setGasType(GasType gasType) {
@@ -56,8 +64,8 @@ public class Cylinder extends BaseEntity {
         return this;
     }
 
-    public Institution getInstitution() {
-        return institution;
+    public Optional<Institution> getInstitution() {
+        return Optional.ofNullable(institution);
     }
 
     public void setInstitution(Institution institution) {

@@ -164,7 +164,7 @@
             <query>Select g from GasType g where g.symbol=:symbol</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
+    <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
         <ts e="true">
             <a>_163908674093457</a>
             <a>_163908674218158</a>
@@ -231,7 +231,7 @@
             <query>Select p from Person p where p.familyName=:familyName</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" pclass="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
+    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
         <ts e="true">
             <a>_163908735716373</a>
             <a>_163908735774074</a>
@@ -297,9 +297,21 @@
             <query>Select a from Subject a where a.userName like :userName</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="CylinderPK" abs="false" class="Cylinder" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088335659142">
+    <entity compositePrimaryKeyClass="CylinderPK" abs="false" class="Cylinder" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088335659142">
         <ath>Cedric Pemberton</ath>
         <attributes>
+            <basic optional="false" attribute-type="String" v="true" xvt="" name="serialNumber" ft="false" id="_164814463148343">
+                <xwm/>
+                <xm/>
+                <bv>
+                    <nb m="Serial Number can not be blank"/>
+                </bv>
+                <column unique="false" nullable="false" insertable="true" updatable="true" length="16"/>
+            </basic>
+            <embedded connected-class-id="_1639088473362211" v="true" xvt="" name="cylinderSize" id="_164814216539842">
+                <xwm/>
+                <xm/>
+            </embedded>
             <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908596733225" v="true" xvt="" am="PRIVATE" name="gasType" jbt="false" id="_1639088335679143">
                 <xwm/>
                 <xm/>
@@ -312,6 +324,9 @@
         </attributes>
         <nq e="false" name="Cylinder.findAll">
             <query>Select e from Cylinder e</query>
+        </nq>
+        <nq e="false" name="Cylinder.findBySerialNumber">
+            <query>Select c from Cylinder c where c.serialNumber=:serialNumber</query>
         </nq>
     </entity>
     <entity compositePrimaryKeyClass="UinitOfMeasurePK" abs="false" class="UinitOfMeasure" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088466730176">
@@ -356,11 +371,16 @@
             <query>Select r from AuthorizationRole r where r.description=:description</query>
         </nq>
     </entity>
-    <embeddable abs="false" class="Measure" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088473362211">
+    <embeddable abs="false" class="Measure" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088473362211">
         <attributes>
-            <basic attribute-type="String" v="true" xvt="" am="PRIVATE" name="value" jbt="false" id="_1639088473362212">
+            <basic attribute-type="double" v="true" xvt="" am="PRIVATE" name="value" ft="false" jbt="false" id="_1639088473362212">
                 <xwm/>
                 <xm/>
+                <bv>
+                    <nn/>
+                    <po m="Value must be greater than or equal to zero"/>
+                </bv>
+                <column unique="false" nullable="false" insertable="true" updatable="true" precision="0" scale="0"/>
             </basic>
             <many-to-one optional="true" primaryKey="false" connected-entity-id="_1639088466730176" v="true" xvt="" am="PRIVATE" name="uinitOfMeasure" jbt="false" id="_1639088473414213">
                 <xwm/>
@@ -383,12 +403,12 @@
     <wsl>
         <ws n="Main" id="_16238885089942">
             <i ref="_163908596733225" x="766" y="553"/>
-            <i ref="_1639088335659142" x="538" y="692"/>
+            <i ref="_1639088335659142" x="547" y="628"/>
             <i ref="_163908596303719" x="1029" y="692"/>
             <i ref="_163908597108431" x="32" y="692"/>
             <i ref="_164550302254398" x="258" y="553"/>
             <i ref="_1639088466730176" x="766" y="183"/>
-            <i ref="_1639088473362211" x="538" y="32"/>
+            <i ref="_1639088473362211" x="1217" y="346"/>
             <i ref="_16238885459983" x="258" y="183"/>
             <i ref="_163908596520722" x="32" y="362"/>
             <i ref="_163908726308665" x="878" y="345"/>

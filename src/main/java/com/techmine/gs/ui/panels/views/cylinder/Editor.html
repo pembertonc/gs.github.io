@@ -14,7 +14,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org" >
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
@@ -26,19 +26,16 @@ limitations under the License.
             <form wicket:id="editForm">
 
                 <div class="w3-container w3-card">
-                    <header class="w3-theme-d1 w3-stretch w3-center w3-text-light-grey">
-                        <label>User Editor</label>
+                    <header class="w3-theme-d1 w3-stretch w3-center w3-text-light-grey ">
+                        <label>Editor</label>
                     </header>
                     <div wicket:id="sectionContainer">
                         <section class="w3-container w3-padding-top-24">
-                            <div wicket:id="userName" ></div>
-                            <div wicket:id="firstName" ></div>
-                            <div wicket:id="familyName"></div>
-                            <div wicket:id="otherName" ></div>
-                            <div wicket:id="telephone1"></div>
-                            <div wicket:id="telephone2"></div>
-                            <div wicket:id="email"></div>
-                            <div wicket:id="password"  ></div>
+                            <div wicket:id="serialNumber" >Cylinder Number</div>
+                            <div id="gasType" >gas type</div>
+                            <div wicket:id="size">Amount</div>
+                            <!--div wicket:id="capacity">Amount units</div-->
+                            <div id="owner">Owner</div>
                         </section>
                     </div>
                     <footer class="w3-panel w3-stretch w3-center">

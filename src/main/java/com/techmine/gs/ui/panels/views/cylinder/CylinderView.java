@@ -37,20 +37,16 @@ public class CylinderView extends Panel {
     protected void onInitialize() {
         super.onInitialize();
         setOutputMarkupId(true);
-        /*
-        Un comment when editor and Search are impmented
-         */
+
         add(initializeCylinderEditor("editor"));
         add(initiaizeCylinderSearch("searcher"));
     }
 
     private Panel initializeCylinderEditor(String wicketId) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //return new CylinderEditor(wicketId) // uncomment to initialize Editor.
+        return new Editor(wicketId);
     }
 
     private Panel initiaizeCylinderSearch(String wicketId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        // uncoment to initialize Search Comonent  return new CylinderSearch(wicketId);
+        return new Searcher(wicketId);
     }
 }

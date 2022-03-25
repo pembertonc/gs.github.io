@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Cedric Pemberton.
+ * Copyright 2022 Cedric-Pemberton.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,29 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.service;
+package com.techmine.gs.ui.panels.views.cylinder;
 
-import com.techmine.gs.domain.Cylinder;
-import com.techmine.gs.repository.CylinderRepository;
-import java.util.List;
-import javax.inject.Inject;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 
 /**
  *
- * @author Cedric Pemberton
+ * @author Cedric-Pemberton
  */
-public class InstitutionService {
+public class Searcher extends Panel {
 
-    @Inject
-    private CylinderRepository CylinderRepository;
-
-    public List<Cylinder> institutions() {
-
-        return this.CylinderRepository.findAll();
-
+    public Searcher(String id) {
+        super(id);
     }
 
-    public void create(Cylinder cylinder) {
-        this.CylinderRepository.create(cylinder);
+    public Searcher(String id, IModel<?> model) {
+        super(id, model);
     }
+
 }

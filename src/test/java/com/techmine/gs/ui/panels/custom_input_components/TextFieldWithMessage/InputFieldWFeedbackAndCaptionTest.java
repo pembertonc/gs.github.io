@@ -15,6 +15,7 @@
  */
 package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
 
+import com.techmine.gs.ui.panels.custom_input_components.InputFieldWFeedbackAndCaption;
 import com.techmine.gs.testutils.TestPage;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;

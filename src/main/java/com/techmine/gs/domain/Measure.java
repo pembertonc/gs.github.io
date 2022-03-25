@@ -1,35 +1,39 @@
 package com.techmine.gs.domain;
 
+import java.util.Optional;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
-/**
- * @author Cedric Pemberton
- */
 @Embeddable
 public class Measure {
 
     @Basic
-    private String value;
+    @Column(nullable = false)
+    @NotNull
+    @Positive(message = "Value must be greater than or equal to zero")
+    private double value;
     @ManyToOne
     private UinitOfMeasure uinitOfMeasure;
 
-    public String getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
-    public Measure value(String value) {
+    public Measure value(double value) {
         this.value = value;
         return this;
     }
 
-    public UinitOfMeasure getUinitOfMeasure() {
-        return uinitOfMeasure;
+    public Optional<UinitOfMeasure> getUinitOfMeasure() {
+        return Optional.ofNullable(uinitOfMeasure);
     }
 
     public void setUinitOfMeasure(UinitOfMeasure uinitOfMeasure) {
