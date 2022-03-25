@@ -32,7 +32,10 @@ limitations under the License.
                     <div wicket:id="sectionContainer">
                         <section class="w3-container w3-padding-top-24">
                             <div wicket:id="serialNumber" >Cylinder Number</div>
-                            <select wicket:id="gasType" >gas type</select>
+                            <div class="control-group">
+                                <select class="form-control" wicket:id="gasType">gas type</select>
+                                <label class="control-label">Select Gas</label>
+                            </div>
                             <div wicket:id="size">Amount</div>
                             <!--div wicket:id="capacity">Amount units</div-->
                             <div id="owner">Owner</div>
