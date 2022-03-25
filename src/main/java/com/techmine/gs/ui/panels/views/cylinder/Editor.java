@@ -18,12 +18,13 @@ package com.techmine.gs.ui.panels.views.cylinder;
 import static com.techmine.gs.Constants.BUTTON_CLICK;
 import com.techmine.gs.domain.BaseEntity;
 import com.techmine.gs.domain.Cylinder;
+import com.techmine.gs.domain.GasType;
 import com.techmine.gs.service.CylinderService;
-import com.techmine.gs.service.UserService;
 import com.techmine.gs.ui.events.CRUDEventAction;
 import com.techmine.gs.ui.events.NotificationEvent;
 import com.techmine.gs.ui.panels.custom_input_components.InputFieldWFeedbackAndCaption;
-import com.techmine.gs.ui.panels.views.user_view.UserEditor;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +37,8 @@ import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -44,14 +47,14 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
-import org.apache.wicket.validation.IValidatable;
-import org.apache.wicket.validation.IValidator;
 
 /**
  *
  * @author Cedric-Pemberton
  */
 public class Editor extends Panel {
+
+    private static List<GasType> mockGasTypeDB = new ArrayList<>();
 
     @Inject
     private CylinderService cylinderService;
@@ -73,6 +76,11 @@ public class Editor extends Panel {
     public Editor(String id, IModel<Cylinder> model) {
         super(id, model);
         mode = CRUDEventAction.NONE;
+        mockGasTypeDB.add(new GasType("Oxygen", "Oz"));
+        mockGasTypeDB.add(new GasType("Carbon Dioxide", "CO2"));
+        mockGasTypeDB.add(new GasType("Nitrogen", "N"));
+        mockGasTypeDB.add(new GasType("acetylene", "C2H2"));
+
     }
 
     @Override
@@ -95,7 +103,8 @@ public class Editor extends Panel {
 
         sectionContainer.add(new InputFieldWFeedbackAndCaption("serialNumber", PropertyModel.of(getDefaultModel(), "serialNumber"), "Serial Number", InputFieldWFeedbackAndCaption.FieldType.TEXT).setRequired(true));
         sectionContainer.add(new InputFieldWFeedbackAndCaption("size", PropertyModel.of(getDefaultModel(), "cylinderSize.value"), "Cylinder Size", InputFieldWFeedbackAndCaption.FieldType.TEXT).setRequired(true));
-
+        ChoiceRenderer gasTypeRenderer = new ChoiceRenderer("name", "id");
+        sectionContainer.add(new DropDownChoice("gasType", PropertyModel.of(getDefaultModelObject(), "cylinderSize.gasType"), mockGasTypeDB, gasTypeRenderer));
         formErrors = new FeedbackPanel("formErrors");
         add(formErrors);
 
