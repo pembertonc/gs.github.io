@@ -19,7 +19,9 @@ import static com.techmine.gs.Constants.BUTTON_CLICK;
 import com.techmine.gs.domain.BaseEntity;
 import com.techmine.gs.domain.Cylinder;
 import com.techmine.gs.domain.GasType;
+import com.techmine.gs.domain.UnitOfMeasure;
 import com.techmine.gs.service.CylinderService;
+import com.techmine.gs.service.UnitOfMeasureService;
 import com.techmine.gs.ui.events.CRUDEventAction;
 import com.techmine.gs.ui.events.NotificationEvent;
 import com.techmine.gs.ui.panels.custom_input_components.InputFieldWFeedbackAndCaption;
@@ -55,6 +57,9 @@ import org.apache.wicket.util.visit.IVisitor;
 public class Editor extends Panel {
 
     private static List<GasType> mockGasTypeDB = new ArrayList<>();
+
+    @Inject
+    private UnitOfMeasureService unitOfMeasureService;
 
     @Inject
     private CylinderService cylinderService;
@@ -105,6 +110,7 @@ public class Editor extends Panel {
         sectionContainer.add(new InputFieldWFeedbackAndCaption("size", PropertyModel.of(getDefaultModel(), "cylinderSize.value"), "Cylinder Size", InputFieldWFeedbackAndCaption.FieldType.TEXT).setRequired(true));
         ChoiceRenderer gasTypeRenderer = new ChoiceRenderer("name", "id");
         sectionContainer.add(new DropDownChoice("gasType", PropertyModel.of(getDefaultModelObject(), "cylinderSize.gasType"), mockGasTypeDB, gasTypeRenderer));
+        sectionContainer.add(new DropDownChoice("sizeUnit", PropertyModel.of(getDefaultModelObject(), "cylinderSize.unitOfMeasure"), unitOfMeasureService.find(), gasTypeRenderer));
         formErrors = new FeedbackPanel("formErrors");
         add(formErrors);
 
