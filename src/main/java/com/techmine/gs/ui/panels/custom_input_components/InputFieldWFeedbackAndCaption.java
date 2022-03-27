@@ -88,11 +88,13 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
         //<input class="form-control" placeholder="User Name" type="text" wicket:id="inputComponent" />
 
         String markup = new StringBuilder("<wicket:panel>")
+                .append("<div class=\"control-group\">")
                 .append("<input class=\"form-control\" placeholder=\"Place Holder\" ")
                 .append(getInputType())
                 .append(" wicket:id=\"inputComponent\" />")
                 .append("<label class=\"control-label\" for=\"inputComponent\" wicket:id=\"caption\">User Name</label>")
                 .append(" <div  wicket:id=\"errorMessage\"></div>")
+                .append("</div>")
                 .append("</wicket:panel>").toString();
         return new StringResourceStream(markup);
 
@@ -201,7 +203,7 @@ public class InputFieldWFeedbackAndCaption extends FormComponentPanel implements
                 setLabel(Model.of(captionValue));
                 /*  Need to trace down why setting resetPassword to true
                 casues a Attempted to set property value on a null object. Property
-                express: password ... 
+                express: password ...
                  */
                 setResetPassword(false);
             }

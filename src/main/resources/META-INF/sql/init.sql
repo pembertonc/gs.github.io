@@ -15,3 +15,15 @@ INSERT INTO contact (id, email, telephone1, telephone2) VALUES ('CT002', 'jjamas
 INSERT INTO person (id, firstname, familyname, othername, contact_id) VALUES ('PER001', 'James', 'Smith', 'Jamason', 'CT002') ON CONFLICT DO NOTHING;
 INSERT INTO subject (id, username, password, person_id) VALUES ('S001', 'jsmith', 'Password', 'PER001')  ON CONFLICT DO NOTHING;
 INSERT INTO subject_authorizationrole (subject_id, authorizationroles_id) VALUES ('S001', '-0001')  ON CONFLICT DO NOTHING;
+            
+INSERT INTO unitofmeasure(id, unitName, symbol) VALUES ('uom001', 'Cubic Centimeter', 'cc') ON CONFLICT DO NOTHING;
+INSERT INTO unitofmeasure(id, unitName, symbol) VALUES ('uom002', 'Kilogram', 'kg') ON CONFLICT DO NOTHING;
+INSERT INTO unitofmeasure(id, unitName, symbol) VALUES ('uom003', 'Pound', 'lb') ON CONFLICT DO NOTHING;
+
+INSERT INTO gastype(id, gasName, symbol) VALUES ('gs001', 'Helium', 'He') ON CONFLICT DO NOTHING;
+INSERT INTO gastype(id, gasName, symbol) VALUES ('gs002', 'Carbon Dioxide', 'CO2') ON CONFLICT DO NOTHING;
+INSERT INTO gastype(id, gasName, symbol) VALUES ('gs003', 'Oxygen', 'O2') ON CONFLICT DO NOTHING;
+INSERT INTO gastype(id, gasName, symbol) VALUES ('gs004', 'Nitrogen', 'N') ON CONFLICT DO NOTHING;
+INSERT INTO gastype(id, gasName, symbol) VALUES ('gs005', 'Acetylene', 'C2H2') ON CONFLICT DO NOTHING;
+
+

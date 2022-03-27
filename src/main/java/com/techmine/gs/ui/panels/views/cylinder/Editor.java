@@ -21,6 +21,7 @@ import com.techmine.gs.domain.Cylinder;
 import com.techmine.gs.domain.GasType;
 import com.techmine.gs.domain.UnitOfMeasure;
 import com.techmine.gs.service.CylinderService;
+import com.techmine.gs.service.GasTypeService;
 import com.techmine.gs.service.UnitOfMeasureService;
 import com.techmine.gs.ui.events.CRUDEventAction;
 import com.techmine.gs.ui.events.NotificationEvent;
@@ -60,6 +61,9 @@ public class Editor extends Panel {
 
     @Inject
     private UnitOfMeasureService unitOfMeasureService;
+
+    @Inject
+    private GasTypeService gasTypeService;
 
     @Inject
     private CylinderService cylinderService;
@@ -107,10 +111,12 @@ public class Editor extends Panel {
         editForm.add(delete);
 
         sectionContainer.add(new InputFieldWFeedbackAndCaption("serialNumber", PropertyModel.of(getDefaultModel(), "serialNumber"), "Serial Number", InputFieldWFeedbackAndCaption.FieldType.TEXT).setRequired(true));
-        sectionContainer.add(new InputFieldWFeedbackAndCaption("size", PropertyModel.of(getDefaultModel(), "cylinderSize.value"), "Cylinder Size", InputFieldWFeedbackAndCaption.FieldType.TEXT).setRequired(true));
-        ChoiceRenderer gasTypeRenderer = new ChoiceRenderer("name", "id");
-        sectionContainer.add(new DropDownChoice("gasType", PropertyModel.of(getDefaultModelObject(), "cylinderSize.gasType"), mockGasTypeDB, gasTypeRenderer));
-        sectionContainer.add(new DropDownChoice("sizeUnit", PropertyModel.of(getDefaultModelObject(), "cylinderSize.unitOfMeasure"), unitOfMeasureService.find(), gasTypeRenderer));
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("size", PropertyModel.of(getDefaultModel(), "cylinderSize.measureValue"), "Cylinder Size", InputFieldWFeedbackAndCaption.FieldType.TEXT).setRequired(true));
+        ChoiceRenderer gasTypeRenderer = new ChoiceRenderer("gasName", "id");
+
+        sectionContainer.add(new DropDownChoice("gasType", PropertyModel.of(getDefaultModelObject(), "gasType"), getAllGasTypes(), gasTypeRenderer));
+
+        sectionContainer.add(new DropDownChoice("sizeUnit", PropertyModel.of(getDefaultModelObject(), "cylinderSize.unitOfMeasure"), getAllUnitsOfMeasure()));
         formErrors = new FeedbackPanel("formErrors");
         add(formErrors);
 
@@ -325,4 +331,11 @@ public class Editor extends Panel {
         setDefaultModelObject(null);
     }
 
+    private List<GasType> getAllGasTypes() {
+        return this.gasTypeService.findAll();
+    }
+
+    private List getAllUnitsOfMeasure() {
+        return unitOfMeasureService.find();
+    }
 }

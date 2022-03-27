@@ -19,7 +19,7 @@ public class Cylinder extends BaseEntity {
     @NotBlank(message = "Serial Number can not be blank")
     private String serialNumber;
     @Embedded
-    private Measure cylinderSize;
+    private Measure cylinderSize = new Measure();
     @OneToOne
     private GasType gasType;
     @OneToOne
@@ -38,8 +38,8 @@ public class Cylinder extends BaseEntity {
         return this;
     }
 
-    public Optional<Measure> getCylinderSize() {
-        return Optional.ofNullable(cylinderSize);
+    public Measure getCylinderSize() {
+        return cylinderSize;
     }
 
     public void setCylinderSize(Measure cylinderSize) {

@@ -17,31 +17,31 @@ public class GasType extends BaseEntity {
     @Column(unique = true, nullable = false, length = 32)
     @NotBlank(message = "Name of gas is required")
     @Size(min = 1, max = 64, message = "Gas Type name can not be longer than 64 characters")
-    private String name;
+    private String gasName;
     @Basic(optional = false)
     @Column(unique = true, nullable = false, length = 3)
     @NotBlank(message = "Gas Symbol is required")
     @Size(min = 1, max = 3, message = "Gas Symbol can not be greater than 3 characters")
     private String symbol;
 
-    public GasType(String name, String symbol) {
-        this.name = name;
+    public GasType(String gasName, String symbol) {
+        this.gasName = gasName;
         this.symbol = symbol;
     }
 
     public GasType() {
     }
 
-    public String getName() {
-        return name;
+    public String getGasName() {
+        return gasName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGasName(String gasName) {
+        this.gasName = gasName;
     }
 
-    public GasType name(String name) {
-        this.name = name;
+    public GasType gasName(String gasName) {
+        this.gasName = gasName;
         return this;
     }
 
@@ -70,7 +70,7 @@ public class GasType extends BaseEntity {
         if (!java.util.Objects.equals(this.getId(), other.getId())) {
             return false;
         }
-        if (!java.util.Objects.equals(this.getName(), other.getName())) {
+        if (!java.util.Objects.equals(this.getGasName(), other.getGasName())) {
             return false;
         }
         if (!java.util.Objects.equals(this.getSymbol(), other.getSymbol())) {
@@ -83,14 +83,14 @@ public class GasType extends BaseEntity {
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Objects.hashCode(this.getId());
-        hash = 31 * hash + Objects.hashCode(this.getName());
+        hash = 31 * hash + Objects.hashCode(this.getGasName());
         hash = 31 * hash + Objects.hashCode(this.getSymbol());
         return hash;
     }
 
     @Override
     public String toString() {
-        return "GasType{" + " name=" + name + ", symbol=" + symbol + '}';
+        return "GasType{" + " gasName=" + gasName + ", symbol=" + symbol + '}';
     }
 
 }

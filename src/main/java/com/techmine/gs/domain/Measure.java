@@ -1,5 +1,6 @@
 package com.techmine.gs.domain;
 
+import java.util.Objects;
 import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,34 +16,68 @@ public class Measure {
     @Column(nullable = false)
     @NotNull
     @Positive(message = "Value must be greater than or equal to zero")
-    private double value;
+    private double measureValue;
     @ManyToOne
-    private UinitOfMeasure uinitOfMeasure;
+    private UnitOfMeasure unitOfMeasure;
 
-    public double getValue() {
-        return value;
+    public Measure() {
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public double getMeasureValue() {
+        return measureValue;
+    }
+
+    public void setMeasureValue(double measureValue) {
+        this.measureValue = measureValue;
     }
 
     public Measure value(double value) {
-        this.value = value;
+        this.measureValue = value;
         return this;
     }
 
-    public Optional<UinitOfMeasure> getUinitOfMeasure() {
-        return Optional.ofNullable(uinitOfMeasure);
+    public Optional<UnitOfMeasure> getUnitOfMeasure() {
+        return Optional.ofNullable(unitOfMeasure);
     }
 
-    public void setUinitOfMeasure(UinitOfMeasure uinitOfMeasure) {
-        this.uinitOfMeasure = uinitOfMeasure;
+    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
     }
 
-    public Measure uinitOfMeasure(UinitOfMeasure uinitOfMeasure) {
-        this.uinitOfMeasure = uinitOfMeasure;
+    public Measure unitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!Objects.equals(getClass(), obj.getClass())) {
+            return false;
+        }
+        final Measure other = (Measure) obj;
+        if (Double.doubleToLongBits(this.getMeasureValue()) != Double.doubleToLongBits(other.getMeasureValue())) {
+            return false;
+        }
+        if (!java.util.Objects.equals(this.getUnitOfMeasure().orElse(null), other.getUnitOfMeasure().orElse(null))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + (int) (Double.doubleToLongBits(this.getMeasureValue()) ^ (Double.doubleToLongBits(this.getMeasureValue()) >>> 32));
+        hash = 31 * hash + Objects.hashCode(this.getUnitOfMeasure().orElse(null));
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Measure{" + " value=" + measureValue + ", unitOfMeasure=" + unitOfMeasure + '}';
     }
 
 }
