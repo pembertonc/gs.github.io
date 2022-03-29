@@ -236,7 +236,6 @@ public class Editor extends Panel {
                 super.onConfigure();
                 setEnabled(!Objects.isNull(Editor.this.getDefaultModelObject()));
             }
-
         };
     }
 
@@ -276,7 +275,6 @@ public class Editor extends Panel {
                 super.onBeforeRender();
                 LOG.log(Level.ALL, "on Before Render Save");
             }
-
         };
     }
 
@@ -286,7 +284,6 @@ public class Editor extends Panel {
         event.setEntityType(Cylinder.class);
         event.setTarget(target);
         send(this.getPage(), Broadcast.DEPTH, event);
-
     }
 
     private Button initializeDelete(String delete, Form<Cylinder> form) {
@@ -295,7 +292,7 @@ public class Editor extends Panel {
             protected void onSubmit(AjaxRequestTarget target) {
                 super.onSubmit(target);
                 target.add(editForm);
-                CylinderService.deleteCylinder((Cylinder) Editor.this.getDefaultModel().getObject());
+                cylinderService.deleteCylinder((Cylinder) Editor.this.getDefaultModel().getObject());
                 emmitEvent(target, CRUDEventAction.DELETE);
                 nullDefaultModelObject();
             }
