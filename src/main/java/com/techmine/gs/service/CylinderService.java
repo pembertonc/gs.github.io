@@ -17,9 +17,11 @@ package com.techmine.gs.service;
 
 import com.techmine.gs.domain.Cylinder;
 import com.techmine.gs.domain.Institution;
+import com.techmine.gs.repository.CylinderRepository;
 import com.techmine.gs.repository.InstitutionRepository;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.inject.Inject;
 
 /**
@@ -29,22 +31,37 @@ import javax.inject.Inject;
 public class CylinderService implements Serializable {
 
     @Inject
-    private InstitutionRepository institutionRepository;
+    private CylinderRepository cylinderRepository;
 
-    public List<Institution> institutions() {
-        return this.institutionRepository.findAll();
-    }
-
-    public void create(Institution inst) {
-        this.institutionRepository.create(inst);
+    public List<Cylinder> institutions() {
+        return this.cylinderRepository.findAll();
     }
 
     public void persisteCylinder(Cylinder subject) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (cylinderExists(subject)) {
+            cylinderRepository.edit(subject);
+        } else {
+            cylinderRepository.create(subject);
+        }
+
     }
 
-    public static void deleteCylinder(Cylinder cylinder) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteCylinder(Cylinder cylinder) {
+        this.cylinderRepository.remove(cylinder);
+    }
+
+    public boolean cylinderExists(Cylinder cylinder) {
+        return Objects.nonNull(this.cylinderRepository.find(cylinder.getId()));
+    }
+
+    /**
+     * checks that the cylinder can be deleted.
+     *
+     * @param cylinder
+     * @return
+     */
+    public boolean canDelete(Cylinder cylinder) {
+        return true;
     }
 
 }
