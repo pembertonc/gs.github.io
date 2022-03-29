@@ -1,7 +1,6 @@
 package com.techmine.gs.domain;
 
 import java.util.Objects;
-import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +21,8 @@ public class UnitOfMeasure extends BaseEntity {
     public UnitOfMeasure() {
     }
 
-    public Optional<String> getUnitName() {
-        return Optional.ofNullable(unitName);
+    public String getUnitName() {
+        return unitName;
     }
 
     public void setUnitName(String unitName) {
@@ -35,8 +34,8 @@ public class UnitOfMeasure extends BaseEntity {
         return this;
     }
 
-    public Optional<String> getSymbol() {
-        return Optional.ofNullable(symbol);
+    public String getSymbol() {
+        return symbol;
     }
 
     public void setSymbol(String symbol) {
@@ -67,8 +66,8 @@ public class UnitOfMeasure extends BaseEntity {
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Objects.hashCode(this.getId());
-        hash = 31 * hash + Objects.hashCode(this.getUnitName().orElse(null));
-        hash = 31 * hash + Objects.hashCode(this.getSymbol().orElse(null));
+        hash = 31 * hash + Objects.hashCode(this.getUnitName());
+        hash = 31 * hash + Objects.hashCode(this.getSymbol());
         return hash;
     }
 

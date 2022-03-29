@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <entity-mappings ptype="MONOLITH" ppkg="com.techmine.gs" epkg="domain" v="5.4.4" rws="_16238885089942" Pws="_16238885089942" cws="_16238885089942" persistenceUnitName="GS_PU" pp="E" sm="false" xs="false" id="_16238885089941" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <mapped-superclass compositePrimaryKeyClass="BaseEntityPK" abs="false" class="BaseEntity" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908616129139">
+    <mapped-superclass compositePrimaryKeyClass="BaseEntityPK" abs="false" class="BaseEntity" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908616129139">
         <inf e="true" n="java.io.Serializable"/>
         <snp loc="IMPORT" e="true">java.util.UUID</snp>
         <ath>Cedric Pemberton</ath>
         <attributes>
-            <id attribute-type="String" v="true" xvt="" name="id" dv="UUID.randomUUID().toString()" id="_163908625849641">
+            <id attribute-type="String" v="true" xvt="" am="PROTECTED" name="id" dv="UUID.randomUUID().toString()" ft="true" id="_163908625849641">
                 <xwm/>
                 <xm/>
+                <column unique="false" nullable="true" insertable="true" updatable="true" length="36"/>
                 <generated-value/>
             </id>
         </attributes>
     </mapped-superclass>
-    <entity compositePrimaryKeyClass="AddressPK" abs="false" class="Address" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_16238885459983">
+    <entity compositePrimaryKeyClass="AddressPK" abs="false" class="Address" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_16238885459983">
         <ath>CodeCamp4</ath>
         <attributes>
             <basic optional="false" attribute-type="String" v="true" xvt="" name="street1" ft="false" id="_16238885564096">
@@ -52,7 +53,7 @@
             <query>Select a from Address a where a.country=:country</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="ContactPK" abs="false" class="Contact" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596303719">
+    <entity compositePrimaryKeyClass="ContactPK" abs="false" class="Contact" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596303719">
         <ath>Cedric Pemberton</ath>
         <attributes>
             <basic attribute-type="String" v="true" xvt="" name="email" ft="false" id="_163908635323244">
@@ -89,7 +90,7 @@
             <query>Select c from Contact c where c.telephone2=:telephone2</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="InstitutionPK" abs="false" class="Institution" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596520722">
+    <entity compositePrimaryKeyClass="InstitutionPK" abs="false" class="Institution" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596520722">
         <ts e="true">
             <a>_163908608217736</a>
             <a>_163908610434838</a>
@@ -132,10 +133,9 @@
             <query>Select i from Institution i where i.name=:name</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="GasTypePK" abs="false" class="GasType" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596733225">
+    <entity compositePrimaryKeyClass="GasTypePK" abs="false" class="GasType" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596733225">
         <ts e="true">
-            <a>_163908702015763</a>
-            <a>_163908702083664</a>
+            <a>_163908625849641</a>
         </ts>
         <hc e="true">
             <a>_163908625849641</a>
@@ -144,8 +144,6 @@
         </hc>
         <eq e="true">
             <a>_163908625849641</a>
-            <a>_163908702015763</a>
-            <a>_163908702083664</a>
         </eq>
         <con am="PUBLIC" e="true">
             <a>_163908702015763</a>
@@ -170,7 +168,7 @@
                     <nb m="Gas Symbol is required"/>
                     <si mi="1" ma="3" m="Gas Symbol can not be greater than 3 characters"/>
                 </bv>
-                <column unique="true" nullable="false" insertable="true" updatable="true" length="3"/>
+                <column unique="true" nullable="false" insertable="true" updatable="true" length="16"/>
             </basic>
         </attributes>
         <nq e="false" name="GasType.findAll">
@@ -183,7 +181,7 @@
             <query>Select g from GasType g where g.symbol=:symbol</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
+    <entity compositePrimaryKeyClass="PersonPK" abs="false" class="Person" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908597108431">
         <ts e="true">
             <a>_163908674093457</a>
             <a>_163908674218158</a>
@@ -250,7 +248,7 @@
             <query>Select p from Person p where p.familyName=:familyName</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
+    <entity compositePrimaryKeyClass="SubjectPK" abs="false" class="Subject" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908726308665">
         <ts e="true">
             <a>_163908735716373</a>
             <a>_163908735774074</a>
@@ -316,7 +314,24 @@
             <query>Select a from Subject a where a.userName like :userName</query>
         </nq>
     </entity>
-    <entity compositePrimaryKeyClass="CylinderPK" abs="false" class="Cylinder" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088335659142">
+    <entity compositePrimaryKeyClass="CylinderPK" abs="false" class="Cylinder" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088335659142">
+        <ts e="true">
+            <a>_164814463148343</a>
+            <a>_164814216539842</a>
+            <a>_1639088413449174</a>
+            <a>_164841189100644</a>
+        </ts>
+        <hc e="true">
+            <a>_163908625849641</a>
+            <a>_164814463148343</a>
+            <a>_164814216539842</a>
+            <a>_1639088413449174</a>
+            <a>_164841189100644</a>
+        </hc>
+        <eq e="true">
+            <a>_163908625849641</a>
+        </eq>
+        <con am="PUBLIC" e="true"/>
         <ath>Cedric Pemberton</ath>
         <attributes>
             <basic optional="false" attribute-type="String" v="true" xvt="" name="serialNumber" ft="false" id="_164814463148343">
@@ -331,12 +346,12 @@
                 <xwm/>
                 <xm/>
             </embedded>
-            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908596733225" v="true" xvt="" am="PRIVATE" name="gasType" jbt="false" id="_1639088335679143">
+            <many-to-one optional="false" primaryKey="false" connected-entity-id="_163908596733225" v="true" xvt="" name="gasType" ft="false" id="_164841189100644">
                 <xwm/>
                 <xm/>
-                <cascade/>
-            </one-to-one>
-            <one-to-one own="true" orp="false" optional="true" primaryKey="false" connected-entity-id="_163908596520722" connected-attribute-id="_1639088413450175" v="true" xvt="" name="institution" id="_1639088413449174">
+            </many-to-one>
+            <one-to-one own="true" orp="false" optional="false" primaryKey="false" connected-entity-id="_163908596520722" connected-attribute-id="_1639088413450175" v="true" xvt="" name="owner" ft="false" id="_1639088413449174">
+                <des>The Institution who owns the Cylinder</des>
                 <xwm/>
                 <xm/>
             </one-to-one>
@@ -363,7 +378,7 @@
         </eq>
         <con am="PUBLIC" e="true"/>
         <attributes>
-            <basic optional="false" attribute-type="String" v="true" xvt="" am="PRIVATE" name="unitName" jbt="false" id="_1639088466730177">
+            <basic optional="false" attribute-type="String" v="true" xvt="" am="PRIVATE" name="unitName" ft="false" jbt="false" id="_1639088466730177">
                 <xwm/>
                 <xm/>
                 <bv>
@@ -371,7 +386,7 @@
                 </bv>
                 <column unique="false" nullable="true" insertable="true" updatable="true" length="32"/>
             </basic>
-            <basic attribute-type="String" v="true" xvt="" am="PRIVATE" name="symbol" jbt="false" id="_1639088466790178">
+            <basic attribute-type="String" v="true" xvt="" am="PRIVATE" name="symbol" ft="false" jbt="false" id="_1639088466790178">
                 <xwm/>
                 <xm/>
                 <bv>
@@ -381,7 +396,7 @@
             </basic>
         </attributes>
     </entity>
-    <entity compositePrimaryKeyClass="AuthorizationRolePK" abs="false" class="AuthorizationRole" superclassId="_163908616129139" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_164550302254398">
+    <entity compositePrimaryKeyClass="AuthorizationRolePK" abs="false" class="AuthorizationRole" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_164550302254398">
         <ath>Cedric-Pemberton</ath>
         <attributes>
             <basic attribute-type="String" v="true" xvt="" name="roleName" dv="&quot;&quot;" id="_1645503052170102">
@@ -403,7 +418,7 @@
             <query>Select r from AuthorizationRole r where r.description=:description</query>
         </nq>
     </entity>
-    <embeddable abs="false" class="Measure" v="true" gen="false" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088473362211">
+    <embeddable abs="false" class="Measure" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_1639088473362211">
         <ts e="true">
             <a>_1639088473362212</a>
             <a>_1639088473414213</a>
@@ -417,6 +432,7 @@
             <a>_1639088473414213</a>
         </eq>
         <con am="PUBLIC" e="true"/>
+        <inf e="true" n="java.io.Serializable"/>
         <attributes>
             <basic attribute-type="double" v="true" xvt="" am="PRIVATE" name="measureValue" ft="false" jbt="false" id="_1639088473362212">
                 <xwm/>
@@ -447,7 +463,7 @@
     </c>
     <wsl>
         <ws n="Main" id="_16238885089942">
-            <i ref="_163908596733225" x="766" y="569"/>
+            <i ref="_163908596733225" x="751" y="570"/>
             <i ref="_1639088335659142" x="547" y="628"/>
             <i ref="_163908596303719" x="1029" y="692"/>
             <i ref="_163908597108431" x="32" y="692"/>

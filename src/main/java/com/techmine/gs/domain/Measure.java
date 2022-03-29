@@ -1,7 +1,7 @@
 package com.techmine.gs.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
-import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Embeddable
-public class Measure {
+public class Measure implements Serializable {
 
     @Basic
     @Column(nullable = false)
@@ -31,13 +31,13 @@ public class Measure {
         this.measureValue = measureValue;
     }
 
-    public Measure value(double value) {
-        this.measureValue = value;
+    public Measure measureValue(double measureValue) {
+        this.measureValue = measureValue;
         return this;
     }
 
-    public Optional<UnitOfMeasure> getUnitOfMeasure() {
-        return Optional.ofNullable(unitOfMeasure);
+    public UnitOfMeasure getUnitOfMeasure() {
+        return unitOfMeasure;
     }
 
     public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
@@ -61,7 +61,7 @@ public class Measure {
         if (Double.doubleToLongBits(this.getMeasureValue()) != Double.doubleToLongBits(other.getMeasureValue())) {
             return false;
         }
-        if (!java.util.Objects.equals(this.getUnitOfMeasure().orElse(null), other.getUnitOfMeasure().orElse(null))) {
+        if (!java.util.Objects.equals(this.getUnitOfMeasure(), other.getUnitOfMeasure())) {
             return false;
         }
         return true;
@@ -71,13 +71,13 @@ public class Measure {
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + (int) (Double.doubleToLongBits(this.getMeasureValue()) ^ (Double.doubleToLongBits(this.getMeasureValue()) >>> 32));
-        hash = 31 * hash + Objects.hashCode(this.getUnitOfMeasure().orElse(null));
+        hash = 31 * hash + Objects.hashCode(this.getUnitOfMeasure());
         return hash;
     }
 
     @Override
     public String toString() {
-        return "Measure{" + " value=" + measureValue + ", unitOfMeasure=" + unitOfMeasure + '}';
+        return "Measure{" + " measureValue=" + measureValue + ", unitOfMeasure=" + unitOfMeasure + '}';
     }
 
 }

@@ -15,10 +15,12 @@
  */
 package com.techmine.gs.service;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Cedric Pemberton
  */
-public class UtilityEntityService {
+public class UtilityEntityService implements Serializable {
 
 }

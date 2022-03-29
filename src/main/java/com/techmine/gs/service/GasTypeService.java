@@ -17,6 +17,7 @@ package com.techmine.gs.service;
 
 import com.techmine.gs.domain.GasType;
 import com.techmine.gs.repository.GasTypeRepository;
+import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -24,7 +25,7 @@ import javax.inject.Inject;
  *
  * @author Cedric-Pemberton
  */
-public class GasTypeService {
+public class GasTypeService implements Serializable {
 
     @Inject
     private GasTypeRepository gasTypeRepository;

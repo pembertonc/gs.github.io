@@ -1,7 +1,6 @@
 package com.techmine.gs.domain;
 
 import java.util.Objects;
-import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -22,9 +21,12 @@ public class Cylinder extends BaseEntity {
     private String serialNumber;
     @Embedded
     private Measure cylinderSize = new Measure();
-    @OneToOne
-    private Institution institution;
-    @ManyToOne
+    /**
+     * The Institution who owns the Cylinder
+     */
+    @OneToOne(optional = false)
+    private Institution owner;
+    @ManyToOne(optional = false)
     private GasType gasType;
 
     public Cylinder() {
@@ -56,21 +58,27 @@ public class Cylinder extends BaseEntity {
         return this;
     }
 
-    public Optional<Institution> getInstitution() {
-        return Optional.ofNullable(institution);
+    public Institution getOwner() {
+        return owner;
     }
 
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
+    public void setOwner(Institution owner) {
+        this.owner = owner;
     }
 
-    public Cylinder institution(Institution institution) {
-        this.institution = institution;
+    /**
+     * Set the Institution who owns the Cylinder
+     *
+     * @param owner {@link #owner}
+     * @return {@link #Cylinder}
+     */
+    public Cylinder owner(Institution owner) {
+        this.owner = owner;
         return this;
     }
 
-    public Optional<GasType> getGasType() {
-        return Optional.ofNullable(gasType);
+    public GasType getGasType() {
+        return gasType;
     }
 
     public void setGasType(GasType gasType) {
@@ -103,14 +111,14 @@ public class Cylinder extends BaseEntity {
         hash = 31 * hash + Objects.hashCode(this.getId());
         hash = 31 * hash + Objects.hashCode(this.getSerialNumber());
         hash = 31 * hash + Objects.hashCode(this.getCylinderSize());
-        hash = 31 * hash + Objects.hashCode(this.getInstitution().orElse(null));
-        hash = 31 * hash + Objects.hashCode(this.getGasType().orElse(null));
+        hash = 31 * hash + Objects.hashCode(this.getOwner());
+        hash = 31 * hash + Objects.hashCode(this.getGasType());
         return hash;
     }
 
     @Override
     public String toString() {
-        return "Cylinder{" + " serialNumber=" + serialNumber + ", cylinderSize=" + cylinderSize + ", institution=" + institution + ", gasType=" + gasType + '}';
+        return "Cylinder{" + " serialNumber=" + serialNumber + ", cylinderSize=" + cylinderSize + ", owner=" + owner + ", gasType=" + gasType + '}';
     }
 
 }

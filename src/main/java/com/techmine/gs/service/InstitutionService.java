@@ -17,6 +17,7 @@ package com.techmine.gs.service;
 
 import com.techmine.gs.domain.Cylinder;
 import com.techmine.gs.repository.CylinderRepository;
+import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -24,7 +25,7 @@ import javax.inject.Inject;
  *
  * @author Cedric Pemberton
  */
-public class InstitutionService {
+public class InstitutionService implements Serializable {
 
     @Inject
     private CylinderRepository CylinderRepository;

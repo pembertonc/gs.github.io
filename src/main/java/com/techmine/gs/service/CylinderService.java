@@ -18,23 +18,21 @@ package com.techmine.gs.service;
 import com.techmine.gs.domain.Cylinder;
 import com.techmine.gs.domain.Institution;
 import com.techmine.gs.repository.InstitutionRepository;
+import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 /**
  *
  * @author Cedric Pemberton
  */
-public class CylinderService {
+public class CylinderService implements Serializable {
 
     @Inject
     private InstitutionRepository institutionRepository;
 
     public List<Institution> institutions() {
-
         return this.institutionRepository.findAll();
-
     }
 
     public void create(Institution inst) {

@@ -1,5 +1,6 @@
 package com.techmine.gs.domain;
 
+import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +17,9 @@ public class Address extends BaseEntity {
     @NotBlank
     private String street1;
     @Basic
-    private String street2;
-    @Basic
     private String city;
+    @Basic
+    private String street2;
     @Basic
     private String country;
 
@@ -35,21 +36,8 @@ public class Address extends BaseEntity {
         return this;
     }
 
-    public String getStreet2() {
-        return street2;
-    }
-
-    public void setStreet2(String street2) {
-        this.street2 = street2;
-    }
-
-    public Address street2(String street2) {
-        this.street2 = street2;
-        return this;
-    }
-
-    public String getCity() {
-        return city;
+    public Optional<String> getCity() {
+        return Optional.ofNullable(city);
     }
 
     public void setCity(String city) {
@@ -61,8 +49,21 @@ public class Address extends BaseEntity {
         return this;
     }
 
-    public String getCountry() {
-        return country;
+    public Optional<String> getStreet2() {
+        return Optional.ofNullable(street2);
+    }
+
+    public void setStreet2(String street2) {
+        this.street2 = street2;
+    }
+
+    public Address street2(String street2) {
+        this.street2 = street2;
+        return this;
+    }
+
+    public Optional<String> getCountry() {
+        return Optional.ofNullable(country);
     }
 
     public void setCountry(String country) {

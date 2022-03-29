@@ -19,7 +19,7 @@ public class GasType extends BaseEntity {
     @Size(min = 1, max = 64, message = "Gas Type name can not be longer than 64 characters")
     private String gasName;
     @Basic(optional = false)
-    @Column(unique = true, nullable = false, length = 3)
+    @Column(unique = true, nullable = false, length = 16)
     @NotBlank(message = "Gas Symbol is required")
     @Size(min = 1, max = 3, message = "Gas Symbol can not be greater than 3 characters")
     private String symbol;
@@ -70,12 +70,6 @@ public class GasType extends BaseEntity {
         if (!java.util.Objects.equals(this.getId(), other.getId())) {
             return false;
         }
-        if (!java.util.Objects.equals(this.getGasName(), other.getGasName())) {
-            return false;
-        }
-        if (!java.util.Objects.equals(this.getSymbol(), other.getSymbol())) {
-            return false;
-        }
         return true;
     }
 
@@ -90,7 +84,7 @@ public class GasType extends BaseEntity {
 
     @Override
     public String toString() {
-        return "GasType{" + " gasName=" + gasName + ", symbol=" + symbol + '}';
+        return "GasType{" + " id=" + id + '}';
     }
 
 }

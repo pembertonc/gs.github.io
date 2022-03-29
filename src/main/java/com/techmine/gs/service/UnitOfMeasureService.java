@@ -17,6 +17,7 @@ package com.techmine.gs.service;
 
 import com.techmine.gs.domain.UnitOfMeasure;
 import com.techmine.gs.repository.UnitOfMeasureRepository;
+import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -24,7 +25,7 @@ import javax.inject.Inject;
  *
  * @author Cedric-Pemberton
  */
-public class UnitOfMeasureService {
+public class UnitOfMeasureService implements Serializable {
 
     @Inject
     UnitOfMeasureRepository unitOfMeasureRepository;

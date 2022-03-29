@@ -2,6 +2,7 @@ package com.techmine.gs.domain;
 
 import java.io.Serializable;
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -12,7 +13,8 @@ import javax.persistence.MappedSuperclass;
 public class BaseEntity implements Serializable {
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    @Column(length = 36)
+    protected String id = UUID.randomUUID().toString();
 
     public String getId() {
         return id;
