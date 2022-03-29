@@ -26,7 +26,6 @@ import com.techmine.gs.service.UnitOfMeasureService;
 import com.techmine.gs.ui.events.CRUDEventAction;
 import com.techmine.gs.ui.events.NotificationEvent;
 import com.techmine.gs.ui.panels.custom_input_components.InputFieldWFeedbackAndCaption;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -57,8 +56,6 @@ import org.apache.wicket.util.visit.IVisitor;
  */
 public class Editor extends Panel {
 
-    private static List<GasType> mockGasTypeDB = new ArrayList<>();
-
     @Inject
     private UnitOfMeasureService unitOfMeasureService;
 
@@ -77,6 +74,7 @@ public class Editor extends Panel {
     private Button addNew;
     private FeedbackPanel formErrors;
     private Button delete;
+    private DropDownChoice gasType;
 
     public Editor(String id) {
         this(id, new Model<Cylinder>());
@@ -85,10 +83,6 @@ public class Editor extends Panel {
     public Editor(String id, IModel<Cylinder> model) {
         super(id, model);
         mode = CRUDEventAction.NONE;
-        mockGasTypeDB.add(new GasType("Oxygen", "Oz"));
-        mockGasTypeDB.add(new GasType("Carbon Dioxide", "CO2"));
-        mockGasTypeDB.add(new GasType("Nitrogen", "N"));
-        mockGasTypeDB.add(new GasType("acetylene", "C2H2"));
 
     }
 
@@ -96,27 +90,31 @@ public class Editor extends Panel {
     protected void onInitialize() {
         super.onInitialize();
         setOutputMarkupId(true);
-        editForm = initializeEditForm("editForm", (IModel<Cylinder>) getDefaultModel());
+        editForm = initializeEditForm("editForm", (IModel<Cylinder>) this.getDefaultModel());
 
         add(editForm);
         sectionContainer = initializeSectionContainer();
         editForm.add(sectionContainer);
+        addNew = initializeNew("new", editForm);
+        editForm.add(addNew);
         save = initializeSave("save", editForm);
         editForm.add(save);
         cancel = initializeCancel("cancel", editForm);
         editForm.add(cancel);
-        addNew = initializeNew("new", editForm);
-        editForm.add(addNew);
+
         delete = initializeDelete("delete", editForm);
         editForm.add(delete);
 
         sectionContainer.add(new InputFieldWFeedbackAndCaption("serialNumber", PropertyModel.of(getDefaultModel(), "serialNumber"), "Serial Number", InputFieldWFeedbackAndCaption.FieldType.TEXT).setRequired(true));
-        sectionContainer.add(new InputFieldWFeedbackAndCaption("size", PropertyModel.of(getDefaultModel(), "cylinderSize.measureValue"), "Cylinder Size", InputFieldWFeedbackAndCaption.FieldType.TEXT).setRequired(true));
-        ChoiceRenderer gasTypeRenderer = new ChoiceRenderer("gasName", "id");
 
-        sectionContainer.add(new DropDownChoice("gasType", PropertyModel.of(getDefaultModelObject(), "gasType"), getAllGasTypes(), gasTypeRenderer));
+        ChoiceRenderer<GasType> gasTypeRenderer = new ChoiceRenderer<>("gasName", "id");
+        sectionContainer.add(gasType = new DropDownChoice("gasType", PropertyModel.of(getDefaultModel(), "gasType"), Model.ofList(getAllGasTypes()), gasTypeRenderer));
 
-        sectionContainer.add(new DropDownChoice("sizeUnit", PropertyModel.of(getDefaultModelObject(), "cylinderSize.unitOfMeasure"), getAllUnitsOfMeasure()));
+        sectionContainer.add(new InputFieldWFeedbackAndCaption("size", PropertyModel.of(getDefaultModel(), "cylinderSize.measureValue"), "Cylinder Size", InputFieldWFeedbackAndCaption.FieldType.NUMBER).setRequired(true));
+
+        ChoiceRenderer<UnitOfMeasure> unitOfMeasureRender = new ChoiceRenderer<>("unitName", "id");
+        sectionContainer.add(new DropDownChoice("sizeUnit", PropertyModel.of(getDefaultModel(), "cylinderSize.unitOfMeasure"), getAllUnitsOfMeasure(), unitOfMeasureRender));
+
         formErrors = new FeedbackPanel("formErrors");
         add(formErrors);
 
@@ -171,10 +169,8 @@ public class Editor extends Panel {
                             t.add(AttributeModifier.append("class", "w3-disabled"));
                         }
                     }
-
                 });
             }
-
         };
 
     }
@@ -188,16 +184,13 @@ public class Editor extends Panel {
             @Override
             protected void onInitialize() {
                 super.onInitialize();
-
             }
 
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 super.onSubmit(target);
                 Editor.this.setModelObject(new Cylinder());
-
                 target.add(editForm);
-
             }
 
             @Override
@@ -257,9 +250,7 @@ public class Editor extends Panel {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target) {
                         super.onSubmit(target);
-
                         persist((Cylinder) getParent().getDefaultModel().getObject());
-
                         target.add(Editor.this);
                         emitUpdateEvent(target);
                         nullDefaultModelObject();
@@ -313,9 +304,7 @@ public class Editor extends Panel {
             protected void onConfigure() {
                 super.onConfigure();
                 setEnabled(!Objects.isNull(Editor.this.getDefaultModelObject()));
-
             }
-
         };
     }
 
