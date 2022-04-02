@@ -113,6 +113,15 @@
                 </bv>
                 <column unique="false" nullable="false" insertable="true" updatable="true" length="64"/>
             </basic>
+            <basic optional="false" attribute-type="boolean" v="true" xvt="" name="company" dv="true" ft="false" id="_164891221213741">
+                <des>a boolean value indicating if the Instiution is a single person of a registered business</des>
+                <xwm/>
+                <xm/>
+                <bv>
+                    <nn m="company is required"/>
+                </bv>
+                <column unique="false" nullable="false" insertable="true" updatable="true"/>
+            </basic>
             <one-to-one own="true" orp="false" optional="false" primaryKey="false" connected-entity-id="_16238885459983" v="true" xvt="" name="address" id="_163908610434838">
                 <xwm/>
                 <xm/>
@@ -131,6 +140,9 @@
         </nq>
         <nq e="false" name="Institution.findByName">
             <query>Select i from Institution i where i.name=:name</query>
+        </nq>
+        <nq e="false" name="Institution.findByCompany">
+            <query>Select i from Institution i where i.company=:company</query>
         </nq>
     </entity>
     <entity compositePrimaryKeyClass="GasTypePK" abs="false" class="GasType" superclassId="_163908616129139" v="true" jbn="false" xre="false" m="false" rootElement="_16238885089941" id="_163908596733225">
@@ -470,8 +482,8 @@
             <i ref="_164550302254398" x="258" y="553"/>
             <i ref="_1639088466730176" x="766" y="183"/>
             <i ref="_1639088473362211" x="1217" y="346"/>
-            <i ref="_16238885459983" x="258" y="183"/>
-            <i ref="_163908596520722" x="32" y="362"/>
+            <i ref="_16238885459983" x="328" y="286"/>
+            <i ref="_163908596520722" x="20" y="286"/>
             <i ref="_163908726308665" x="878" y="345"/>
             <i ref="_163908616129139" x="538" y="362"/>
         </ws>

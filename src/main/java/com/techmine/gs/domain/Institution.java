@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -20,6 +21,14 @@ public class Institution extends BaseEntity {
     @NotEmpty(message = "Institution Name is required")
     @Size(min = 1, max = 64, message = "Institutino name must not exceed 64 characters")
     private String name;
+    /**
+     * a boolean value indicating if the Instiution is a single person of a
+     * registered business
+     */
+    @Basic(optional = false)
+    @Column(nullable = false)
+    @NotNull(message = "company is required")
+    private boolean company = true;
     @OneToOne(optional = false)
     private Address address;
     @OneToOne
@@ -37,6 +46,26 @@ public class Institution extends BaseEntity {
 
     public Institution name(String name) {
         this.name = name;
+        return this;
+    }
+
+    public boolean isCompany() {
+        return company;
+    }
+
+    public void setCompany(boolean company) {
+        this.company = company;
+    }
+
+    /**
+     * Set a boolean value indicating if the Instiution is a single person of a
+     * registered business
+     *
+     * @param company {@link #company}
+     * @return {@link #Institution}
+     */
+    public Institution company(boolean company) {
+        this.company = company;
         return this;
     }
 
