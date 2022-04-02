@@ -51,7 +51,7 @@ public class CylinderService implements Serializable {
     }
 
     public boolean cylinderExists(Cylinder cylinder) {
-        return Objects.nonNull(this.cylinderRepository.find(cylinder.getId()));
+        return cylinderExists(cylinder.getSerialNumber());
     }
 
     /**
@@ -62,6 +62,10 @@ public class CylinderService implements Serializable {
      */
     public boolean canDelete(Cylinder cylinder) {
         return true;
+    }
+
+    public boolean cylinderExists(String serialNo) {
+        return Objects.nonNull(this.cylinderRepository.find(serialNo));
     }
 
 }

@@ -26,6 +26,7 @@ import com.techmine.gs.service.UnitOfMeasureService;
 import com.techmine.gs.ui.events.CRUDEventAction;
 import com.techmine.gs.ui.events.NotificationEvent;
 import com.techmine.gs.ui.panels.custom_input_components.InputFieldWFeedbackAndCaption;
+import com.techmine.gs.ui.panels.custom_input_components.InputFieldWFeedbackAndCaption.FieldType;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -34,6 +35,7 @@ import javax.inject.Inject;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.event.Broadcast;
@@ -49,6 +51,9 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
+import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.ValidationError;
 
 /**
  *
@@ -323,5 +328,30 @@ public class Editor extends Panel {
 
     private List getAllUnitsOfMeasure() {
         return unitOfMeasureService.find();
+    }
+
+    public InputFieldWFeedbackAndCaption initializeSerialNumber(String wicketId, IModel<?> model, String caption, FieldType fieldType) {
+        InputFieldWFeedbackAndCaption component = new InputFieldWFeedbackAndCaption(wicketId, model, caption, fieldType);
+        component.setRequired(true);
+        component.add(new AjaxFormComponentUpdatingBehavior("change") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+
+            }
+        });
+        component.add(new IValidator() {
+            @Override
+            public void validate(IValidatable iv) {
+                String serialNo = (String) iv.getValue();
+                cylinderService.cylinderExists(serialNo);
+                if (cylinderService.cylinderExists(serialNo)) {
+                    ValidationError error = new ValidationError(this);
+                    error.setMessage(String.format("Serial Number %s is already in the system", serialNo));
+                    iv.error(error);
+                }
+            }
+        });
+
+        return component;
     }
 }

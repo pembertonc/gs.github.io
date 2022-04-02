@@ -35,6 +35,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -139,7 +140,8 @@ public class InputFieldWFeedbackAndCaptionTest {
         InputFieldWFeedbackACaptionTestingComponent ainstance = new InputFieldWFeedbackACaptionTestingComponent("testComponent", PropertyModel.of(this, "modelData"));
         tester.startComponentInPage(ainstance);
         FormTester ft = tester.newFormTester("testComponent:testForm");
-        ft.setValue("inputComponent", "J. Johana Jammerson");
+        assertNotNull(ft);
+        ft.setValue("customComponent:inputComponent", "J. Johana Jammerson");
 
         Assertions.assertTrue(modelData.equals(model.getObject()));
         Assertions.assertFalse("J. Johana Jammerson".equalsIgnoreCase(model.getObject()));
