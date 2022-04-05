@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Cedric Pemberton.
+ * Copyright 2022 Cedric-Pemberton.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,28 +15,27 @@
  */
 package com.techmine.gs.service;
 
-import com.techmine.gs.domain.Cylinder;
-import com.techmine.gs.repository.CylinderRepository;
+import com.techmine.gs.domain.UnitOfMeasure;
+import com.techmine.gs.repository.UnitOfMeasureRepository;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
 
 /**
  *
- * @author Cedric Pemberton
+ * @author Cedric-Pemberton
  */
-public class InstitutionService implements Serializable {
+public class UnitOfMeasureService implements Serializable {
 
     @Inject
-    private CylinderRepository CylinderRepository;
+    UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public List<Cylinder> institutions() {
-
-        return this.CylinderRepository.findAll();
-
+    /**
+     *
+     * @return list of containing instances of UnitOfMeasure.
+     */
+    public List<UnitOfMeasure> find() {
+        return unitOfMeasureRepository.findAll();
     }
 
-    public void create(Cylinder cylinder) {
-        this.CylinderRepository.create(cylinder);
-    }
 }

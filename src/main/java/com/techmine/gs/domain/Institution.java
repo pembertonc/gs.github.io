@@ -1,11 +1,13 @@
 package com.techmine.gs.domain;
 
 import java.util.Objects;
+import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -19,11 +21,19 @@ public class Institution extends BaseEntity {
     @NotEmpty(message = "Institution Name is required")
     @Size(min = 1, max = 64, message = "Institutino name must not exceed 64 characters")
     private String name;
-    @OneToOne
+    /**
+     * a boolean value indicating if the Instiution is a single person of a
+     * registered business
+     */
+    @Basic(optional = false)
+    @Column(nullable = false)
+    @NotNull(message = "company is required")
+    private boolean company = true;
+    @OneToOne(optional = false)
     private Address address;
     @OneToOne
     private Contact contact;
-    @OneToOne(mappedBy = "institution")
+    @OneToOne(mappedBy = "owner")
     private Cylinder cylinder;
 
     public String getName() {
@@ -39,8 +49,28 @@ public class Institution extends BaseEntity {
         return this;
     }
 
-    public Address getAddress() {
-        return address;
+    public boolean isCompany() {
+        return company;
+    }
+
+    public void setCompany(boolean company) {
+        this.company = company;
+    }
+
+    /**
+     * Set a boolean value indicating if the Instiution is a single person of a
+     * registered business
+     *
+     * @param company {@link #company}
+     * @return {@link #Institution}
+     */
+    public Institution company(boolean company) {
+        this.company = company;
+        return this;
+    }
+
+    public Optional<Address> getAddress() {
+        return Optional.ofNullable(address);
     }
 
     public void setAddress(Address address) {
@@ -52,8 +82,8 @@ public class Institution extends BaseEntity {
         return this;
     }
 
-    public Contact getContact() {
-        return contact;
+    public Optional<Contact> getContact() {
+        return Optional.ofNullable(contact);
     }
 
     public void setContact(Contact contact) {
@@ -65,8 +95,8 @@ public class Institution extends BaseEntity {
         return this;
     }
 
-    public Cylinder getCylinder() {
-        return cylinder;
+    public Optional<Cylinder> getCylinder() {
+        return Optional.ofNullable(cylinder);
     }
 
     public void setCylinder(Cylinder cylinder) {

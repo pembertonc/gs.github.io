@@ -13,13 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
+package com.techmine.gs.ui.panels.custom_input_components;
+
+import org.apache.wicket.markup.html.form.FormComponentPanel;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-@Deprecated(forRemoval = true, since = "2022-03-04")
-public class EmailTextFieldWFeedback {
+public class DropDownChoiceWFeedbackAndCaption extends FormComponentPanel {
+
+    public DropDownChoiceWFeedbackAndCaption(String id) {
+        super(id);
+    }
 
 }

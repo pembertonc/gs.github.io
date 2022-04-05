@@ -2,9 +2,9 @@ package com.techmine.gs.repository;
 
 import javax.persistence.EntityManager;
 import javax.inject.Inject;
-import com.techmine.gs.domain.UinitOfMeasure;
+import com.techmine.gs.domain.UnitOfMeasure;
 
-public class UinitOfMeasureRepository extends AbstractRepository<UinitOfMeasure, String> {
+public class UnitOfMeasureRepository extends AbstractRepository<UnitOfMeasure, String> {
 
     @Inject
     private EntityManager em;
@@ -14,8 +14,8 @@ public class UinitOfMeasureRepository extends AbstractRepository<UinitOfMeasure,
         return em;
     }
 
-    public UinitOfMeasureRepository() {
-        super(UinitOfMeasure.class);
+    public UnitOfMeasureRepository() {
+        super(UnitOfMeasure.class);
     }
 
 }

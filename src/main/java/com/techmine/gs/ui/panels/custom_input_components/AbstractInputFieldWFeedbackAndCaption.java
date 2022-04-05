@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
+package com.techmine.gs.ui.panels.custom_input_components;
 
 import java.util.ArrayList;
 import java.util.List;

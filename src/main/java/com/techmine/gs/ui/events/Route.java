@@ -17,6 +17,7 @@ package com.techmine.gs.ui.events;
 
 import com.techmine.gs.ui.panels.Dashboard.Dashboard;
 import com.techmine.gs.ui.panels.SignIn.SignInPanel;
+import com.techmine.gs.ui.panels.views.cylinder.CylinderView;
 import com.techmine.gs.ui.panels.views.user_view.UserView;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,7 @@ public class Route {
         routes.put(RouteName.LOGIN, Dashboard.class);
         routes.put(RouteName.LOGOUT, SignInPanel.class);
         routes.put(RouteName.USER, UserView.class);
+        routes.put(RouteName.CYLINDER, CylinderView.class);
         // routes.put(RouteName.OWNER, OwnerView.class);
 
     }

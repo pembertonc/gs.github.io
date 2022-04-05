@@ -3,6 +3,7 @@ package com.techmine.gs.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ public class Subject extends BaseEntity {
     @NotBlank(message = "Password is required")
     @Size(min = 4, max = 12, message = "Password must be from 4 to 12 characters long.")
     private String password;
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne(optional = false, orphanRemoval = true, cascade = CascadeType.ALL)
     @NotNull
     private Person person;
     @ManyToMany
@@ -116,7 +117,10 @@ public class Subject extends BaseEntity {
             return false;
         }
         final Subject other = (Subject) obj;
-        return java.util.Objects.equals(this.getId(), other.getId());
+        if (!java.util.Objects.equals(this.getId(), other.getId())) {
+            return false;
+        }
+        return true;
     }
 
     @Override

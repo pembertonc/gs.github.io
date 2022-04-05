@@ -19,13 +19,13 @@ limitations under the License.
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="TextFieldWFeedback.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <wicket:panel>
-            <form wicket:id="testForm" id="testForm">
-                <span wicket:id="inputComponent"></span>
-                <button wicket:id="submit"></button>
-            </form>
+            <select wicket:id="select" class="form-control"></select>
+            <label wicket:id="caption" class="control-label">select Something</label>
+            <div wicket:id="errorMessage"></div>
         </wicket:panel>
     </body>
 </html>

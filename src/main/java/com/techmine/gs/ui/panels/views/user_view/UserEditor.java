@@ -21,8 +21,8 @@ import com.techmine.gs.service.UserService;
 import com.techmine.gs.ui.events.CRUDEventAction;
 import com.techmine.gs.ui.events.NotificationEvent;
 import com.techmine.gs.ui.events.SelectedEntity;
-import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption;
-import com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage.InputFieldWFeedbackAndCaption.FieldType;
+import com.techmine.gs.ui.panels.custom_input_components.InputFieldWFeedbackAndCaption;
+import com.techmine.gs.ui.panels.custom_input_components.InputFieldWFeedbackAndCaption.FieldType;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -82,7 +82,7 @@ public class UserEditor extends Panel {
     public UserEditor(String id, IModel<Subject> model) {
         super(id, model);
         mode = CRUDEventAction.NONE;
-        //model.setObject(new Subject());
+
     }
 
     @Override
@@ -316,6 +316,11 @@ public class UserEditor extends Panel {
                 super.onConfigure();
                 setEnabled(!Objects.isNull(UserEditor.this.getDefaultModelObject()));
 
+            }
+
+            @Override
+            protected void onError(AjaxRequestTarget target) {
+                super.onError(target); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
             }
 
         };

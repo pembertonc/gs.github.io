@@ -13,19 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.techmine.gs.ui.panels.custom_input_components.TextFieldWithMessage;
+package com.techmine.gs.service;
 
-import org.apache.wicket.model.IModel;
+import com.techmine.gs.domain.GasType;
+import com.techmine.gs.repository.GasTypeRepository;
+import java.io.Serializable;
+import java.util.List;
+import javax.inject.Inject;
 
 /**
  *
  * @author Cedric-Pemberton
  */
-@Deprecated(forRemoval = true, since = "2022-03-04")
-public class TextFieldWFeedbackAndCaption extends AbstractInputFieldWFeedbackAndCaption {
+public class GasTypeService implements Serializable {
 
-    public TextFieldWFeedbackAndCaption(String id, IModel<?> model, String captionValue) {
-        super(id, model, captionValue, FieldType.TEXT);
+    @Inject
+    private GasTypeRepository gasTypeRepository;
+
+    /**
+     *
+     * @return List<GasType> containing all the instances of GasType yet
+     * persisted.
+     */
+    public List<GasType> findAll() {
+        return gasTypeRepository.findAll();
     }
-
 }

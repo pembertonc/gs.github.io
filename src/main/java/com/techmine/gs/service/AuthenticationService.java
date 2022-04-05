@@ -17,6 +17,7 @@ package com.techmine.gs.service;
 
 import com.techmine.gs.domain.Subject;
 import com.techmine.gs.repository.SubjectRepository;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -26,7 +27,7 @@ import javax.inject.Inject;
  *
  * @author Cedric-Pemberton
  */
-public class AuthenticationService {
+public class AuthenticationService implements Serializable {
 
     @Inject
     SubjectRepository subjectRepository;

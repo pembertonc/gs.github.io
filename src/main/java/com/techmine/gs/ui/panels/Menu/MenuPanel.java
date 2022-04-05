@@ -52,6 +52,7 @@ public class MenuPanel extends Panel {
         setOutputMarkupPlaceholderTag(true);
         setMarkupId("menubar");
         add(this.initializeNavLink(RouteName.USER, "users"));
+        add(this.initializeNavLink(RouteName.CYLINDER, "cylinders"));
 
         add(logout = new AjaxFallbackLink("logout") {
 
@@ -82,7 +83,8 @@ public class MenuPanel extends Panel {
     }
 
     private AjaxFallbackLink initializeNavLink(RouteName action, String wicketId) {
-        return new AjaxFallbackLink("users") {
+        return new AjaxFallbackLink(wicketId) {
+            //RouteName routeName = action;
             @Override
             public void onClick(Optional optnl) {
                 Route route = new Route(action, optnl);

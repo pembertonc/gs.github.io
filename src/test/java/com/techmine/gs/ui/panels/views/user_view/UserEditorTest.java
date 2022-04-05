@@ -19,6 +19,7 @@ import com.techmine.gs.domain.Subject;
 import com.techmine.gs.service.UserService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
@@ -98,12 +99,18 @@ public class UserEditorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"userName", "firstName", "otherName", "password", "email", "telephone1", "telephone2", "save", "cancel", "new", "delete"})
+    @ValueSource(strings = {"userName", "firstName", "otherName", "password", "email", "telephone1", "telephone2"})
     public void testInputComponentsRender(String wicketId) {
-        String path = "editor:editForm:" + wicketId;
+        String path = "editor:editForm:sectionContainer:" + wicketId;
         tester.assertExists(path);
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"save", "cancel", "new", "delete"})
+    public void testComandComponentsRender(String wicketId) {
+        String path = "editor:editForm:" + wicketId;
+        tester.assertExists(path);
+    }
 
     @Test
     public void testSaveCalled() {
@@ -112,6 +119,7 @@ public class UserEditorTest {
         UserEditor editor = (UserEditor) tester.getComponentFromLastRenderedPage("editor");
         Subject subject = (Subject) editor.getDefaultModelObject();
 
+        tester.assertExists("editor:editForm:sectionContainer:userName");
         populateSubject(formTester);
 
         assertNotNull(this.userService);
@@ -129,11 +137,12 @@ public class UserEditorTest {
         UserEditor editor = (UserEditor) tester.getComponentFromLastRenderedPage("editor");
         Subject subject = (Subject) editor.getDefaultModelObject();
         populateSubject(formTester);
-
+        instance.setUserService(userService);
         tester.executeAjaxEvent("editor:editForm:delete", "click");
 
         verify(userService, times(1)).deleteUser(subject);
     }
+
     /**
      * Populating the form tester is setting the value to the FormComponentPanel
      * not the Inner form.
@@ -141,13 +150,21 @@ public class UserEditorTest {
      * @param formTester
      */
     private void populateSubject(FormTester formTester) {
-        formTester.setValue("userName", "Administrator");
-        formTester.setValue("password", "Password");
-        formTester.setValue("firstName", "Jason");
-        formTester.setValue("familyName", "David");
-        formTester.setValue("otherName", "Smith");
-        formTester.setValue("email", "jason@smith.com");
-        formTester.setValue("telephone1", "128-265-5698");
-        formTester.setValue("telephone2", "128-265-8965");
+        FormComponent component = (FormComponent) tester.getComponentFromLastRenderedPage("editor:editForm:sectionContainer:userName:inputComponent");
+        formTester.setValue(component, "Administrator");
+        component = (FormComponent) tester.getComponentFromLastRenderedPage("editor:editForm:sectionContainer:password:inputComponent");
+        formTester.setValue(component, "Password");
+        component = (FormComponent) tester.getComponentFromLastRenderedPage("editor:editForm:sectionContainer:firstName:inputComponent");
+        formTester.setValue(component, "Jason");
+        component = (FormComponent) tester.getComponentFromLastRenderedPage("editor:editForm:sectionContainer:familyName:inputComponent");
+        formTester.setValue(component, "David");
+        component = (FormComponent) tester.getComponentFromLastRenderedPage("editor:editForm:sectionContainer:otherName:inputComponent");
+        formTester.setValue(component, "Smith");
+        component = (FormComponent) tester.getComponentFromLastRenderedPage("editor:editForm:sectionContainer:email:inputComponent");
+        formTester.setValue(component, "jason@smith.com");
+        component = (FormComponent) tester.getComponentFromLastRenderedPage("editor:editForm:sectionContainer:telephone1:inputComponent");
+        formTester.setValue(component, "128-265-5698");
+        component = (FormComponent) tester.getComponentFromLastRenderedPage("editor:editForm:sectionContainer:telephone2:inputComponent");
+        formTester.setValue(component, "128-265-8965");
     }
 }

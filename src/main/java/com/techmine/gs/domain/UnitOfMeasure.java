@@ -5,43 +5,32 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
-/**
- * @author Cedric Pemberton
- */
 @Entity
-public class GasType extends BaseEntity {
+public class UnitOfMeasure extends BaseEntity {
 
     @Basic(optional = false)
-    @Column(unique = true, nullable = false, length = 32)
-    @NotBlank(message = "Name of gas is required")
-    @Size(min = 1, max = 64, message = "Gas Type name can not be longer than 64 characters")
-    private String gasName;
-    @Basic(optional = false)
-    @Column(unique = true, nullable = false, length = 16)
-    @NotBlank(message = "Gas Symbol is required")
-    @Size(min = 1, max = 3, message = "Gas Symbol can not be greater than 3 characters")
+    @Column(length = 32)
+    @NotBlank(message = "Name is required")
+    private String unitName;
+    @Basic
+    @Column(length = 5)
+    @NotBlank(message = "Simbol is required")
     private String symbol;
 
-    public GasType(String gasName, String symbol) {
-        this.gasName = gasName;
-        this.symbol = symbol;
+    public UnitOfMeasure() {
     }
 
-    public GasType() {
+    public String getUnitName() {
+        return unitName;
     }
 
-    public String getGasName() {
-        return gasName;
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
-    public void setGasName(String gasName) {
-        this.gasName = gasName;
-    }
-
-    public GasType gasName(String gasName) {
-        this.gasName = gasName;
+    public UnitOfMeasure unitName(String unitName) {
+        this.unitName = unitName;
         return this;
     }
 
@@ -53,7 +42,7 @@ public class GasType extends BaseEntity {
         this.symbol = symbol;
     }
 
-    public GasType symbol(String symbol) {
+    public UnitOfMeasure symbol(String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -66,7 +55,7 @@ public class GasType extends BaseEntity {
         if (!Objects.equals(getClass(), obj.getClass())) {
             return false;
         }
-        final GasType other = (GasType) obj;
+        final UnitOfMeasure other = (UnitOfMeasure) obj;
         if (!java.util.Objects.equals(this.getId(), other.getId())) {
             return false;
         }
@@ -77,14 +66,14 @@ public class GasType extends BaseEntity {
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Objects.hashCode(this.getId());
-        hash = 31 * hash + Objects.hashCode(this.getGasName());
+        hash = 31 * hash + Objects.hashCode(this.getUnitName());
         hash = 31 * hash + Objects.hashCode(this.getSymbol());
         return hash;
     }
 
     @Override
     public String toString() {
-        return "GasType{" + " id=" + id + '}';
+        return "UnitOfMeasure{" + " unitName=" + unitName + ", symbol=" + symbol + '}';
     }
 
 }
