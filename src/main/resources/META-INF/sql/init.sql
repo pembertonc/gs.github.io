@@ -26,4 +26,20 @@ INSERT INTO gastype(id, gasName, symbol) VALUES ('gs003', 'Oxygen', 'O2') ON CON
 INSERT INTO gastype(id, gasName, symbol) VALUES ('gs004', 'Nitrogen', 'N') ON CONFLICT DO NOTHING;
 INSERT INTO gastype(id, gasName, symbol) VALUES ('gs005', 'Acetylene', 'C2H2') ON CONFLICT DO NOTHING;
 
+#  Records of Institutions 
 
+# INSERT INTO contact (id, email, telephone1, telephone2) VALUES ('CT004', 'jshillingford@email.com', '767-245-2222', '256-222-6959') ON CONFLICT DO NOTHING;
+# INSERT INTO person (id, firstname, familyname, othername, contact_id) VALUES ('PER000', 'Carol', 'Jannet', 'Shillingford', 'CT000') ON CONFLICT DO NOTHING;
+# INSERT INTO institution (id, username, password, person_id) VALUES ('S0000', 'Administrator', 'Password', 'PER000')  ON CONFLICT DO NOTHING;
+# INSERT INTO contact_person (subject_id, authorizationroles_id) VALUES ('-0000', '-0000')  ON CONFLICT DO NOTHING;
+
+# INSERT INTO contact (id, email, telephone1, telephone2) VALUES ('CT005', 'pshillingford@email.com', '787-265-2333', '256-333-6959') ON CONFLICT DO NOTHING;
+# INSERT INTO person (id, firstname, familyname, othername, contact_id) VALUES ('PER002', 'Peter', 'Andrew', 'Shillingford', 'CT001') ON CONFLICT DO NOTHING;
+# INSERT INTO institution (id, username, password, person_id) VALUES ('S004', 'User1', 'Password', 'PER002')  ON CONFLICT DO NOTHING;
+# INSERT INTO contact_person (subject_id, authorizationroles_id) VALUES ('S000', '-0001')  ON CONFLICT DO NOTHING;
+
+# INSERT INTO contact (id, email, telephone1, telephone2) VALUES ('CT006', 'jjamason@email.com', '555-265-5553', '555-222-6959') ON CONFLICT DO NOTHING;
+# INSERT INTO person (id, firstname, familyname, othername, contact_id) VALUES ('PER001', 'James', 'Smith', 'Jamason', 'CT002') ON CONFLICT DO NOTHING;
+# INSERT INTO institution (id, username, password, person_id) VALUES ('S005', 'jsmith', 'Password', 'PER001')  ON CONFLICT DO NOTHING;
+# INSERT INTO contact_person (subject_id, authorizationroles_id) VALUES ('S001', '-0001')  ON CONFLICT DO NOTHING;
+            
